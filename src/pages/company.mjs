@@ -16,7 +16,7 @@ export function render() {
     <div>
       ${eyebrow('About CoolFly')}
       <h1>Built to make personal flight possible.</h1>
-      <p class="lede">CoolFly is a personal aircraft company founded in 2022 and based in Hangzhou, China. We develop the core technology ourselves, including avionics, flight control, propulsion, aircraft integration and manufacturing. Around 70% of our team works in R&amp;D.</p>
+      <p class="lede">Founded in 2022 in Hangzhou. We build our own avionics, flight control, propulsion and airframes, and around 70% of our team works in R&amp;D.</p>
     </div>
     <img src="assets/img/hq.jpg" alt="CoolFly headquarters building in Hangzhou" width="1100" height="1467">
   </div>
@@ -25,7 +25,7 @@ export function render() {
 <section class="section section--night">
   <div class="container quote">
     <img src="assets/img/ceo.jpg" alt="Wayne Lee, CEO of CoolFly" loading="lazy" width="1000" height="1153">
-    <blockquote>
+    <blockquote data-reveal>
       <p>“We are not just manufacturing aircraft; we are architecting a new way of life. We aim to make personal eVTOL as ubiquitous as bicycles: affordable and accessible to everyone in the world.”</p>
       <footer>Wayne Lee, CEO</footer>
     </blockquote>
@@ -34,31 +34,31 @@ export function render() {
 
 <section class="section" id="milestones">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head" data-reveal>
       ${eyebrow('Milestones')}
       <h2>From flight controllers to aircraft</h2>
     </div>
     <ol class="timeline">
-      ${timeline.map((t) => `<li><span class="timeline__year">${esc(t.year)}</span><div><h3>${esc(t.title)}</h3><p>${esc(t.text)}</p></div></li>`).join('')}
+      ${timeline.map((t) => `<li data-reveal><span class="timeline__year">${esc(t.year)}</span><div><h3>${esc(t.title)}</h3><p>${esc(t.text)}</p></div></li>`).join('')}
     </ol>
   </div>
 </section>
 
 <section class="section section--mist">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head" data-reveal>
       ${eyebrow('Offices')}
       <h2>Where to find us</h2>
     </div>
     <ul class="offices">
-      ${offices.map((o) => `<li><h3>${esc(o.city)}</h3><p>${esc(o.country)}</p><p class="offices__role">${esc(o.role)}</p></li>`).join('')}
+      ${offices.map((o) => `<li data-reveal><h3>${esc(o.city)}</h3><p>${esc(o.country)}</p><p class="offices__role">${esc(o.role)}</p></li>`).join('')}
     </ul>
   </div>
 </section>
 
 <section class="section news">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head" data-reveal>
       ${eyebrow('Newsroom')}
       <h2>Recent news</h2>
       <a class="text-link" href="https://coolflyaircraft.com/newsroom/" rel="noopener" target="_blank">All news${icon('arrow')}</a>
@@ -66,7 +66,7 @@ export function render() {
     <div class="news__grid">
       ${news
         .map(
-          (n) => `<article class="news-card"><a href="${n.href}" rel="noopener" target="_blank"><img src="${n.image}" alt="" loading="lazy"><time datetime="${n.date}">${formatDate(n.date)}</time><h3>${esc(n.title)}</h3></a></article>`
+          (n) => `<article class="news-card" data-reveal><a href="${n.href}" rel="noopener" target="_blank"><div class="news-card__img"><img src="${n.image}" alt="" loading="lazy"></div><time datetime="${n.date}">${formatDate(n.date)}</time><h3>${esc(n.title)}</h3></a></article>`
         )
         .join('')}
     </div>

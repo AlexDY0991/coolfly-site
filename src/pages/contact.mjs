@@ -8,6 +8,7 @@ export const meta = {
   description: 'Contact CoolFly about dealerships, demonstration flights, customer support or press enquiries.',
   header: 'solid',
   nav: 'contact',
+  popup: false,
 };
 
 export function render() {

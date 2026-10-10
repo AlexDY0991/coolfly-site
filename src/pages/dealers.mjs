@@ -9,25 +9,26 @@ export const meta = {
   header: 'overlay',
   nav: 'dealers',
   image: 'assets/img/launch-event.jpg',
+  popup: false,
 };
 
 // confirm: the support package below is a proposal drafted for the website.
 // CoolFly's commercial team must confirm each item before launch.
 const support = [
-  ['Sales and product training', 'Product, sales and demonstration training for your team, at our Hangzhou headquarters or in your region.'],
-  ['Pilot instructor programme', 'We train and certify your instructors so you can deliver customer flight training locally.'],
-  ['Demonstration aircraft', 'Access to demonstrator aircraft for your showroom, events and test flights.'],
-  ['Parts and technical support', 'Spare parts supply and direct technical support from the engineers who build the aircraft.'],
-  ['Marketing assets', 'Film, photography, specification sheets and brand guidelines, plus support for local launches and trade shows.'],
-  ['Regulatory guidance', 'Help preparing each model for your market’s registration and operating rules.'],
+  ['Sales and product training', 'For your team, in Hangzhou or locally.'],
+  ['Pilot instructor programme', 'We certify your instructors to train pilots.'],
+  ['Demonstration aircraft', 'For your showroom, events and test flights.'],
+  ['Parts and technical support', 'Straight from the engineers who build it.'],
+  ['Marketing assets', 'Film, photos, spec sheets and launch support.'],
+  ['Regulatory guidance', 'Help with local registration and rules.'],
 ];
 
 const process = [
-  ['Apply', 'Tell us about your company, your region and the customers you serve.'],
-  ['Introductory call', 'Our partnerships team reviews your application and schedules a call.'],
-  ['Market plan and agreement', 'We agree territory, models, volumes and a launch plan together.'],
-  ['Training', 'Your sales, service and instructor teams train with CoolFly.'],
-  ['First deliveries', 'Demonstrator and customer aircraft ship, and you start flying.'],
+  ['Apply', 'Tell us about your company and region.'],
+  ['Introductory call', 'We review and set up a call.'],
+  ['Agreement', 'Territory, models and launch plan.'],
+  ['Training', 'Sales, service and instructors.'],
+  ['First deliveries', 'Aircraft ship. You start flying.'],
 ];
 
 // confirm: FAQ answers on lead routing and demonstrations describe intended
@@ -43,13 +44,13 @@ const faqs = [
 export function render() {
   return `
 <section class="product-hero product-hero--short">
-  <img class="product-hero__img" src="assets/img/launch-event.jpg" alt="The Urban global launch stage in Hangzhou" width="1600" height="900">
+  <img class="product-hero__img" src="assets/img/launch-event.jpg" alt="The Urban global launch stage in Hangzhou" width="1600" height="900" data-parallax>
   <div class="product-hero__shade"></div>
   <div class="container product-hero__content">
-    ${eyebrow('Dealer programme')}
-    <h1 class="product-hero__title product-hero__title--md">Bring personal flight to your market.</h1>
-    <p class="product-hero__tagline">CoolFly sells through authorised dealers who deliver, train and support pilots locally. We are appointing our first partners in each region now.</p>
-    <div class="actions">
+    <p class="eyebrow product-hero__eyebrow">Dealer programme</p>
+    <h1 class="product-hero__title product-hero__title--md"><span class="line"><span>Bring personal flight</span></span><span class="line"><span>to your market.</span></span></h1>
+    <p class="product-hero__tagline">We are appointing our first dealers in each region now.</p>
+    <div class="actions product-hero__actions">
       ${button('Apply now', '#apply', 'primary')}
       ${button('How it works', '#process', 'ghost-light')}
     </div>
@@ -58,28 +59,28 @@ export function render() {
 
 <section class="section">
   <div class="container why">
-    <div class="section-head">
+    <div class="section-head" data-reveal>
       ${eyebrow('Why CoolFly')}
-      <h2>A complete line-up, from the people who build it.</h2>
+      <h2>Why partner with CoolFly</h2>
     </div>
     <div class="why__grid">
-      <article><h3>Three aircraft, two markets</h3><p>Urban, Dream ST and Dream PRO cover private owners and commercial operators such as resorts, tourism and ranches.</p></article>
-      <article><h3>Direct factory support</h3><p>CoolFly develops its flight control, propulsion and airframes in-house. Your technical questions go to the engineers who designed the aircraft.</p></article>
-      <article><h3>Early in the market</h3><p>Personal electric aircraft are a new category. Dealers who start now build the customer base, instructors and service capability in their region first.</p></article>
-      <article><h3>Visible worldwide</h3><p>CES, EAA AirVenture Oshkosh, IFA Berlin and the CCTV Spring Festival Gala have put CoolFly in front of buyers and media around the world.</p></article>
+      <article data-reveal><h3>Three aircraft</h3><p>For private owners and commercial operators.</p></article>
+      <article data-reveal><h3>Built in-house</h3><p>Support from the engineers who designed it.</p></article>
+      <article data-reveal><h3>Early in the market</h3><p>Build your region’s customer base first.</p></article>
+      <article data-reveal><h3>Seen worldwide</h3><p>CES, Oshkosh, IFA Berlin, CCTV Gala.</p></article>
     </div>
   </div>
 </section>
 
 <section class="section section--mist" id="regions">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head" data-reveal>
       ${eyebrow('Where we are recruiting')}
       <h2>Priority regions</h2>
-      <p class="section-head__note">Looking for a dealer near you? Contact our partnerships team at <a href="mailto:${contacts.business}">${contacts.business}</a> and we will put you in touch.</p>
+      <p class="section-head__note">Looking for a dealer near you? Email <a href="mailto:${contacts.business}">${contacts.business}</a>.</p>
     </div>
     <ul class="regions">
-      ${dealerRegions.map((r) => `<li><span class="regions__status">Open</span><h3>${esc(r.region)}</h3><p>${esc(r.note)}</p></li>`).join('')}
+      ${dealerRegions.map((r) => `<li data-reveal><span class="regions__status">Open</span><h3>${esc(r.region)}</h3><p>${esc(r.note)}</p></li>`).join('')}
     </ul>
     <div class="presence">
       <p class="presence__label">CoolFly today</p>
@@ -93,37 +94,37 @@ export function render() {
 
 <section class="section section--night" id="support">
   <div class="container">
-    <div class="section-head">
-      ${eyebrow('What partners receive')}
-      <h2>Everything you need to sell, fly and service CoolFly.</h2>
+    <div class="section-head" data-reveal>
+      ${eyebrow('Support')}
+      <h2>What partners receive</h2>
     </div>
     <ul class="support-grid">
-      ${support.map(([t, d]) => `<li><h3>${esc(t)}</h3><p>${esc(d)}</p></li>`).join('')}
+      ${support.map(([t, d]) => `<li data-reveal><h3>${esc(t)}</h3><p>${esc(d)}</p></li>`).join('')}
     </ul>
   </div>
 </section>
 
 <section class="section" id="process">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head" data-reveal>
       ${eyebrow('How partnership works')}
       <h2>From application to first delivery</h2>
     </div>
     <ol class="steps">
-      ${process.map(([t, d], i) => `<li><span class="steps__num">Step ${i + 1}</span><h3>${esc(t)}</h3><p>${esc(d)}</p></li>`).join('')}
+      ${process.map(([t, d], i) => `<li data-reveal><span class="steps__num">Step ${i + 1}</span><h3>${esc(t)}</h3><p>${esc(d)}</p></li>`).join('')}
     </ol>
   </div>
 </section>
 
 <section class="section section--mist" id="apply">
   <div class="container apply">
-    <div class="apply__intro">
+    <div class="apply__intro" data-reveal>
       ${eyebrow('Dealer application')}
       <h2>Apply to become a CoolFly dealer</h2>
-      <p>Our partnerships team reviews every application personally. Prefer email? Write to <a href="mailto:${contacts.business}">${contacts.business}</a>.</p>
+      <p>Prefer email? <a href="mailto:${contacts.business}">${contacts.business}</a></p>
       <div class="apply__kit">
         <h3>Dealer kit</h3>
-        <p>Specification sheets, film, photography, brand guidelines and regulatory notes are shared with partners after the introductory call.</p>
+        <p>Spec sheets, film, photos and brand guidelines, shared after the first call.</p>
       </div>
     </div>
     <form class="form" data-form="dealer" novalidate>
@@ -184,7 +185,7 @@ export function render() {
 
 <section class="section" id="faq">
   <div class="container faq">
-    <div class="section-head">
+    <div class="section-head" data-reveal>
       ${eyebrow('Dealer FAQ')}
       <h2>Questions partners ask us</h2>
     </div>

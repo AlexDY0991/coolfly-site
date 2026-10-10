@@ -22,7 +22,7 @@ export function layout(meta, main) {
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:image" content="${image}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0c1115">
+<meta name="theme-color" content="#0c1115">${process.env.SITE_PREVIEW ? '\n<meta name="robots" content="noindex, nofollow">' : ''}
 <link rel="icon" href="favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin>
@@ -32,11 +32,14 @@ export function layout(meta, main) {
 </head>
 <body class="page-${meta.slug}">
 <a class="skip-link" href="#main">Skip to content</a>
+<div class="scroll-progress" aria-hidden="true"></div>
 ${header(meta)}
-<main id="main">
+<main id="main" tabindex="-1">
 ${main}
 </main>
 ${footer()}
+<a class="to-top" href="#main" aria-label="Back to top" data-to-top>${icon('arrow', 'icon icon--up')}</a>
+${meta.popup === false ? '' : dealerPopup()}
 <script src="assets/js/site.js" defer></script>
 </body>
 </html>
@@ -146,4 +149,35 @@ function footer() {
     </div>
   </div>
 </footer>`;
+}
+
+// Dealer recruitment pop-up, shown once per visitor (see site.js).
+function dealerPopup() {
+  return `<dialog class="popup" id="dealer-popup" aria-labelledby="popup-title">
+  <div class="popup__media">
+    <img src="assets/img/f-coast.jpg" alt="" loading="lazy">
+    <div class="popup__media-copy">
+      <p class="eyebrow">Dealer programme</p>
+      <h2 id="popup-title" tabindex="-1">Bring CoolFly to your market</h2>
+      <p>We are appointing dealers in Europe, North America, Australia and the Middle East.</p>
+    </div>
+    <button class="popup__close" type="button" aria-label="Close" data-popup-close>${icon('close')}</button>
+  </div>
+  <form class="popup__form" data-form="dealer" data-source="popup" novalidate>
+    <div class="form__row">
+      <div class="field"><label for="p-first">First name</label><input id="p-first" name="firstName" required autocomplete="given-name"></div>
+      <div class="field"><label for="p-last">Last name</label><input id="p-last" name="lastName" required autocomplete="family-name"></div>
+    </div>
+    <div class="field"><label for="p-company">Company</label><input id="p-company" name="company" required autocomplete="organization"></div>
+    <div class="form__row">
+      <div class="field"><label for="p-email">Email</label><input id="p-email" name="email" type="email" required autocomplete="email"></div>
+      <div class="field"><label for="p-country">Country</label><input id="p-country" name="country" required autocomplete="country-name"></div>
+    </div>
+    <div class="form__actions">
+      <button class="btn btn--primary" type="submit">Get the dealer brief${icon('arrow')}</button>
+      <a class="popup__more" href="dealers.html">See the programme</a>
+    </div>
+    <p class="form__status" role="status" aria-live="polite"></p>
+  </form>
+</dialog>`;
 }

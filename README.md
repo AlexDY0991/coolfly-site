@@ -28,6 +28,22 @@ npm run preview   # 构建后在 http://localhost:4173 本地预览
 
 `dist/` 里是最终的静态文件，可以上传到 Netlify、Vercel、Cloudflare Pages、阿里云 OSS 或任何网页服务器。
 
+## 在线预览（GitHub Pages）
+
+仓库已经包含自动发布配置 `.github/workflows/pages.yml`。每次推送代码，GitHub 都会自动构建网站并发布到：
+
+**https://alexdy0991.github.io/coolfly-site/**
+
+首次使用前需要在 GitHub 上开启一次（只需做一次）：
+
+1. 打开仓库的 **Settings → Pages**
+2. 在 **Build and deployment → Source** 里选择 **GitHub Actions**
+3. 到 **Actions** 页面，找到 "Deploy preview to GitHub Pages"，点 **Run workflow**（或者推送一次新代码）
+
+预览版会自动加上 `noindex` 标记，避免搜索引擎把它当作正式官网收录。
+
+以后要用自己的域名（例如 `preview.coolflyaircraft.com`），在 Settings → Pages 的 Custom domain 里填写，再到域名服务商那里添加一条 CNAME 记录指向 `alexdy0991.github.io` 即可。
+
 ## 目录结构
 
 ```
@@ -46,9 +62,17 @@ scripts/build.mjs     构建脚本
 
 修改产品参数或文案时，只需要改 `src/data/` 里的文件，然后重新运行 `npm run build`。
 
+## 动效与弹窗
+
+- 首页视频上叠加了一层仪表盘式的 HUD（四角框线、高度刻度、轮播显示真实参数）。
+- 标题逐行升起，内容滚动到可视区时淡入，图片用遮罩展开，数字从 0 滚动到目标值。
+- 首页的大图会随滚动从圆角卡片扩展成全屏，导航栏向下滚动时自动隐藏、向上滚动时出现。
+- 系统开启"减少动态效果"时，所有动画都会关闭。
+- **经销商招募弹窗**：访客停留 15 秒或滚动到页面 45% 时弹出，同一访客 7 天内只弹一次；经销商页、联系页不弹。参数在 `site.js` 顶部的 `POPUP` 里修改。
+
 ## 表单
 
-经销商申请表和联系表单目前**没有连接后端**。访客提交时，表单会先检查必填项，然后提示"表单尚未连接，请直接发邮件"。
+经销商申请表、弹窗表单和联系表单目前**没有连接后端**。访客提交时，表单会先检查必填项，然后提示"表单尚未连接，请直接发邮件"。
 
 接入方法：在 `public/assets/js/site.js` 顶部的 `FORM_ENDPOINTS` 里填入接收地址（例如 Formspree、HubSpot、飞书表单的 webhook，或自建接口）。表单会以 JSON 格式 POST 过去。
 

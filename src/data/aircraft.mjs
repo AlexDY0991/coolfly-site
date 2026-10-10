@@ -15,8 +15,9 @@ export const aircraft = [
     stance: 'Standing',
     tagline: 'Fly by instinct.',
     summary:
-      'A standing-position aircraft you steer by shifting your weight. Urban is built for short hops over water, parks and private land, with enclosed fans and a spaceframe safety cell around the pilot.',
-    lineup: 'Standing, weight-shift control. Compact enough for waterfronts, resorts and private grounds.',
+      'A standing-position aircraft you steer by shifting your weight.',
+    lineup: 'Standing. Steer by leaning.',
+    cardFacts: '11 min · 90 kg · IP65',
     image: 'assets/img/urban.webp',
     imageAlt: 'CoolFly Urban standing-position aircraft, three-quarter view',
     heroImage: 'assets/img/f-urban-lake.jpg',
@@ -31,11 +32,11 @@ export const aircraft = [
     story: [
       {
         title: 'Steer with your body',
-        text: 'Urban reads the pilot’s weight shift through its NA80 flight controller, so leaning is how you turn. The controller keeps the aircraft level and holds a hands-free hover when you let go.',
+        text: 'Lean to turn. Let go, and NA80 holds a hands-free hover.',
       },
       {
         title: 'Enclosed fans',
-        text: 'Every rotor sits inside a guarded fan housing, which keeps hands, branches and spray away from the blades.',
+        text: 'Every rotor sits inside a guarded housing.',
       },
     ],
     safety: [
@@ -71,8 +72,9 @@ export const aircraft = [
     stance: 'Seated',
     tagline: 'Light enough to be simple.',
     summary:
-      'A single-seat open-frame aircraft in T800 carbon fibre. Dream ST is the lightest seated CoolFly, built around eight rotors on four arms, AI-assisted control and radar-guided automatic landing.',
-    lineup: 'Seated, single-seat. The lightest Dream, for recreation and sightseeing.',
+      'The lightest seated CoolFly, in T800 carbon fibre.',
+    lineup: 'Seated. The lightest Dream.',
+    cardFacts: '100 km/h · 16 min · ≤114 kg',
     image: 'assets/img/dream-st.webp',
     imageAlt: 'CoolFly Dream ST seated aircraft in orange and carbon',
     heroImage: 'assets/img/f-coast.jpg',
@@ -87,11 +89,11 @@ export const aircraft = [
     story: [
       {
         title: 'Eight rotors, four arms',
-        text: 'Dream ST flies on eight high-efficiency power units arranged in coaxial pairs. If any single motor fails, the remaining seven keep the aircraft in controlled flight.',
+        text: 'Lose any one motor and the other seven keep flying.',
       },
       {
         title: 'Automation where it counts',
-        text: 'AI-assisted control keeps Dream ST stable in gusts, and a radar sensor guides the automatic landing through the final metres to the ground.',
+        text: 'AI-assisted control, radar-guided automatic landing.',
       },
     ],
     safety: [
@@ -126,8 +128,9 @@ export const aircraft = [
     stance: 'Seated',
     tagline: 'Forty minutes in the air.',
     summary:
-      'The long-endurance Dream. Dream PRO carries more battery and a higher payload for longer sightseeing routes, ranch patrols and commercial operations.',
-    lineup: 'Seated, long endurance. Up to 40 minutes for longer routes and commercial use.',
+      'The long-endurance Dream, for longer routes and commercial flying.',
+    lineup: 'Seated. Up to 40 minutes.',
+    cardFacts: '40 min · 120 kg · 100 km/h',
     image: 'assets/img/dream-pro.webp',
     imageAlt: 'CoolFly Dream PRO seated aircraft in black',
     heroImage: 'assets/img/f-dream-farm.jpg',
@@ -142,11 +145,11 @@ export const aircraft = [
     story: [
       {
         title: 'Built for longer routes',
-        text: 'With up to 40 minutes of flight time, Dream PRO suits scenic loops at resorts, patrols across large properties and repeat flights through an operating day.',
+        text: 'Scenic loops, ranch patrols, a full operating day.',
       },
       {
         title: 'Same flight brain',
-        text: 'Dream PRO shares the NA80 triple-redundant flight controller and eight-rotor layout with Dream ST, so pilots and service teams move between the two easily.',
+        text: 'Same NA80 flight control and eight-rotor layout as Dream ST.',
       },
     ],
     safety: [
@@ -190,7 +193,7 @@ export const compareRows = [
   ['Rotors', (a) => (a.slug === 'urban' ? 'Enclosed fans' : '8, coaxial on 4 arms')],
   ['Parachute', () => 'Ballistic, rapid deployment'],
   ['Ingress protection', () => 'IP65'],
-  ['Best for', (a) => a.lineup],
+  ['Best for', (a) => spec(a, 'Applications')],
 ];
 
 function spec(a, key) {

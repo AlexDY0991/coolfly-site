@@ -5,6 +5,7 @@ export const meta = {
   title: 'Page not found',
   header: 'solid',
   nav: '',
+  popup: false,
 };
 
 export function render() {

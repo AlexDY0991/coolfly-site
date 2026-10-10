@@ -32,10 +32,10 @@ export const formatDate = (iso) =>
 // Reusable closing band that sends visitors to the dealer programme.
 export const dealerBand = ({ title = 'Bring personal flight to your market.', text } = {}) => `
 <section class="band band--signal">
-  <div class="container band__inner">
+  <div class="container band__inner" data-reveal>
     <div class="band__copy">
       <h2 class="band__title">${esc(title)}</h2>
-      <p>${esc(text ?? 'CoolFly sells through authorised dealers who deliver, train and support pilots in their region. We are appointing partners across Europe, North America, Australia and the Middle East.')}</p>
+      <p>${esc(text ?? 'Authorised dealers sell, train and support pilots locally. We are appointing partners now.')}</p>
     </div>
     <div class="band__actions">
       ${button('Become a dealer', 'dealers.html', 'dark')}
