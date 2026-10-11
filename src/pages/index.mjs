@@ -91,9 +91,10 @@ export function render() {
   <div class="container">
     <p class="statement__text" data-reveal>We build aircraft for the places roads can’t reach.</p>
     <dl class="statement__stats" data-reveal>
-      <div><dt><span data-count="100">100</span><small>km/h</small></dt><dd>Top speed</dd></div>
-      <div><dt><span data-count="40">40</span><small>min</small></dt><dd>Max endurance</dd></div>
-      <div><dt><span data-count="70">70</span><small>%</small></dt><dd>Team in R&amp;D</dd></div>
+      <div><dt>2008</dt><dd>Building flight controllers since</dd></div>
+      <div><dt><span data-count="2">2</span><small>×</small></dt><dd>Flight controllers in parallel</dd></div>
+      <div><dt><span data-count="70">70</span><small>%</small></dt><dd>Of our team in R&amp;D</dd></div>
+      <div><dt><span data-count="3">3</span></dt><dd>Aircraft in the line-up</dd></div>
     </dl>
   </div>
 </section>
@@ -103,6 +104,7 @@ export function render() {
     <img src="assets/img/f-urban-lake.jpg" alt="A pilot flying CoolFly Urban low over a lake" loading="lazy" data-parallax>
     <div class="expand__copy">
       <h2>Stand up and fly.</h2>
+      <p>Standing flight with enclosed propeller propulsion.</p>
       <a class="text-link text-link--light" href="urban.html">Meet Urban${icon('arrow')}</a>
     </div>
   </div>

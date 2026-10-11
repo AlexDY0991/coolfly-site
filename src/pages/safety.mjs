@@ -20,7 +20,7 @@ const layers = [
     title: 'Propulsion',
     head: 'Lose a motor, keep flying',
     text: 'Safe flight continues after any single motor failure.',
-    points: ['Eight rotors on Dream', 'Enclosed fans on Urban', 'Redundant battery and propulsion'],
+    points: ['Eight rotors on Dream', 'Enclosed propeller propulsion on Urban', 'Redundant battery and propulsion'],
   },
   {
     title: 'Structure',

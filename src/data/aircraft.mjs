@@ -15,9 +15,9 @@ export const aircraft = [
     stance: 'Standing',
     tagline: 'Fly by instinct.',
     summary:
-      'A standing-position aircraft you steer by shifting your weight.',
+      'Standing flight with enclosed propeller propulsion. Steer by shifting your weight.',
     lineup: 'Standing. Steer by leaning.',
-    cardFacts: '11 min · 90 kg · IP65',
+    cardFacts: 'Standing flight · Enclosed propeller propulsion',
     image: 'assets/img/urban.webp',
     imageAlt: 'CoolFly Urban standing-position aircraft, three-quarter view',
     heroImage: 'assets/img/f-urban-lake.jpg',
@@ -35,8 +35,8 @@ export const aircraft = [
         text: 'Lean to turn. Let go, and NA80 holds a hands-free hover.',
       },
       {
-        title: 'Enclosed fans',
-        text: 'Every rotor sits inside a guarded housing.',
+        title: 'Enclosed propeller propulsion',
+        text: 'Every propeller turns inside a protective duct.',
       },
     ],
     safety: [
@@ -48,7 +48,7 @@ export const aircraft = [
       'Radar-guided automatic landing',
     ],
     specs: [
-      ['Configuration', 'Multi-rotor, enclosed fans'],
+      ['Configuration', 'Multi-rotor, enclosed propeller propulsion'],
       ['Flight time', '11 min*'],
       ['Pilot capacity', '90 kg'],
       // confirm: current site lists "Max takeoff weight 254 kg". With a 90 kg
@@ -190,7 +190,7 @@ export const compareRows = [
   ['Payload', (a) => spec(a, 'Max payload') ?? spec(a, 'Pilot capacity')],
   ['Aircraft weight', (a) => spec(a, 'Aircraft weight') ?? 'To be published'],
   ['Dimensions', (a) => spec(a, 'Dimensions (L × W × H)')],
-  ['Rotors', (a) => (a.slug === 'urban' ? 'Enclosed fans' : '8, coaxial on 4 arms')],
+  ['Propulsion', (a) => (a.slug === 'urban' ? 'Enclosed propeller propulsion' : '8 rotors, coaxial on 4 arms')],
   ['Parachute', () => 'Ballistic, rapid deployment'],
   ['Ingress protection', () => 'IP65'],
   ['Best for', (a) => spec(a, 'Applications')],
