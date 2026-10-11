@@ -1,8 +1,10 @@
 ---
 title: How to Master Safe Coolfly eVTOL Weather Tech
+slug: how-to-master-safe-coolfly-evtol-weather-tech
 date: 2026-02-12
 category: Insights
-excerpt: "Many people look at the sky and wonder about the future. They see the new designs for an electric vtol aircraft and"
+excerpt: Many people look at the sky and wonder about the future. They see the
+  new designs for an electric vtol aircraft and
 cover: /assets/img/news/how-to-master-safe-coolfly-evtol-weather-tech-cover.jpg
 coverAlt: ""
 oldUrl: /how-to-master-safe-coolfly-evtol-weather-tech/

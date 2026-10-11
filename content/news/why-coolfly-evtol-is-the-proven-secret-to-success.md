@@ -1,8 +1,11 @@
 ---
 title: Why Coolfly eVTOL is the Proven Secret to Success
+slug: why-coolfly-evtol-is-the-proven-secret-to-success
 date: 2026-03-31
 category: Insights
-excerpt: "Coolfly eVTOL: Architectural Resilience and Raw Material Stability in the Age of Personal Flight Coolfly is currently redefining the boundaries of urban"
+excerpt: "Coolfly eVTOL: Architectural Resilience and Raw Material Stability in
+  the Age of Personal Flight Coolfly is currently redefining the boundaries of
+  urban"
 cover: /assets/img/news/why-coolfly-evtol-is-the-proven-secret-to-success-cover.jpg
 coverAlt: ""
 oldUrl: /why-coolfly-evtol-is-the-proven-secret-to-success/

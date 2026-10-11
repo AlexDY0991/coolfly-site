@@ -1,9 +1,11 @@
 ---
 title: CoolFly Secures Comprehensive Insurance Coverage for Manned Aircraft
   Operations, Both Domestically and Internationally
+slug: coolfly-secures-comprehensive-insurance-coverage-for-manned-aircraft
 date: 2026-06-30
 category: News
-excerpt: "Hangzhou, China — CoolFly (Zhejiang) Aircraft Technology Co., Ltd. today announced that its manned…"
+excerpt: Hangzhou, China — CoolFly (Zhejiang) Aircraft Technology Co., Ltd.
+  today announced that its manned…
 cover: /assets/img/news/coolfly-secures-comprehensive-insurance-coverage-for-manned-aircraft-cover.jpg
 coverAlt: ""
 oldUrl: /coolfly-secures-comprehensive-insurance-coverage-for-manned-aircraft-operations-both-domestically-and-internationally/

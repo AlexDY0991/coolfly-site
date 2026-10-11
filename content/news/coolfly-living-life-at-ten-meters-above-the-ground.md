@@ -1,8 +1,10 @@
 ---
 title: "CoolFly: Living Life at Ten Meters Above the Ground"
+slug: coolfly-living-life-at-ten-meters-above-the-ground
 date: 2026-03-19
 category: Insights
-excerpt: "CoolFly is making a new world where you do not need a road to get to work. Most people look at"
+excerpt: CoolFly is making a new world where you do not need a road to get to
+  work. Most people look at
 cover: /assets/img/news/coolfly-living-life-at-ten-meters-above-the-ground-cover.jpg
 coverAlt: ""
 oldUrl: /coolfly-living-life-at-ten-meters-above-the-ground/

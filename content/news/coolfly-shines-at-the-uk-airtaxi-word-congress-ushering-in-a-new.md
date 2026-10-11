@@ -1,6 +1,7 @@
 ---
 title: CoolFly Shines at the UK AirTaxi Word Congress! Ushering in a New Chapter
   in the Low-Altitude Economy with Leading Technology
+slug: coolfly-shines-at-the-uk-airtaxi-word-congress-ushering-in-a-new
 date: 2025-11-19
 category: Events
 excerpt: In the golden autumn season, the global attention of the low-altitude

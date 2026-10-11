@@ -1,8 +1,10 @@
 ---
 title: CoolFly Launches Urban Personal Aircraft, Bringing Personal Flight Within Reach
+slug: coolfly-launches-urban-personal-aircraft-bringing-personal-flight
 date: 2026-08-14
 category: Events
-excerpt: "On August 10, 2026, CoolFly officially unveiled Urban, its standing-position personal aircraft, at the CoolFly Global Product Launch in…"
+excerpt: On August 10, 2026, CoolFly officially unveiled Urban, its
+  standing-position personal aircraft, at the CoolFly Global Product Launch in…
 cover: /assets/img/news/coolfly-launches-urban-personal-aircraft-bringing-personal-flight-cover.jpg
 coverAlt: ""
 oldUrl: /coolfly-launches-urban-personal-aircraft-bringing-personal-flight-within-reach/

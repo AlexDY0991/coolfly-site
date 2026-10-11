@@ -1,9 +1,11 @@
 ---
 title: CoolFly Returns to Global Digital Trade Expo 2026, Advancing the
   Commercialization of Personal Flight
+slug: coolfly-returns-to-global-digital-trade-expo-2026-advancing-the
 date: 2026-09-28
 category: Events
-excerpt: "HANGZHOU, China — September 23, 2026 — CoolFly is showcasing its latest personal aircraft and flight control"
+excerpt: HANGZHOU, China — September 23, 2026 — CoolFly is showcasing its latest
+  personal aircraft and flight control
 cover: /assets/img/news/coolfly-returns-to-global-digital-trade-expo-2026-advancing-the-cover.jpg
 coverAlt: ""
 oldUrl: /coolfly-returns-to-global-digital-trade-expo-2026-advancing-the-commercialization-of-personal-flight/

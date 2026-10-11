@@ -1,5 +1,6 @@
 ---
 title: "Coolfly: Mind-Blowing Edge Tech in Future VTOL Aircraft"
+slug: vtol-edge-computing
 date: 2026-02-06
 category: Insights
 excerpt: The sky above our cities is about to change. You might see new shapes

@@ -1,8 +1,10 @@
 ---
 title: Is Your Coolfly eVTOL Data Security at Risk Now?
+slug: is-your-coolfly-evtol-data-security-at-risk-now
 date: 2026-02-26
 category: Insights
-excerpt: "Understanding Gravity Flight Have you ever looked at the sky and asked, what is vtol aircraft? VTOL stands for Vertical Take-Off"
+excerpt: Understanding Gravity Flight Have you ever looked at the sky and asked,
+  what is vtol aircraft? VTOL stands for Vertical Take-Off
 cover: /assets/img/news/is-your-coolfly-evtol-data-security-at-risk-now-cover.jpg
 coverAlt: ""
 oldUrl: /is-your-coolfly-evtol-data-security-at-risk-now/

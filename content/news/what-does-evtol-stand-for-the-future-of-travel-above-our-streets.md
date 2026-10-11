@@ -1,5 +1,6 @@
 ---
 title: What Does eVTOL Stand For? The Future of Travel Above Our Streets
+slug: what-does-evtol-stand-for-the-future-of-travel-above-our-streets
 date: 2026-01-29
 category: Insights
 excerpt: Have you ever felt stuck in a long traffic jam? You probably looked at

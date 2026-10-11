@@ -1,9 +1,11 @@
 ---
 title: CoolFly Partners with AGIBOT to Bring Low-Altitude Flight to Zhuhai
   Chimelong’s New Embodied AI Theme Park
+slug: coolfly-partners-with-agibot-to-bring-low-altitude-flight-to-zhuhai
 date: 2026-09-28
 category: News
-excerpt: "On September 24, 2026, CoolFly partnered with AGIBOT to take part in the opening"
+excerpt: On September 24, 2026, CoolFly partnered with AGIBOT to take part in
+  the opening
 cover: /assets/img/news/coolfly-partners-with-agibot-to-bring-low-altitude-flight-to-zhuhai-cover.jpg
 coverAlt: ""
 oldUrl: /coolfly-partners-with-agibot-to-bring-low-altitude-flight-to-zhuhai-chimelongs-new-embodied-ai-theme-park/

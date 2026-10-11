@@ -1,8 +1,10 @@
 ---
 title: "Actually Coolfly Safe: The Brilliant Secret of Unique Propfans"
+slug: actually-coolfly-safe-the-brilliant-secret-of-unique-propfans
 date: 2026-03-05
 category: Insights
-excerpt: "The Big Question: What is Coolfly eVTOL Aircraft Safety? I am a designer at Coolfly, and I spend a lot of"
+excerpt: "The Big Question: What is Coolfly eVTOL Aircraft Safety? I am a
+  designer at Coolfly, and I spend a lot of"
 cover: /assets/img/news/actually-coolfly-safe-the-brilliant-secret-of-unique-propfans-cover.jpg
 coverAlt: ""
 oldUrl: /actually-coolfly-safe-the-brilliant-secret-of-unique-propfans/

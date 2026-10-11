@@ -1,8 +1,10 @@
 ---
 title: "Over the Joystick: Dispatches from the CoolFly Team at UMEX 2026"
+slug: over-the-joystick-dispatches-from-the-coolfly-team-at-umex-2026
 date: 2026-01-22
 category: Events
-excerpt: "The desert sun over Abu Dhabi is intense, but the heat inside the ADNEC (Abu Dhabi National Exhibition Centre)"
+excerpt: The desert sun over Abu Dhabi is intense, but the heat inside the ADNEC
+  (Abu Dhabi National Exhibition Centre)
 cover: /assets/img/news/over-the-joystick-dispatches-from-the-coolfly-team-at-umex-2026-cover.jpg
 coverAlt: ""
 oldUrl: /over-the-joystick-dispatches-from-the-coolfly-team-at-umex-2026/

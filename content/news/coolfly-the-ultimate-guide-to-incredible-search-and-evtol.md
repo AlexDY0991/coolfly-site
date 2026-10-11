@@ -1,8 +1,10 @@
 ---
 title: "CoolFly: Elite Professional Steps to Best Protect Human Lives"
+slug: coolfly-the-ultimate-guide-to-incredible-search-and-evtol
 date: 2026-03-20
 category: Insights
-excerpt: "CoolFly is changing how we save people during emergencies. In the past, rescue teams had to use heavy helicopters or long"
+excerpt: CoolFly is changing how we save people during emergencies. In the past,
+  rescue teams had to use heavy helicopters or long
 cover: /assets/img/news/coolfly-the-ultimate-guide-to-incredible-search-and-evtol-cover.jpg
 coverAlt: ""
 oldUrl: /coolfly-the-ultimate-guide-to-incredible-search-and-evtol/

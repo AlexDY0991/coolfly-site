@@ -1,8 +1,10 @@
 ---
 title: "CoolFly: 10 Best Secrets to Ultimate eVTOL Range and Life"
+slug: coolfly-aircraft-battery-life-and-range-for-personal-evtol
 date: 2026-03-17
 category: News
-excerpt: "CoolFly is changing how we think about flying with its new personal aircraft. Most people want to know one thing"
+excerpt: CoolFly is changing how we think about flying with its new personal
+  aircraft. Most people want to know one thing
 cover: /assets/img/news/coolfly-aircraft-battery-life-and-range-for-personal-evtol-cover.webp
 coverAlt: ""
 oldUrl: /coolfly-aircraft-battery-life-and-range-for-personal-evtol/

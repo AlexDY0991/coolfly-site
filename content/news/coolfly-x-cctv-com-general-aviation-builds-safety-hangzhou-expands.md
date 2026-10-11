@@ -1,6 +1,7 @@
 ---
 title: "CoolFly × CCTV.com: General Aviation Builds Safety, Hangzhou Expands the
   Future: The Practical Path of Near-Ground Flight Revealed"
+slug: coolfly-x-cctv-com-general-aviation-builds-safety-hangzhou-expands
 date: 2025-11-14
 category: News
 excerpt: As city skylines become new transportation tracks, and “air travel”

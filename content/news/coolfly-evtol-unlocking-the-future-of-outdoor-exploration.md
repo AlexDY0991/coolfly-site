@@ -1,8 +1,11 @@
 ---
 title: "Coolfly eVTOL: Unlocking the Future of Outdoor Exploration"
+slug: coolfly-evtol-unlocking-the-future-of-outdoor-exploration
 date: 2026-04-10
 category: Insights
-excerpt: "eVTOL technology is currently evolving from a tool for urban efficiency into a gateway for unprecedented outdoor exploration. For decades, the human desire"
+excerpt: eVTOL technology is currently evolving from a tool for urban efficiency
+  into a gateway for unprecedented outdoor exploration. For decades, the human
+  desire
 cover: /assets/img/news/coolfly-evtol-unlocking-the-future-of-outdoor-exploration-cover.jpg
 coverAlt: ""
 oldUrl: /coolfly-evtol-unlocking-the-future-of-outdoor-exploration/

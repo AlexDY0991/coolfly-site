@@ -34,9 +34,7 @@ content:
         type: collection
         path: content/news
         format: yaml-frontmatter
-        filename:
-          template: "{title}.md"
-          field: create
+        filename: "{fields.slug}.md"
         view:
           fields: [title, date, category, published]
           primary: title
@@ -45,6 +43,12 @@ content:
           default: { sort: date, order: desc }
         fields:
           - { name: title, label: 标题, type: string, required: true }
+          - name: slug
+            label: 网址
+            type: string
+            required: true
+            pattern: { regex: "^[a-z0-9-]+$", message: 只能用小写英文字母、数字和连字符，例如 ifa-berlin-2026 }
+            description: 文章地址为 /news/网址.html。用几个英文单词概括即可，例如 ifa-berlin-2026。发布后尽量不要再改。
           - { name: date, label: 发布日期, type: date, required: true, options: { format: yyyy-MM-dd } }
           - name: category
             label: 分类
@@ -68,9 +72,7 @@ content:
         type: collection
         path: content/landing
         format: yaml-frontmatter
-        filename:
-          template: "{slug}.md"
-          field: create
+        filename: "{fields.slug}.md"
         view:
           fields: [title, slug, formType, published]
           primary: title
@@ -232,6 +234,7 @@ content:
         type: collection
         path: content/aircraft
         format: json
+        filename: "{fields.slug}.json"
         operations: { create: false, rename: false, delete: false }
         view:
           fields: [name, stance, order]
@@ -367,9 +370,7 @@ content:
         type: collection
         path: content/pages
         format: yaml-frontmatter
-        filename:
-          template: "{slug}.md"
-          field: create
+        filename: "{fields.slug}.md"
         fields:
           - { name: title, label: 标题, type: string, required: true }
           - { name: slug, label: 网址, type: string, required: true, pattern: "^[a-z0-9-]+$" }

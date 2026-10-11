@@ -1,8 +1,11 @@
 ---
 title: "eVTOL Breakthrough: The Most Surprising Way to Master Time"
+slug: evtol-breakthrough-the-most-surprising-way-to-master-time
 date: 2026-04-08
 category: Insights
-excerpt: "eVTOL technology is no longer a concept for the distant future because the Coolfly test group has recently verified the real-world performance metrics of"
+excerpt: eVTOL technology is no longer a concept for the distant future because
+  the Coolfly test group has recently verified the real-world performance
+  metrics of
 cover: /assets/img/news/evtol-breakthrough-the-most-surprising-way-to-master-time-cover.webp
 coverAlt: ""
 oldUrl: /evtol-breakthrough-the-most-surprising-way-to-master-time/

@@ -1,8 +1,10 @@
 ---
 title: The Coolfly Massive New Promise of eVTOL MTBF
+slug: the-coolfly-massive-new-promise-of-evtol-mtbf
 date: 2026-02-27
 category: Insights
-excerpt: "The Engineering Reality Behind the Magic Engineers break things on purpose. They push motors until they smoke. They shake sensors until they"
+excerpt: The Engineering Reality Behind the Magic Engineers break things on
+  purpose. They push motors until they smoke. They shake sensors until they
 cover: /assets/img/news/the-coolfly-massive-new-promise-of-evtol-mtbf-cover.webp
 coverAlt: ""
 oldUrl: /the-coolfly-massive-new-promise-of-evtol-mtbf/

@@ -1,6 +1,7 @@
 ---
 title: "The Invisible Pilot: Why AI and Swarm Algorithms are the Real Power
   Behind CoolFly’s eVTOL Revolution"
+slug: the-invisible-pilot-why-ai-and-swarm-algorithms-are-the-real-power
 date: 2026-01-22
 category: Insights
 excerpt: The era of “Heavy Metal” aviation is yielding to the era of “Silicon

@@ -1,5 +1,6 @@
 ---
 title: What is a vtol aircraft?
+slug: what-is-a-vtol-aircraft
 date: 2026-01-15
 category: News
 excerpt: What is a vtol aircraft VTOL stands for Vertical Take-Off and Landing.

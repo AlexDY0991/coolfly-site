@@ -1,6 +1,7 @@
 ---
 title: "CoolFly Flight Log —— No.389 Test Flight: Aircraft Performance
   Adjustment and Technological Breakthroughs"
+slug: coolfly-flight-log-no-108-test-flight-aircraft-performance-adjustment
 date: 2025-09-05
 category: News
 excerpt: At CoolFly, every flight is more than just a test—it’s another

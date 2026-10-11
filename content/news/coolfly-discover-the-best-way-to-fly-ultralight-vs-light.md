@@ -1,8 +1,10 @@
 ---
 title: "CoolFly: Discover the Best Way to Fly: Ultralight vs Light"
+slug: coolfly-discover-the-best-way-to-fly-ultralight-vs-light
 date: 2026-03-12
 category: Insights
-excerpt: "As a staff member of Coolfly,everyone has dreamed of flying. In the past, this dream was expensive and hard to"
+excerpt: As a staff member of Coolfly,everyone has dreamed of flying. In the
+  past, this dream was expensive and hard to
 cover: /assets/img/news/coolfly-discover-the-best-way-to-fly-ultralight-vs-light-cover.jpg
 coverAlt: ""
 oldUrl: /coolfly-discover-the-best-way-to-fly-ultralight-vs-light/

@@ -2,6 +2,7 @@
 title: Made in China Arrives on the Sands! CoolFly Makes its Dubai Airshow
   Debut, Safeguarding the “Low-Altitude Flight Dream” with General
   Aviation-Grade Safety
+slug: made-in-china-arrives-on-the-sands-coolfly-makes-its-dubai-airshow
 date: 2025-11-18
 category: Events
 excerpt: On November 17, 2025, at the Dubai World Centre, the desert winds

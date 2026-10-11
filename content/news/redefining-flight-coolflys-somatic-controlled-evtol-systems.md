@@ -1,5 +1,6 @@
 ---
 title: "Redefining Flight: CoolFly’s Somatic-Controlled eVTOL Systems"
+slug: redefining-flight-coolflys-somatic-controlled-evtol-systems
 date: 2026-01-12
 category: News
 excerpt: Explore CoolFly’s second-gen standing aircraft and its groundbreaking

@@ -1,8 +1,10 @@
 ---
 title: CoolFly Brings Its Vision for Personal Flight to IFA Berlin 2026
+slug: coolfly-brings-its-vision-for-personal-flight-to-ifa-berlin-2026
 date: 2026-09-07
 category: Events
-excerpt: "BERLIN, Germany, September 3, 2026 — CoolFly will showcase its Dream ST personal electric aircraft at IFA Berlin 2026,"
+excerpt: BERLIN, Germany, September 3, 2026 — CoolFly will showcase its Dream ST
+  personal electric aircraft at IFA Berlin 2026,
 cover: /assets/img/news/coolfly-brings-its-vision-for-personal-flight-to-ifa-berlin-2026-cover.jpg
 coverAlt: ""
 oldUrl: /coolfly-brings-its-vision-for-personal-flight-to-ifa-berlin-2026/

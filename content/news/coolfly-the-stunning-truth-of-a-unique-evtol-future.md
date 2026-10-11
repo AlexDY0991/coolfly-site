@@ -1,8 +1,10 @@
 ---
 title: "Coolfly: The Stunning Truth of a Unique eVTOL Future"
+slug: coolfly-the-stunning-truth-of-a-unique-evtol-future
 date: 2026-02-11
 category: Insights
-excerpt: "The world is getting very crowded on the ground. Cars sit in traffic for hours. Delivery trucks move slowly through narrow"
+excerpt: The world is getting very crowded on the ground. Cars sit in traffic
+  for hours. Delivery trucks move slowly through narrow
 cover: /assets/img/news/coolfly-the-stunning-truth-of-a-unique-evtol-future-cover.jpg
 coverAlt: ""
 oldUrl: /coolfly-the-stunning-truth-of-a-unique-evtol-future/

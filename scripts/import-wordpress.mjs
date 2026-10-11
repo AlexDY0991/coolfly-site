@@ -97,6 +97,7 @@ for (const post of posts) {
   excerpt = excerpt.slice(0, 220);
   const front = {
     title,
+    slug,
     date: post.date.slice(0, 10),
     category,
     excerpt: excerpt.length === 220 ? `${excerpt.replace(/\s+\S*$/, '')}…` : excerpt,

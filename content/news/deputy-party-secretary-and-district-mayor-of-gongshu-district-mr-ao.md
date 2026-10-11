@@ -1,6 +1,7 @@
 ---
 title: Deputy Party Secretary and District Mayor of Gongshu District, Mr. Ao
   Yuxin, Leads Delegation to CoolFly for Inspection and Research
+slug: deputy-party-secretary-and-district-mayor-of-gongshu-district-mr-ao
 date: 2025-09-01
 category: News
 excerpt: Recently, Mr. Ao Yuxin, Deputy Party Secretary and District Mayor of

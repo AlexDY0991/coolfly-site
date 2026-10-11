@@ -1,8 +1,10 @@
 ---
 title: Why eVTOL Is This Ultimate Coolfly the Best Way to Fly?
+slug: why-evtol-is-this-ultimate-coolfly-the-best-way-to-fly
 date: 2026-03-02
 category: Insights
-excerpt: "Breaking the Rules of Traditional Flight by eVTOL Have you ever looked at the clouds and asked, what"
+excerpt: Breaking the Rules of Traditional Flight by eVTOL Have you ever looked
+  at the clouds and asked, what
 cover: /assets/img/news/why-evtol-is-this-ultimate-coolfly-the-best-way-to-fly-cover.jpg
 coverAlt: ""
 oldUrl: /why-evtol-is-this-ultimate-coolfly-the-best-way-to-fly/

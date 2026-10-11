@@ -1,8 +1,10 @@
 ---
 title: What is eVTOL Aircraft? Stunning Coolfly Secrets
+slug: what-is-evtol-aircraft-stunning-coolfly-secrets
 date: 2026-02-07
 category: Insights
-excerpt: "Many people look at the sky and dream of moving through the air as easily as they walk down the street. We are"
+excerpt: Many people look at the sky and dream of moving through the air as
+  easily as they walk down the street. We are
 cover: /assets/img/news/what-is-evtol-aircraft-stunning-coolfly-secrets-cover.jpg
 coverAlt: ""
 oldUrl: /what-is-evtol-aircraft-stunning-coolfly-secrets/

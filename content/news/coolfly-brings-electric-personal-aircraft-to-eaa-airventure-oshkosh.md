@@ -1,5 +1,6 @@
 ---
 title: CoolFly Brings Electric Personal Aircraft to EAA AirVenture Oshkosh 2026
+slug: coolfly-brings-electric-personal-aircraft-to-eaa-airventure-oshkosh
 date: 2026-07-21
 category: Events
 excerpt: OSHKOSH, Wis., July 20, 2026 — CoolFly, a developer of electric

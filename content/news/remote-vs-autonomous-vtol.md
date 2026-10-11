@@ -1,5 +1,6 @@
 ---
 title: "Remote vs. Autonomous: The Stunning Secrets of VTOLs"
+slug: remote-vs-autonomous-vtol
 date: 2026-02-04
 category: Insights
 excerpt: The way we travel is changing very fast. You might have seen videos of

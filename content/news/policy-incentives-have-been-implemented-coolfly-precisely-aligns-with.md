@@ -1,6 +1,7 @@
 ---
 title: Policy incentives have been implemented! CoolFly precisely aligns with
   the “15th Five-Year Plan” requirements for low-altitude economy.
+slug: policy-incentives-have-been-implemented-coolfly-precisely-aligns-with
 date: 2025-11-14
 category: News
 excerpt: Policy incentives are in place! Coolfly precisely aligns with the “15th

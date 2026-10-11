@@ -1,8 +1,10 @@
 ---
 title: "CoolFly eVTOL: Mass Production and Public Flights in 2026"
+slug: coolfly-evtol-mass-production-and-public-flights-in-2026
 date: 2026-03-26
 category: News
-excerpt: "CoolFly is ready to bring the dream of personal flight to everyone very soon. By the second half of 2026, the"
+excerpt: CoolFly is ready to bring the dream of personal flight to everyone very
+  soon. By the second half of 2026, the
 cover: /assets/img/news/coolfly-evtol-mass-production-and-public-flights-in-2026-cover.webp
 coverAlt: ""
 oldUrl: /coolfly-evtol-mass-production-and-public-flights-in-2026/

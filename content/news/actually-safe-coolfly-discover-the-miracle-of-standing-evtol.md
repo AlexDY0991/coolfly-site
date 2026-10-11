@@ -1,8 +1,10 @@
 ---
 title: "Actually Safe: Coolfly Discover the Miracle of Standing eVTOL"
+slug: actually-safe-coolfly-discover-the-miracle-of-standing-evtol
 date: 2026-03-06
 category: Insights
-excerpt: "The New Way to Fly: What is Coolfly eVTOL Aircraft Design? I am part of the team at Coolfly. We spend"
+excerpt: "The New Way to Fly: What is Coolfly eVTOL Aircraft Design? I am part
+  of the team at Coolfly. We spend"
 cover: /assets/img/news/actually-safe-coolfly-discover-the-miracle-of-standing-evtol-cover.jpg
 coverAlt: ""
 oldUrl: /actually-safe-coolfly-discover-the-miracle-of-standing-evtol/

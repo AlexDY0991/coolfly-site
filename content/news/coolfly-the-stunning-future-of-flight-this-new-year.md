@@ -1,8 +1,10 @@
 ---
 title: "Coolfly: The Stunning Future of Flight This New Year"
+slug: coolfly-the-stunning-future-of-flight-this-new-year
 date: 2026-02-16
 category: Insights
-excerpt: "The Chinese New Year is the most important time in China. It is a season for family. It is also a"
+excerpt: The Chinese New Year is the most important time in China. It is a
+  season for family. It is also a
 cover: /assets/img/news/coolfly-the-stunning-future-of-flight-this-new-year-cover.webp
 coverAlt: ""
 oldUrl: /coolfly-the-stunning-future-of-flight-this-new-year/

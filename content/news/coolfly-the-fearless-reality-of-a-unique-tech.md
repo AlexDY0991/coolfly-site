@@ -1,8 +1,10 @@
 ---
 title: "Coolfly: The Fearless Reality of a Unique Tech"
+slug: coolfly-the-fearless-reality-of-a-unique-tech
 date: 2026-02-12
 category: Insights
-excerpt: "Is coolfly safely?Many people look at the sky and feel a mix of excitement and fear. They see the new shapes of vtol"
+excerpt: Is coolfly safely?Many people look at the sky and feel a mix of
+  excitement and fear. They see the new shapes of vtol
 cover: /assets/img/news/coolfly-the-fearless-reality-of-a-unique-tech-cover.jpg
 coverAlt: ""
 oldUrl: /coolfly-the-fearless-reality-of-a-unique-tech/

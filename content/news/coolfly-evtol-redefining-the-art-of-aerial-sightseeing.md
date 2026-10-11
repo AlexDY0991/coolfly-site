@@ -1,8 +1,10 @@
 ---
 title: "Coolfly eVTOL: Redefining the Art of Aerial Sightseeing"
+slug: coolfly-evtol-redefining-the-art-of-aerial-sightseeing
 date: 2026-04-15
 category: Insights
-excerpt: "eVTOL technology is moving beyond the functional realm of commuting and entering the experiential world of high-end tourism. For a long time,"
+excerpt: eVTOL technology is moving beyond the functional realm of commuting and
+  entering the experiential world of high-end tourism. For a long time,
 cover: /assets/img/news/coolfly-evtol-redefining-the-art-of-aerial-sightseeing-cover.jpg
 coverAlt: ""
 oldUrl: /coolfly-evtol-redefining-the-art-of-aerial-sightseeing/

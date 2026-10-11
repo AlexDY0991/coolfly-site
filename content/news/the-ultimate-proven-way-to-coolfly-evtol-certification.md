@@ -1,8 +1,10 @@
 ---
 title: The Ultimate Proven Way to Coolfly eVTOL Certification
+slug: the-ultimate-proven-way-to-coolfly-evtol-certification
 date: 2026-02-28
 category: Insights
-excerpt: "The Real Challenge of Legal Flight You want to fly to work. You look at the sky and ask, what is evtol"
+excerpt: The Real Challenge of Legal Flight You want to fly to work. You look at
+  the sky and ask, what is evtol
 cover: /assets/img/news/the-ultimate-proven-way-to-coolfly-evtol-certification-cover.jpg
 coverAlt: ""
 oldUrl: /the-ultimate-proven-way-to-coolfly-evtol-certification/

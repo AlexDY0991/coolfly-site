@@ -1,5 +1,6 @@
 ---
 title: "Flying in the Cold: How CoolFly Handles the Ice"
+slug: flying-in-the-cold-how-coolfly-handles-the-ice
 date: 2026-01-29
 category: Insights
 excerpt: Most people think of flying during warm, sunny days. But what happens

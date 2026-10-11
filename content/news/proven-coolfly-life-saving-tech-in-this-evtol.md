@@ -1,8 +1,10 @@
 ---
 title: Proven Coolfly Life-Saving Tech in This eVTOL
+slug: proven-coolfly-life-saving-tech-in-this-evtol
 date: 2026-03-04
 category: Insights
-excerpt: "The Heart of Safety: What is Coolfly eVTOL Aircraft Redundancy? I am a member of the Coolfly engineering team. Every day, we look"
+excerpt: "The Heart of Safety: What is Coolfly eVTOL Aircraft Redundancy? I am a
+  member of the Coolfly engineering team. Every day, we look"
 cover: /assets/img/news/proven-coolfly-life-saving-tech-in-this-evtol-cover.jpg
 coverAlt: ""
 oldUrl: /proven-coolfly-life-saving-tech-in-this-evtol/

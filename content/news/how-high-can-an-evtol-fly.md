@@ -1,5 +1,6 @@
 ---
 title: How high can an evtol fly?
+slug: how-high-can-an-evtol-fly
 date: 2026-02-03
 category: Insights
 excerpt: People talk a lot about flying cars these days. We officially call

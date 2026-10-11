@@ -1,5 +1,6 @@
 ---
 title: "Actually Coolfly Safe: The Miracle History of eVTOL"
+slug: actually-coolfly-safe-the-miracle-history-of-evtol
 date: 2026-03-11
 category: Insights
 excerpt: "The Early Vision: Why Coolfly Dreamed of Standing Flight I am the

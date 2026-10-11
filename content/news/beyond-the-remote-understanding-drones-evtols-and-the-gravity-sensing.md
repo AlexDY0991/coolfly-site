@@ -1,9 +1,11 @@
 ---
 title: "Beyond the Remote: Understanding Drones, eVTOLs, and the Gravity-Sensing
   Revolution"
+slug: beyond-the-remote-understanding-drones-evtols-and-the-gravity-sensing
 date: 2026-01-21
 category: News
-excerpt: "Low-altitude economy” is currently in a phase of explosive growth. If you’ve looked up recently, you may have noticed that"
+excerpt: Low-altitude economy” is currently in a phase of explosive growth. If
+  you’ve looked up recently, you may have noticed that
 cover: /assets/img/news/beyond-the-remote-understanding-drones-evtols-and-the-gravity-sensing-cover.webp
 coverAlt: ""
 oldUrl: /beyond-the-remote-understanding-drones-evtols-and-the-gravity-sensing-revolution/

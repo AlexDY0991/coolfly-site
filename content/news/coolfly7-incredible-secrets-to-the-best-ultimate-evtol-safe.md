@@ -1,5 +1,6 @@
 ---
 title: CoolFly:7 Incredible Secrets to the Best Ultimate eVTOL Safe
+slug: coolfly7-incredible-secrets-to-the-best-ultimate-evtol-safe
 date: 2026-03-18
 category: Insights
 excerpt: "CoolFly: 7 Incredible Secrets to the Best and Ultimate eVTOL Safety

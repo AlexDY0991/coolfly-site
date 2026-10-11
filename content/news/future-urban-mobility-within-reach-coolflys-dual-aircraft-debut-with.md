@@ -1,9 +1,11 @@
 ---
 title: "Future Urban Mobility Within Reach: CoolFly’s Dual Aircraft Debut with
   Advanced Flight Control Systems"
+slug: future-urban-mobility-within-reach-coolflys-dual-aircraft-debut-with
 date: 2025-09-19
 category: News
-excerpt: "As a representative of Hangzhou’s cutting-edge tech enterprises, CoolFly Technology recently unveiled an impressive…"
+excerpt: As a representative of Hangzhou’s cutting-edge tech enterprises,
+  CoolFly Technology recently unveiled an impressive…
 cover: /assets/img/news/future-urban-mobility-within-reach-coolflys-dual-aircraft-debut-with-cover.jpg
 coverAlt: ""
 oldUrl: /future-urban-mobility-within-reach-coolflys-dual-aircraft-debut-with-advanced-flight-control-systems/

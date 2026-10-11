@@ -1,8 +1,10 @@
 ---
 title: "CoolFly: Best Spots for Your Future eVTOL Aircraft"
+slug: coolfly-best-spots-for-your-future-evtol-aircraft
 date: 2026-03-13
 category: Insights
-excerpt: "CoolFly is leading a new way to travel through the sky at low altitudes. If you own a standing aircraft like the"
+excerpt: CoolFly is leading a new way to travel through the sky at low
+  altitudes. If you own a standing aircraft like the
 cover: /assets/img/news/coolfly-best-spots-for-your-future-evtol-aircraft-cover.jpg
 coverAlt: ""
 oldUrl: /coolfly-best-spots-for-your-future-evtol-aircraft/
