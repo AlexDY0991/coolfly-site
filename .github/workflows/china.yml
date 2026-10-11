@@ -1,0 +1,62 @@
+# Publishes the Chinese site to Alibaba Cloud OSS (served on coolflyaircraft.net
+# through Alibaba CDN, so visitors in China load it quickly).
+#
+# Does nothing until these repository secrets are added
+# (Settings → Secrets and variables → Actions):
+#   ALIYUN_ACCESS_KEY_ID, ALIYUN_ACCESS_KEY_SECRET  RAM user with write access to the bucket only
+#   ALIYUN_OSS_BUCKET                               bucket name, e.g. coolfly-net
+#   ALIYUN_OSS_ENDPOINT                             e.g. oss-cn-hangzhou.aliyuncs.com
+# See docs/运营手册.md, section 12.
+name: Deploy Chinese site to Alibaba Cloud
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: china
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      OSS_ID: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
+      OSS_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
+      OSS_BUCKET: ${{ secrets.ALIYUN_OSS_BUCKET }}
+      OSS_ENDPOINT: ${{ secrets.ALIYUN_OSS_ENDPOINT }}
+    steps:
+      - name: Check configuration
+        id: check
+        run: |
+          if [ -n "$OSS_ID" ] && [ -n "$OSS_SECRET" ] && [ -n "$OSS_BUCKET" ] && [ -n "$OSS_ENDPOINT" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Alibaba Cloud secrets are not set yet; skipping."
+          fi
+      - if: steps.check.outputs.ready == 'true'
+        uses: actions/checkout@v4
+      - if: steps.check.outputs.ready == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - if: steps.check.outputs.ready == 'true'
+        run: npm ci
+      - name: Build the Chinese site
+        if: steps.check.outputs.ready == 'true'
+        run: npm run build
+        env:
+          SITE_LANG: zh
+      - name: Upload to OSS
+        if: steps.check.outputs.ready == 'true'
+        run: |
+          curl -sSfL https://gosspublic.alicdn.com/ossutil/install.sh | sudo bash
+          # Pages and data files change on every publish: upload them all.
+          # Images and video only upload when new or changed.
+          ossutil cp -r -f -u dist "oss://$OSS_BUCKET/" -e "$OSS_ENDPOINT" -i "$OSS_ID" -k "$OSS_SECRET" --exclude "*.html" --exclude "*.xml" --exclude "*.txt"
+          ossutil cp -r -f dist "oss://$OSS_BUCKET/" -e "$OSS_ENDPOINT" -i "$OSS_ID" -k "$OSS_SECRET" --include "*.html" --include "*.xml" --include "*.txt" --meta "Cache-Control:no-cache"

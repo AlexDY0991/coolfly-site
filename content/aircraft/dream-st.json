@@ -51,42 +51,52 @@
   ],
   "specs": [
     {
+      "key": "configuration",
       "label": "Configuration",
       "value": "Multi-rotor, quad-axis, 8 rotors"
     },
     {
+      "key": "topSpeed",
       "label": "Top speed",
       "value": "100 km/h (limited)"
     },
     {
+      "key": "flightTime",
       "label": "Flight time",
       "value": "16 min*"
     },
     {
+      "key": "payload",
       "label": "Max payload",
       "value": "95 kg"
     },
     {
+      "key": "weight",
       "label": "Aircraft weight",
       "value": "≤ 114 kg"
     },
     {
+      "key": "dimensions",
       "label": "Dimensions (L × W × H)",
       "value": "3500 × 3569 × 1182 mm"
     },
     {
+      "key": "ip",
       "label": "Ingress protection",
       "value": "IP65"
     },
     {
+      "key": "sensors",
       "label": "Sensors",
       "value": "Aviation-grade IMU"
     },
     {
+      "key": "flightControl",
       "label": "Flight control",
       "value": "NA80, dual redundant flight controllers"
     },
     {
+      "key": "applications",
       "label": "Applications",
       "value": "Tourism, outdoor recreation, urban air mobility, emergency response"
     }

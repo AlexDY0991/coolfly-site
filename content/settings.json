@@ -1,6 +1,14 @@
 {
   "siteName": "CoolFly",
   "siteUrl": "https://coolflyaircraft.com",
+  "languages": {
+    "en": {
+      "url": "https://coolflyaircraft.com"
+    },
+    "zh": {
+      "url": "https://coolflyaircraft.net"
+    }
+  },
   "tagline": "Your will. Your altitude.",
   "defaultDescription": "CoolFly designs and builds single-seat electric aircraft in Hangzhou, from the flight controller up. Explore Urban, Dream ST and Dream PRO, or become a CoolFly dealer.",
   "defaultShareImage": "/assets/img/og.jpg",

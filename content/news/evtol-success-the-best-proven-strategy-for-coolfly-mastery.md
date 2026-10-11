@@ -38,7 +38,7 @@ Because it is an electric vtol aircraft, it does not have the thousands of movin
 
 When you compare the cost of charging a Coolfly to the cost of premium gasoline for a luxury SUV, the flight vehicle often wins. [Research by the Vertical Flight Society suggests that electric propulsion can reduce direct operating costs by up to 40% compared to traditional light helicopters (VFS, “Electric VTOL News”).](http://aerospaceglobalnews.com) For a business professional, this isn’t just a cool gadget; it is a calculated investment in efficiency.
 
-## **The Struc****tural Reality: Coolfly and Material Stability**
+## **The Structural Reality: Coolfly and Material Stability**
 
 The price you pay for a vehicle is often a reflection of its supply chain. This is where the Coolfly strategy becomes a major selling point for a savvy buyer. The airframe is constructed from T800 grade carbon fiber.
 

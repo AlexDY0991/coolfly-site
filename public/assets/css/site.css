@@ -173,6 +173,14 @@ button { font: inherit; color: inherit; }
 .mobile-menu a.is-sub { padding-left: 16px; font-size: 1.1rem; }
 .mobile-menu small { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 400; color: var(--steel); text-transform: uppercase; letter-spacing: 0.06em; }
 
+.lang-switch { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 10px; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.06em; text-decoration: none; border-radius: var(--radius); white-space: nowrap; }
+.lang-switch__current { font-weight: 600; }
+.lang-switch__sep, .lang-switch__other { opacity: 0.55; }
+.lang-switch:hover .lang-switch__other { opacity: 1; color: var(--signal); }
+.mobile-menu__foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.mobile-menu .lang-switch--menu { padding: 0; border: 0; font-family: var(--font-mono); font-size: 0.85rem; font-weight: 400; }
+.site-header__actions .lang-switch--menu { display: none; }
+
 @media (max-width: 1000px) {
   .nav, .site-header__actions .btn { display: none; }
   .menu-toggle { display: inline-flex; }
@@ -877,3 +885,22 @@ html:not(.js) .ms__year { color: var(--white); -webkit-text-stroke: 0; }
 @media (max-width: 900px) {
   .lp-benefits, .lineup__grid--2 { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* Language suggestion (shown once when the browser language differs) */
+.lang-hint { position: fixed; z-index: 91; top: calc(var(--header-h) + 12px); right: 16px; left: auto; max-width: min(420px, calc(100vw - 32px)); display: flex; align-items: center; gap: 12px; padding: 12px 12px 12px 18px; background: var(--night); color: var(--white); border-radius: 10px; box-shadow: 0 20px 60px rgb(11 16 20 / 0.35); font-size: 0.9rem; }
+.lang-hint p { margin: 0; flex: 1; }
+.lang-hint__close { width: 36px; height: 36px; flex: none; border: 0; background: none; color: inherit; font-size: 1.4rem; line-height: 1; cursor: pointer; opacity: 0.7; }
+.lang-hint__close:hover { opacity: 1; }
+
+/* Chinese: system CJK fonts after the Latin faces, no tracking or forced
+   uppercase, and a little more line height for readability. */
+html[lang='zh-Hans'] {
+  --font-display: 'Archivo Variable', 'Archivo', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', 'Source Han Sans SC', sans-serif;
+  --font-body: 'Instrument Sans Variable', 'Instrument Sans', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', 'Source Han Sans SC', sans-serif;
+  /* Monospace spacing looks broken around Chinese characters, so labels use the body face. */
+  --font-mono: 'Instrument Sans Variable', 'Instrument Sans', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+}
+html[lang='zh-Hans'] body { line-height: 1.75; }
+html[lang='zh-Hans'] :is(h1, h2, h3) { letter-spacing: 0.01em; line-height: 1.25; font-stretch: 100%; }
+html[lang='zh-Hans'] :is(.eyebrow, .model-card__stance, .hero__foot, .figures dt, .nav__menu small, .mobile-menu small) { letter-spacing: 0.04em; }
+html[lang='zh-Hans'] .prose { line-height: 1.9; }

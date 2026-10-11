@@ -1,0 +1,30 @@
+{
+  "home": {
+    "title": "酷飞 CoolFly · 个人电动飞行器",
+    "description": "酷飞（浙江）飞行器技术有限公司，全球近地载人飞行器领域的开创者。站姿飞行器 Urban、坐姿飞行器 Dream ST 与 Dream PRO，双余度飞控，诚邀全球经销商合作。"
+  },
+  "compare": {
+    "title": "机型对比",
+    "description": "对比酷飞 Urban、Dream ST 与 Dream PRO 的速度、飞行时间、载重、尺寸与安全配置。"
+  },
+  "safety": {
+    "title": "安全与技术",
+    "description": "酷飞如何把安全融入每一架飞行器：双余度飞控、三余度 IMU、单电机失效安全飞行、弹射式整机降落伞、雷达辅助自动降落与 IP65 防护。"
+  },
+  "dealers": {
+    "title": "成为经销商",
+    "description": "成为酷飞授权经销商，把个人电动飞行器带到您的市场。酷飞正在全球招募合作伙伴。"
+  },
+  "company": {
+    "title": "关于酷飞",
+    "description": "酷飞成立于 2022 年，总部位于杭州，核心团队自 2008 年起专注飞控研发，是全球近地载人飞行器领域的开创者。"
+  },
+  "contact": {
+    "title": "联系我们",
+    "description": "经销商合作、预约试飞、客户支持与媒体采访，请联系酷飞。"
+  },
+  "newsroom": {
+    "title": "新闻中心",
+    "description": "酷飞最新动态、展会活动与飞行器科普。"
+  }
+}

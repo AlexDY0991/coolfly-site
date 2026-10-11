@@ -276,6 +276,7 @@ content:
             type: object
             list: { collapsible: { collapsed: true, summary: "{label}: {value}" } }
             fields:
+              - { name: key, label: 参数代码, type: string, readonly: true, description: 系统用于对比表和中英文对应，请勿修改。新增的参数没有代码，可以留空。 }
               - { name: label, label: 参数名, type: string }
               - { name: value, label: 参数值, type: string }
           - name: certs
@@ -379,6 +380,867 @@ content:
           - { name: published, label: 已发布, type: boolean, default: true }
           - { name: noindex, label: 不让搜索引擎收录, type: boolean, default: false }
           - { name: body, label: 正文, type: rich-text, options: { format: markdown } }
+
+  # ------------------------------------------------------------------
+  # Chinese site: same structure, files under content/zh/. Generated from the
+  # English menus above; text left empty falls back to English.
+  - name: zh
+    label: 中文站（coolflyaircraft.net）
+    type: group
+    items:
+      - name: zhNews
+        label: 中文新闻
+        type: collection
+        path: content/zh/news
+        format: yaml-frontmatter
+        filename: "{fields.slug}.md"
+        view:
+          fields:
+            - title
+            - date
+            - category
+            - published
+          primary: title
+          sort:
+            - date
+            - title
+          search:
+            - title
+            - excerpt
+          default:
+            sort: date
+            order: desc
+        fields:
+          - name: title
+            label: 标题
+            type: string
+            required: true
+          - name: slug
+            label: 网址
+            type: string
+            required: true
+            pattern:
+              regex: ^[a-z0-9-]+$
+              message: 只能用小写英文字母、数字和连字符，例如 ifa-berlin-2026
+            description: 文章地址为 /news/网址.html。中文文章可用日期，例如 2026-10-11-ifa；只能用小写英文字母、数字和连字符。
+          - name: date
+            label: 发布日期
+            type: date
+            required: true
+            options:
+              format: yyyy-MM-dd
+          - name: category
+            label: 分类
+            type: select
+            default: News
+            options:
+              values:
+                - name: News
+                  label: 新闻
+                - name: Events
+                  label: 活动与展会
+                - name: Insights
+                  label: 科普与观点
+          - name: excerpt
+            label: 摘要
+            type: text
+            description: 显示在新闻列表和搜索结果里，一两句话即可。
+          - name: cover
+            label: 封面图
+            type: image
+            options:
+              path: public/assets/img/news
+          - name: coverAlt
+            label: 封面图描述
+            type: string
+            description: 用一句话描述图片内容，有助于 SEO 和无障碍访问。
+          - name: seoTitle
+            label: 搜索结果标题（可选）
+            type: string
+          - name: seoDescription
+            label: 搜索结果描述（可选）
+            type: text
+          - name: published
+            label: 已发布
+            type: boolean
+            default: true
+            description: 关闭后文章不会出现在网站上。
+          - name: body
+            label: 正文
+            type: rich-text
+            options:
+              format: markdown
+              path: public/assets/img/news
+      - name: zhLanding
+        label: 中文投放落地页
+        type: collection
+        path: content/zh/landing
+        format: yaml-frontmatter
+        filename: "{fields.slug}.md"
+        view:
+          fields:
+            - title
+            - slug
+            - formType
+            - published
+          primary: title
+        fields:
+          - name: title
+            label: 内部名称
+            type: string
+            required: true
+            description: 只在后台显示，例如「欧洲经销商招募 - Google Ads」。
+          - name: slug
+            label: 网址
+            type: string
+            required: true
+            pattern:
+              regex: ^[a-z0-9-]+$
+              message: 只能用小写英文字母、数字和连字符，例如 dealer-europe
+            description: 页面地址为 /lp/网址.html，例如 dealer-europe → /lp/dealer-europe.html
+          - name: published
+            label: 已发布
+            type: boolean
+            default: true
+          - name: noindex
+            label: 不让搜索引擎收录
+            type: boolean
+            default: true
+            description: 只用于广告投放的页面建议保持开启。
+          - name: hideNavigation
+            label: 隐藏网站导航
+            type: boolean
+            default: true
+            description: 开启后页头只保留 Logo 和一个按钮，减少访客离开。
+          - name: eyebrow
+            label: 小标题
+            type: string
+          - name: headline
+            label: 主标题
+            type: string
+            required: true
+          - name: subheadline
+            label: 副标题
+            type: text
+          - name: heroImage
+            label: 主图
+            type: image
+          - name: heroImageAlt
+            label: 主图描述
+            type: string
+          - name: ctaLabel
+            label: 按钮文字
+            type: string
+            default: 立即申请
+          - name: benefitsTitle
+            label: 卖点区标题
+            type: string
+          - name: benefits
+            label: 卖点
+            type: object
+            list:
+              max: 6
+              collapsible:
+                collapsed: true
+                summary: "{title}"
+            fields:
+              - name: title
+                label: 标题
+                type: string
+              - name: text
+                label: 说明
+                type: text
+          - name: aircraft
+            label: 展示机型
+            type: select
+            options:
+              multiple: true
+              values:
+                - name: urban
+                  label: Urban
+                - name: dream-st
+                  label: Dream ST
+                - name: dream-pro
+                  label: Dream PRO
+          - name: showEvents
+            label: 显示展会照片
+            type: boolean
+            default: true
+          - name: body
+            label: 补充内容（可选）
+            type: rich-text
+            options:
+              format: markdown
+          - name: formType
+            label: 表单类型
+            type: select
+            default: dealer
+            options:
+              values:
+                - name: dealer
+                  label: 经销商申请
+                - name: demo
+                  label: 预约试飞
+          - name: formTitle
+            label: 表单标题
+            type: string
+          - name: formText
+            label: 表单说明
+            type: text
+          - name: submitLabel
+            label: 提交按钮文字
+            type: string
+          - name: seoTitle
+            label: 搜索结果与分享标题
+            type: string
+          - name: seoDescription
+            label: 搜索结果与分享描述
+            type: text
+          - name: shareImage
+            label: 分享图片
+            type: image
+      - name: zhHome
+        label: 中文首页
+        type: file
+        path: content/zh/home.json
+        format: json
+        operations:
+          delete: false
+        fields:
+          - name: hero
+            label: 首屏
+            type: object
+            fields:
+              - name: titleLine1
+                label: 标题第一行
+                type: string
+              - name: titleLine2
+                label: 标题第二行
+                type: string
+              - name: lede
+                label: 副标题
+                type: text
+              - name: primaryButton
+                label: 主按钮文字
+                type: string
+              - name: secondaryButton
+                label: 次按钮文字
+                type: string
+              - name: poster
+                label: 视频封面图
+                type: image
+                description: 视频加载前显示的画面。 留空则沿用英文版图片。
+              - name: hudReadouts
+                label: 右上角轮播参数
+                type: string
+                list: true
+          - name: statement
+            label: 主张与数字
+            type: object
+            fields:
+              - name: text
+                label: 主张
+                type: text
+              - name: stats
+                label: 数字
+                type: object
+                list:
+                  max: 4
+                  collapsible:
+                    summary: "{value}{unit} {label}"
+                fields:
+                  - name: value
+                    label: 数字
+                    type: string
+                  - name: unit
+                    label: 单位
+                    type: string
+                  - name: label
+                    label: 说明
+                    type: string
+                  - name: animate
+                    label: 滚动计数动画
+                    type: boolean
+                    default: true
+          - name: feature
+            label: 全屏大图
+            type: object
+            fields:
+              - name: title
+                label: 标题
+                type: string
+              - name: text
+                label: 说明
+                type: text
+              - name: image
+                label: 图片
+                type: image
+                description: 留空则沿用英文版图片。
+              - name: imageAlt
+                label: 图片描述
+                type: string
+              - name: linkLabel
+                label: 链接文字
+                type: string
+              - name: link
+                label: 链接地址
+                type: string
+          - name: duo
+            label: 双图
+            type: object
+            list:
+              min: 2
+              max: 2
+            fields:
+              - name: title
+                label: 标题
+                type: string
+              - name: image
+                label: 图片
+                type: image
+                description: 留空则沿用英文版图片。
+              - name: imageAlt
+                label: 图片描述
+                type: string
+              - name: linkLabel
+                label: 链接文字
+                type: string
+              - name: link
+                label: 链接地址
+                type: string
+          - name: lineupTitle
+            label: 产品区标题
+            type: string
+          - name: safety
+            label: 安全区
+            type: object
+            fields:
+              - name: eyebrow
+                label: 小标题
+                type: string
+              - name: title
+                label: 标题
+                type: string
+              - name: points
+                label: 要点
+                type: string
+                list:
+                  max: 3
+          - name: applicationsTitle
+            label: 应用场景标题
+            type: string
+          - name: applications
+            label: 应用场景
+            type: object
+            list:
+              max: 4
+              collapsible:
+                collapsed: true
+                summary: "{label}"
+            fields:
+              - name: label
+                label: 场景名称
+                type: string
+              - name: image
+                label: 图片
+                type: image
+                description: 留空则沿用英文版图片。
+              - name: imageAlt
+                label: 图片描述
+                type: string
+              - name: models
+                label: 推荐机型
+                type: string
+          - name: licence
+            label: 执照说明条
+            type: object
+            fields:
+              - name: title
+                label: 标题
+                type: string
+              - name: text
+                label: 说明
+                type: string
+              - name: linkLabel
+                label: 链接文字
+                type: string
+          - name: events
+            label: 展会照片带
+            type: object
+            fields:
+              - name: title
+                label: 标题
+                type: string
+              - name: note
+                label: 右侧小字
+                type: string
+              - name: photos
+                label: 照片
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{caption}"
+                fields:
+                  - name: image
+                    label: 照片
+                    type: image
+                    description: 留空则沿用英文版图片。
+                  - name: caption
+                    label: 说明
+                    type: string
+          - name: dealerBand
+            label: 橙色经销商招募条（全站通用）
+            type: object
+            fields:
+              - name: title
+                label: 标题
+                type: string
+              - name: text
+                label: 说明
+                type: text
+        description: 只需填写中文文字，图片留空即沿用英文版。
+      - name: zhAircraft
+        label: 中文产品
+        type: collection
+        path: content/zh/aircraft
+        format: json
+        filename: "{fields.slug}.json"
+        operations:
+          create: false
+          rename: false
+          delete: false
+        view:
+          fields:
+            - name
+            - stance
+            - order
+          primary: name
+          default:
+            sort: order
+            order: asc
+        fields:
+          - name: name
+            label: 产品名称
+            type: string
+            readonly: true
+          - name: fullName
+            label: 完整名称
+            type: string
+          - name: order
+            label: 排序
+            type: number
+            description: 数字越小越靠前。
+          - name: stance
+            label: 驾驶姿势
+            type: string
+          - name: tagline
+            label: 标语
+            type: string
+          - name: summary
+            label: 一句话介绍
+            type: text
+          - name: lineup
+            label: 列表简介
+            type: string
+          - name: cardFacts
+            label: 首页卡片说明
+            type: string
+            description: 显示在首页产品卡片上，例如「Standing flight · Enclosed propeller propulsion」。
+          - name: image
+            label: 产品图（透明背景）
+            type: image
+            description: 留空则沿用英文版图片。
+          - name: imageAlt
+            label: 产品图描述
+            type: string
+          - name: heroImage
+            label: 产品页主图
+            type: image
+            description: 留空则沿用英文版图片。
+          - name: heroAlt
+            label: 主图描述
+            type: string
+          - name: galleryImage
+            label: 全屏大图
+            type: image
+            description: 留空则沿用英文版图片。
+          - name: galleryAlt
+            label: 大图描述
+            type: string
+          - name: keyFigures
+            label: 关键数字
+            type: object
+            list:
+              max: 3
+            fields:
+              - name: value
+                label: 数字
+                type: string
+              - name: unit
+                label: 单位
+                type: string
+              - name: label
+                label: 说明
+                type: string
+          - name: story
+            label: 产品特点
+            type: object
+            list:
+              min: 2
+              max: 2
+            fields:
+              - name: title
+                label: 标题
+                type: string
+              - name: text
+                label: 说明
+                type: text
+          - name: safety
+            label: 安全配置
+            type: string
+            list: true
+          - name: specs
+            label: 参数表
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{label}: {value}"
+            fields:
+              - name: key
+                label: 参数代码
+                type: string
+                readonly: true
+                description: 系统用于对比表和中英文对应，请勿修改。新增的参数没有代码，可以留空。
+              - name: label
+                label: 参数名
+                type: string
+              - name: value
+                label: 参数值
+                type: string
+          - name: certs
+            label: 认证文件
+            type: object
+            list: true
+            fields:
+              - name: image
+                label: 文件图片
+                type: image
+                description: 留空则沿用英文版图片。
+              - name: label
+                label: 名称
+                type: string
+          - name: notes
+            label: 内部备注
+            type: text
+            readonly: true
+            description: 只在后台显示，网站上看不到。
+        description: 只需填写中文文字。图片、排序等留空即沿用英文版。参数表请保持与英文版相同的顺序。
+      - name: zhDealers
+        label: 中文经销商页
+        type: file
+        path: content/zh/dealers.json
+        format: json
+        operations:
+          delete: false
+        fields:
+          - name: hero
+            label: 首屏
+            type: object
+            fields:
+              - name: titleLine1
+                label: 标题第一行
+                type: string
+              - name: titleLine2
+                label: 标题第二行
+                type: string
+              - name: tagline
+                label: 副标题
+                type: text
+              - name: image
+                label: 背景图
+                type: image
+                description: 留空则沿用英文版图片。
+          - name: why
+            label: 合作理由
+            type: object
+            list:
+              max: 4
+            fields:
+              - name: title
+                label: 标题
+                type: string
+              - name: text
+                label: 说明
+                type: string
+          - name: regions
+            label: 招募区域
+            type: object
+            list: true
+            fields:
+              - name: name
+                label: 区域
+                type: string
+              - name: note
+                label: 说明
+                type: string
+          - name: presence
+            label: 已有市场
+            type: string
+            description: "格式：国家: 说明，例如「France, Canada: First international customer deliveries」"
+          - name: support
+            label: 厂家支持
+            type: object
+            list: true
+            fields:
+              - name: title
+                label: 标题
+                type: string
+              - name: text
+                label: 说明
+                type: string
+          - name: process
+            label: 合作流程
+            type: object
+            list:
+              max: 5
+            fields:
+              - name: title
+                label: 步骤
+                type: string
+              - name: text
+                label: 说明
+                type: string
+          - name: kitText
+            label: 经销商资料包说明
+            type: text
+          - name: faqs
+            label: 常见问题
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{question}"
+            fields:
+              - name: question
+                label: 问题
+                type: string
+              - name: answer
+                label: 回答
+                type: text
+      - name: zhCompany
+        label: 中文公司页
+        type: file
+        path: content/zh/company.json
+        format: json
+        operations:
+          delete: false
+        fields:
+          - name: title
+            label: 标题
+            type: string
+          - name: lede
+            label: 简介
+            type: text
+          - name: image
+            label: 配图
+            type: image
+            description: 留空则沿用英文版图片。
+          - name: quote
+            label: CEO 寄语
+            type: text
+          - name: quoteAuthor
+            label: 署名
+            type: string
+          - name: quoteImage
+            label: CEO 照片
+            type: image
+            description: 留空则沿用英文版图片。
+      - name: zhMilestones
+        label: 中文里程碑
+        type: file
+        path: content/zh/milestones.json
+        format: json
+        list: true
+        operations:
+          delete: false
+        fields:
+          - name: year
+            label: 年份
+            type: string
+          - name: events
+            label: 事件
+            type: string
+            list: true
+      - name: zhTextPages
+        label: 中文隐私政策等文本页
+        type: collection
+        path: content/zh/pages
+        format: yaml-frontmatter
+        filename: "{fields.slug}.md"
+        fields:
+          - name: title
+            label: 标题
+            type: string
+            required: true
+          - name: slug
+            label: 网址
+            type: string
+            required: true
+            pattern: ^[a-z0-9-]+$
+          - name: description
+            label: 搜索结果描述
+            type: text
+          - name: updated
+            label: 更新日期
+            type: date
+            options:
+              format: yyyy-MM-dd
+          - name: published
+            label: 已发布
+            type: boolean
+            default: true
+          - name: noindex
+            label: 不让搜索引擎收录
+            type: boolean
+            default: false
+          - name: body
+            label: 正文
+            type: rich-text
+            options:
+              format: markdown
+      - name: zhSite
+        label: 中文站设置（备案号、百度统计、弹窗、联系方式）
+        type: file
+        path: content/zh/site.json
+        format: json
+        operations:
+          delete: false
+        description: 追踪 GTM、表单接收等与英文站共用，在「设置」里修改。这里只放中文站自己的内容，留空则沿用英文版。
+        fields:
+          - name: siteName
+            label: 网站名称
+            type: string
+          - name: legalName
+            label: 公司全称
+            type: string
+            description: 显示在页脚版权处。
+          - name: beian
+            label: ICP 备案号
+            type: string
+            description: 例如 浙ICP备XXXXXXXX号-1，显示在页脚并链接到工信部网站。
+          - name: siteUrl
+            label: 中文站域名
+            type: string
+            readonly: true
+          - name: tagline
+            label: 品牌标语
+            type: string
+          - name: defaultDescription
+            label: 默认搜索结果描述
+            type: text
+          - name: tracking
+            label: 追踪代码
+            type: object
+            fields:
+              - name: baiduId
+                label: 百度统计 ID
+                type: string
+                pattern:
+                  regex: ^([a-f0-9]{32})?$
+                  message: 百度统计代码里 hm.js? 后面那串 32 位字符
+                description: 国内访客无法加载 Google 统计，用百度统计看中文站数据。在百度统计新建站点后，复制代码里 hm.js? 后面的 32 位字符。
+          - name: consent
+            label: Cookie 横幅
+            type: object
+            fields:
+              - name: message
+                label: 横幅文字
+                type: text
+          - name: popup
+            label: 经销商招募弹窗
+            type: object
+            fields:
+              - name: eyebrow
+                label: 小标题
+                type: string
+              - name: title
+                label: 标题
+                type: string
+              - name: text
+                label: 说明
+                type: text
+              - name: button
+                label: 按钮文字
+                type: string
+          - name: contacts
+            label: 联系方式
+            type: object
+            fields:
+              - name: phone
+                label: 电话
+                type: string
+              - name: hours
+                label: 工作时间
+                type: string
+              - name: address
+                label: 总部地址
+                type: text
+          - name: offices
+            label: 办公室
+            type: object
+            list: true
+            fields:
+              - name: city
+                label: 城市
+                type: string
+              - name: country
+                label: 国家
+                type: string
+              - name: role
+                label: 职能
+                type: string
+          - name: social
+            label: 社交媒体
+            type: object
+            list: true
+            fields:
+              - name: label
+                label: 平台名称
+                type: string
+              - name: url
+                label: 链接
+                type: string
+      - name: zhSeo
+        label: 中文各页面 SEO
+        type: file
+        path: content/zh/seo.json
+        format: json
+        operations:
+          delete: false
+        fields:
+          - name: home
+            label: 首页
+            component: seo
+          - name: compare
+            label: 产品对比页
+            component: seo
+          - name: safety
+            label: 安全页
+            component: seo
+          - name: dealers
+            label: 经销商页
+            component: seo
+          - name: company
+            label: 公司页
+            component: seo
+          - name: contact
+            label: 联系页
+            component: seo
+          - name: newsroom
+            label: 新闻中心
+            component: seo
 
   # ------------------------------------------------------------------
   - name: config

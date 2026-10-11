@@ -1,7 +1,10 @@
 // One-off import of posts from the old WordPress site into content/news.
 //
 //   node scripts/import-wordpress.mjs [https://coolflyaircraft.com]
+//   node scripts/import-wordpress.mjs https://coolflyaircraft.net --lang=zh
 //
+// --lang=zh writes to content/zh/news. Posts whose slug is not ASCII (Chinese
+// titles) are named <date>-<post id>.
 // Writes one Markdown file per post, downloads cover and inline images into
 // public/assets/img/news (scaled to 1600px), and records each post's old URL
 // so redirects can be generated. Existing files are left untouched, so
@@ -15,8 +18,11 @@ import TurndownService from 'turndown';
 import YAML from 'yaml';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const source = (process.argv[2] || 'https://coolflyaircraft.com').replace(/\/$/, '');
-const newsDir = join(root, 'content', 'news');
+const args = process.argv.slice(2);
+const lang = (args.find((a) => a.startsWith('--lang=')) || '--lang=en').slice(7);
+const source = (args.find((a) => !a.startsWith('--')) || 'https://coolflyaircraft.com').replace(/\/$/, '');
+const newsDir = lang === 'en' ? join(root, 'content', 'news') : join(root, 'content', lang, 'news');
+const imgPrefix = lang === 'en' ? '' : `${lang}-`;
 const imgDir = join(root, 'public', 'assets', 'img', 'news');
 await mkdir(newsDir, { recursive: true });
 await mkdir(imgDir, { recursive: true });
@@ -58,9 +64,9 @@ const slugify = (s) =>
 // Keep URLs readable: at most ~70 characters, cut at a word boundary.
 const trimSlug = (s) => (s.length <= 70 ? s : s.slice(0, 70).replace(/-[^-]*$/, ''));
 
-const EVENT_WORDS = /expo|oshkosh|ifa|congress|airshow|umex|launch|ces\b|fair|show/i;
+const EVENT_WORDS = /expo|oshkosh|ifa|congress|airshow|umex|launch|ces\b|fair|show|亮相|博览会|展会|大会|发布会|峰会|论坛/i;
 
-const res = await fetch(`${source}/wp-json/wp/v2/posts?per_page=100&_embed=1`);
+const res = await fetchRetry(`${source}/wp-json/wp/v2/posts?per_page=100&_embed=1`);
 if (!res.ok) throw new Error(`WordPress API returned ${res.status}`);
 const posts = await res.json();
 console.log(`Found ${posts.length} posts on ${source}`);
@@ -68,26 +74,33 @@ console.log(`Found ${posts.length} posts on ${source}`);
 let added = 0;
 for (const post of posts) {
   const title = decode(post.title.rendered);
-  const slug = trimSlug(/^\d+(-\d+)?$/.test(post.slug) ? slugify(title) : post.slug);
+  const rawSlug = decodeURIComponent(post.slug);
+  const ascii = /^[a-z0-9-]+$/.test(rawSlug) && !/^\d+(-\d+)?$/.test(rawSlug);
+  const slug = ascii ? trimSlug(rawSlug) : lang === 'en' ? trimSlug(slugify(title)) : `${post.date.slice(0, 10)}-${post.id}`;
   const file = join(newsDir, `${slug}.md`);
   if (existsSync(file)) continue;
 
   const cats = (post._embedded?.['wp:term'] || []).flat().filter((t) => t.taxonomy === 'category').map((t) => t.name);
-  const category = cats.includes('CoolFly Science Popularization') ? 'Insights' : EVENT_WORDS.test(title) ? 'Events' : 'News';
+  const category = cats.some((c) => /Science Popularization|科普/.test(c)) ? 'Insights' : EVENT_WORDS.test(title) ? 'Events' : 'News';
 
   const coverUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
-  const cover = coverUrl ? await saveImage(coverUrl, `${slug}-cover`) : '';
+  const cover = coverUrl ? await saveImage(coverUrl, `${imgPrefix}${slug}-cover`) : '';
 
   let html = post.content.rendered;
   let n = 0;
   for (const [, url] of [...html.matchAll(/<img[^>]+src="([^"]+)"/g)]) {
-    const local = await saveImage(url, `${slug}-${++n}`);
+    const local = await saveImage(url, `${imgPrefix}${slug}-${++n}`);
     if (local) html = html.split(url).join(local);
   }
   // Drop srcset attributes that still point at the old site.
   html = html.replace(/\s(srcset|sizes)="[^"]*"/g, '');
 
-  let body = turndown.turndown(html).replace(/\n{3,}/g, '\n\n').trim();
+  let body = turndown.turndown(html)
+    // Nested <strong> tags become ****text****; adjacent ones **a****b**.
+    .replace(/(^|\s)\*{4}([^*\n]+?)\*{4}(?=\s|$)/gm, '$1**$2**')
+    .replace(/\*{4}/g, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
   // Many posts repeat their title as the first heading or line.
   const lines = body.split('\n');
   if (lines[0] && decode(lines[0].replace(/^#+\s*/, '')) === title) body = lines.slice(1).join('\n').trim();
@@ -103,7 +116,7 @@ for (const post of posts) {
     excerpt: excerpt.length === 220 ? `${excerpt.replace(/\s+\S*$/, '')}…` : excerpt,
     cover,
     coverAlt: '',
-    oldUrl: new URL(post.link).pathname,
+    oldUrl: decodeURI(new URL(post.link).pathname),
     published: true,
   };
   await writeFile(file, `---\n${YAML.stringify(front)}---\n\n${body}\n`);
@@ -113,8 +126,12 @@ for (const post of posts) {
 console.log(`Imported ${added} new post(s).`);
 
 async function saveImage(url, name) {
+  // Re-running the import reuses images that were already downloaded.
+  for (const ext of ['.jpg', '.webp', '.png', '.gif']) {
+    if (existsSync(join(imgDir, `${name}${ext}`))) return `/assets/img/news/${name}${ext}`;
+  }
   try {
-    const r = await fetch(encodeURI(decodeURI(url)));
+    const r = await fetchRetry(encodeURI(decodeURI(url)));
     if (!r.ok) throw new Error(String(r.status));
     const input = Buffer.from(await r.arrayBuffer());
     let ext = extname(new URL(url).pathname).toLowerCase() || '.jpg';
@@ -137,5 +154,18 @@ async function saveImage(url, name) {
   } catch (err) {
     console.warn(`    image skipped (${err.message}): ${url}`);
     return '';
+  }
+}
+
+// Cross-border requests drop now and then; retry with back-off.
+async function fetchRetry(url, tries = 4) {
+  for (let i = 0; ; i++) {
+    try {
+      const r = await fetch(url, { signal: AbortSignal.timeout(90000) });
+      if (r.ok || i >= tries - 1) return r;
+    } catch (err) {
+      if (i >= tries - 1) throw err;
+    }
+    await new Promise((done) => setTimeout(done, 2000 * 2 ** i));
   }
 }

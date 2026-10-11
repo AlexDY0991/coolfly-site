@@ -6,6 +6,11 @@ const CONFIG = window.COOLFLY || {};
 const POPUP_KEY = 'coolfly-dealer-popup';
 const CONSENT_KEY = 'coolfly-consent';
 const ATTRIBUTION_KEY = 'coolfly-attribution';
+const LANG_KEY = 'coolfly_lang';
+
+// Interface text in the page language (src/i18n.mjs -> client).
+const T = CONFIG.t || {};
+const text = (key, vars = {}) => (T[key] || key).replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? '');
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const header = document.querySelector('.site-header');
@@ -84,7 +89,7 @@ const mobileMenu = document.getElementById('mobile-menu');
 function setMobile(open, returnFocus = false) {
   if (!menuButton || !mobileMenu) return;
   menuButton.setAttribute('aria-expanded', String(open));
-  menuButton.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  menuButton.setAttribute('aria-label', open ? menuButton.dataset.labelClose : menuButton.dataset.labelOpen);
   mobileMenu.hidden = !open;
   header.classList.toggle('is-open', open);
   document.body.style.overflow = open ? 'hidden' : '';
@@ -347,7 +352,11 @@ const store = {
 /* ---------- Analytics events (read by Google Tag Manager) ---------- */
 
 window.dataLayer = window.dataLayer || [];
-const track = (event, params = {}) => window.dataLayer.push({ event, ...params });
+const track = (event, params = {}) => {
+  window.dataLayer.push({ event, ...params });
+  // Baidu Tongji (Chinese site): mirror the same events when it is installed.
+  if (Array.isArray(window._hmt)) window._hmt.push(['_trackEvent', event, params.cta_name || params.form_name || params.lead_type || '', params.link_url || location.pathname]);
+};
 
 // Links and buttons with data-track="name" send a "cta_click" event.
 document.addEventListener('click', (e) => {
@@ -532,7 +541,7 @@ document.querySelectorAll('form[data-form]').forEach((form) => {
       invalid[0].focus();
       const consent = invalid.find((el) => el.name === 'consent');
       setStatus(
-        consent && invalid.length === 1 ? 'Please tick the consent box so we can store your details.' : 'Please complete the highlighted fields.',
+        consent && invalid.length === 1 ? text('consentRequired') : text('completeFields'),
         'error'
       );
       return;
@@ -540,7 +549,7 @@ document.querySelectorAll('form[data-form]').forEach((form) => {
 
     const fallback = forms.fallbackEmail?.[type] || forms.fallbackEmail?.contact || '';
     if (!forms.provider || forms.provider === 'none') {
-      setStatus(`This form is not connected yet. Please email ${fallback} instead.`, 'error');
+      setStatus(text('notConnected', { email: fallback }), 'error');
       return;
     }
 
@@ -551,7 +560,7 @@ document.querySelectorAll('form[data-form]').forEach((form) => {
     const data = { ...fields, form: type, form_source: source, page: location.pathname, ...attribution };
     const submit = form.querySelector('[type="submit"]');
     submit.disabled = true;
-    setStatus('Sending…');
+    setStatus(text('sending'));
     try {
       if (forms.provider === 'hubspot') await sendToHubspot(type, { ...fields, ...attribution, form_source: source });
       else await sendToWebhook(data);
@@ -571,11 +580,11 @@ document.querySelectorAll('form[data-form]').forEach((form) => {
       track('generate_lead', { form_name: type, form_source: source, aircraft: fields.model || [].concat(fields.models || []).join(',') || '', eventCallback: once, eventTimeout: 1500 });
       setTimeout(once, CONFIG.gtm ? 1600 : 0);
       form.reset();
-      setStatus('Thank you. Your message has been sent and our team will be in touch.', 'ok');
+      setStatus(text('sent'), 'ok');
       if (form.closest('dialog')) setTimeout(() => form.closest('dialog').close(), 2500);
     } catch (err) {
       track('form_error', { form_name: type, form_source: source, error: String(err.message).slice(0, 100) });
-      setStatus(`Sending failed. Please try again, or email ${fallback}.`, 'error');
+      setStatus(text('failed', { email: fallback }), 'error');
     } finally {
       submit.disabled = false;
     }
@@ -585,9 +594,61 @@ document.querySelectorAll('form[data-form]').forEach((form) => {
 // Thank-you page: tailor the message to the form that was sent.
 const thanksText = document.querySelector('[data-thanks-text]');
 if (thanksText && store.get('sessionStorage', 'coolfly-last-form') === 'dealer') {
-  thanksText.textContent = 'Our partnerships team has your application and will contact you by email.';
+  thanksText.textContent = text('thanksDealer');
 }
 
 document.querySelectorAll('[data-year]').forEach((el) => {
   el.textContent = String(new Date().getFullYear());
 });
+
+/* ---------- Language choice ---------- */
+
+// The domains redirect by visitor location (see docs/运营手册.md). A visitor
+// who picks a language with the switch keeps it: ?lang=xx is remembered in a
+// cookie that the redirect rules respect, then removed from the address bar.
+const rememberLang = (code) => {
+  document.cookie = `${LANG_KEY}=${code}; max-age=31536000; path=/; SameSite=Lax${location.protocol === 'https:' ? '; Secure' : ''}`;
+  store.set('localStorage', LANG_KEY, code);
+};
+const langParams = new URLSearchParams(location.search);
+if (langParams.has('lang')) {
+  rememberLang(langParams.get('lang') === 'zh' ? 'zh' : 'en');
+  langParams.delete('lang');
+  const query = langParams.toString();
+  history.replaceState(history.state, '', location.pathname + (query ? `?${query}` : '') + location.hash);
+}
+document.querySelectorAll('[data-lang-switch]').forEach((link) =>
+  link.addEventListener('click', () => {
+    rememberLang(link.dataset.langSwitch);
+    track('language_switch', { cta_name: `lang_${link.dataset.langSwitch}`, link_url: link.href });
+  })
+);
+
+// If the browser language differs from this site and no choice was made yet,
+// offer the other language once (never redirect automatically).
+const chosen = store.get('localStorage', LANG_KEY) || /(?:^|; )coolfly_lang=/.test(document.cookie);
+const browserZh = (navigator.languages || [navigator.language]).some((l) => /^zh/i.test(l || ''));
+const prefersOther = CONFIG.lang === 'en' ? browserZh && /^zh/i.test(navigator.language || '') : !browserZh;
+if (!chosen && prefersOther && CONFIG.switchHref && !store.get('sessionStorage', 'coolfly-lang-hint')) {
+  const bar = document.createElement('div');
+  bar.className = 'lang-hint';
+  bar.setAttribute('role', 'region');
+  bar.setAttribute('aria-label', T.suggestText || '');
+  bar.lang = CONFIG.otherLang === 'zh' ? 'zh-Hans' : 'en';
+  bar.innerHTML = `<p></p><a class="btn btn--primary btn--sm"></a><button class="lang-hint__close" type="button"></button>`;
+  bar.querySelector('p').textContent = T.suggestText || '';
+  const go = bar.querySelector('a');
+  go.href = CONFIG.switchHref;
+  go.textContent = T.suggest || '';
+  go.dataset.langSwitch = CONFIG.otherLang;
+  go.addEventListener('click', () => rememberLang(CONFIG.otherLang));
+  const close = bar.querySelector('button');
+  close.setAttribute('aria-label', T.dismiss || '');
+  close.textContent = '×';
+  close.addEventListener('click', () => {
+    rememberLang(CONFIG.lang);
+    bar.remove();
+  });
+  store.set('sessionStorage', 'coolfly-lang-hint', '1');
+  document.body.append(bar);
+}

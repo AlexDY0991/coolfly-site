@@ -1,4 +1,5 @@
 import { aircraft, home, seo } from '../content.mjs';
+import { t } from '../i18n.mjs';
 import { button, dealerBand, esc, eyebrow, icon } from '../partials/ui.mjs';
 
 export const meta = {
@@ -22,7 +23,7 @@ export function render() {
     <div class="boot__reticle"><span></span><span></span><span></span><span></span></div>
     <img class="boot__logo" src="assets/img/logo-light.png" alt="" width="200" height="42">
     <div class="boot__bar"><span></span></div>
-    <p class="boot__status"><span>NA80 systems check</span><span data-boot-count>000</span></p>
+    <p class="boot__status"><span>${esc(t('home.bootStatus'))}</span><span data-boot-count>000</span></p>
   </div>
 </div>
 <script>
@@ -46,7 +47,7 @@ export function render() {
   })();
 </script>
 
-<section class="hero" aria-label="Introduction">
+<section class="hero" aria-label="${esc(t('home.introLabel'))}">
   <video class="hero__video" autoplay muted loop playsinline preload="metadata" poster="${esc(hero.poster)}" aria-hidden="true">
     <source src="assets/video/hero-1080.mp4" type="video/mp4" media="(min-width: 900px)">
     <source src="assets/video/hero-720.mp4" type="video/mp4">
@@ -67,10 +68,10 @@ export function render() {
     </div>
   </div>
   <div class="container hero__foot">
-    <span class="hero__scroll">Scroll</span>
+    <span class="hero__scroll">${esc(t('common.scroll'))}</span>
     <button class="video-toggle" type="button" aria-pressed="false" data-video-toggle>
-      <span class="video-toggle__pause">${icon('pause')}Pause film</span>
-      <span class="video-toggle__play">${icon('play')}Play film</span>
+      <span class="video-toggle__pause">${icon('pause')}${esc(t('common.pauseFilm'))}</span>
+      <span class="video-toggle__play">${icon('play')}${esc(t('common.playFilm'))}</span>
     </button>
   </div>
 </section>
@@ -117,7 +118,7 @@ export function render() {
   <div class="container">
     <div class="section-head section-head--row" data-reveal>
       <h2>${esc(home.lineupTitle)}</h2>
-      <a class="text-link" href="compare.html">Compare models${icon('arrow')}</a>
+      <a class="text-link" href="compare.html">${esc(t('common.compareModels'))}${icon('arrow')}</a>
     </div>
     <div class="lineup__grid">
       ${aircraft.map(lineupCard).join('')}
@@ -133,15 +134,15 @@ export function render() {
     </div>
     <div class="fc" data-reveal>
       <div class="fc__frame">
-        <img src="assets/img/flight-controller.jpg" alt="Two CoolFly flight controllers installed side by side" loading="lazy" width="1100" height="1467">
-        <span class="fc__spot fc__spot--a"><span class="fc__dot"></span><span class="fc__label">Flight controller 1</span></span>
-        <span class="fc__spot fc__spot--b"><span class="fc__dot"></span><span class="fc__label">Flight controller 2</span></span>
+        <img src="assets/img/flight-controller.jpg" alt="${esc(t('home.fcAlt'))}" loading="lazy" width="1100" height="1467">
+        <span class="fc__spot fc__spot--a"><span class="fc__dot"></span><span class="fc__label">${esc(t('home.fc1'))}</span></span>
+        <span class="fc__spot fc__spot--b"><span class="fc__dot"></span><span class="fc__label">${esc(t('home.fc2'))}</span></span>
       </div>
       <ul class="fc__points">
         ${safety.points.map((p, i) => `<li><span>0${i + 1}</span>${esc(p)}</li>`).join('')}
       </ul>
     </div>
-    <div class="callouts__more" data-reveal>${button('Safety & technology', 'safety.html', 'ghost-light')}</div>
+    <div class="callouts__more" data-reveal>${button(t('common.safetyTech'), 'safety.html', 'ghost-light')}</div>
   </div>
 </section>
 

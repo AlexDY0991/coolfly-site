@@ -117,7 +117,7 @@ CoolFly makes flight safe with “six-redundancy” systems. This means even if 
 
 In the next few years, we will see more “flying camps.” These will be like golf courses but for electric vtol aircraft. They will have staff, charging, and clear paths. This will make the hobby even easier for everyone.
 
-## **I****n the Future**
+## **In the Future**
 
 Flying a CoolFly aircraft is an amazing experience. To do it right, choose open spaces in the suburbs. Stay away from restricted zones. Always talk to local authorities a few days early.
 

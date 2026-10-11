@@ -1,0 +1,100 @@
+{
+  "slug": "urban",
+  "name": "Urban",
+  "fullName": "酷飞 Urban",
+  "stance": "站姿",
+  "tagline": "随心而飞。",
+  "summary": "站姿飞行，封闭式桨扇动力，重心感应操控。",
+  "lineup": "站姿飞行，倾身即转向。",
+  "cardFacts": "站姿飞行 · 封闭式桨扇动力",
+  "imageAlt": "酷飞 Urban 站姿飞行器，斜前方视角",
+  "heroAlt": "飞行员驾驶酷飞 Urban 低空掠过湖面",
+  "galleryAlt": "Urban 在停泊船只附近的湖面上悬停",
+  "keyFigures": [
+    {
+      "value": "11",
+      "unit": "分钟",
+      "label": "飞行时间*"
+    },
+    {
+      "value": "90",
+      "unit": "kg",
+      "label": "飞行员体重上限"
+    },
+    {
+      "value": "IP65",
+      "unit": "",
+      "label": "防水防尘"
+    }
+  ],
+  "story": [
+    {
+      "title": "用身体操控",
+      "text": "身体倾斜即可转向。松开双手，NA80 飞控自动保持悬停。"
+    },
+    {
+      "title": "封闭式桨扇动力",
+      "text": "每一片桨叶都在防护涵道内旋转，360° 防护网全方位守护。"
+    }
+  ],
+  "safety": [
+    "借鉴赛车设计的空间桁架安全舱",
+    "单个电机失效后仍可安全飞行",
+    "一键悬停与应急功能",
+    "电池与动力系统冗余",
+    "弹射式整机降落伞，快速开伞",
+    "雷达辅助自动降落"
+  ],
+  "specs": [
+    {
+      "key": "configuration",
+      "label": "构型",
+      "value": "多旋翼，封闭式桨扇动力"
+    },
+    {
+      "key": "flightTime",
+      "label": "飞行时间",
+      "value": "11 分钟*"
+    },
+    {
+      "key": "payload",
+      "label": "飞行员体重上限",
+      "value": "90 kg"
+    },
+    {
+      "key": "dimensions",
+      "label": "尺寸（长 × 宽 × 高）",
+      "value": "2200 × 2200 × 1768 mm"
+    },
+    {
+      "key": "ip",
+      "label": "防护等级",
+      "value": "IP65"
+    },
+    {
+      "key": "sensors",
+      "label": "传感器",
+      "value": "航空级 IMU"
+    },
+    {
+      "key": "flightControl",
+      "label": "飞控",
+      "value": "NA80 双余度飞控"
+    },
+    {
+      "key": "applications",
+      "label": "适用场景",
+      "value": "文旅观光、户外休闲、水岸、应急救援"
+    }
+  ],
+  "certs": [
+    {
+      "image": "/assets/img/cert-urban-ce.jpg",
+      "label": "CE 符合性声明"
+    },
+    {
+      "image": "/assets/img/cert-urban-fcc.jpg",
+      "label": "FCC 供应商符合性声明"
+    }
+  ]
+}

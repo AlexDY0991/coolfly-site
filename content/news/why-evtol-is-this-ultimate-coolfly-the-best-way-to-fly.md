@@ -56,7 +56,7 @@ When you stand on a flying platform, you might worry about the spinning blades. 
 
 Coolfly has observed many drone designs in my research. Open rotors are very scary for normal people. Hiding the blades makes the stand-up experience feel safe and relaxed. The aircraft also features an AI intelligent path-planning system. It watches the sky for birds and power lines. It automatically steers the board away from danger. You are just the passenger. The AI is the actual pilot.
 
-## **Owning the Low****\-Altitude View**
+## **Owning the Low\-Altitude View**
 
   
 Where will you actually fly this machine? Big companies want to fly you between different cities. Coolfly targets a completely different space. We focus on the low-altitude economy. This means flying between zero and thirty meters above the ground.

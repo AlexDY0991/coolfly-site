@@ -1,0 +1,110 @@
+{
+  "slug": "dream-st",
+  "name": "Dream ST",
+  "fullName": "酷飞 Dream ST",
+  "stance": "坐姿",
+  "tagline": "轻，所以简单。",
+  "summary": "最轻的酷飞坐姿飞行器，T800 碳纤维机身。",
+  "lineup": "坐姿飞行，最轻的 Dream。",
+  "cardFacts": "100 km/h · 16 分钟 · ≤114 kg",
+  "imageAlt": "酷飞 Dream ST 坐姿飞行器，橙色与碳纤维配色",
+  "heroAlt": "日落时分，酷飞 Dream 沿岩石海岸线飞行",
+  "galleryAlt": "飞行中的酷飞 Dream 座舱特写",
+  "keyFigures": [
+    {
+      "value": "100",
+      "unit": "km/h",
+      "label": "最高速度（限速）"
+    },
+    {
+      "value": "16",
+      "unit": "分钟",
+      "label": "飞行时间*"
+    },
+    {
+      "value": "≤114",
+      "unit": "kg",
+      "label": "整机重量"
+    }
+  ],
+  "story": [
+    {
+      "title": "四轴八桨",
+      "text": "任意一个电机失效，其余七个继续稳定飞行。"
+    },
+    {
+      "title": "关键时刻，智能接管",
+      "text": "AI 智能操控，雷达辅助自动降落。"
+    }
+  ],
+  "safety": [
+    "航空级 T800 碳纤维结构",
+    "单个电机失效后仍可安全飞行",
+    "AI 智能操控",
+    "三余度 IMU",
+    "弹射式整机降落伞，快速开伞",
+    "雷达辅助自动降落"
+  ],
+  "specs": [
+    {
+      "key": "configuration",
+      "label": "构型",
+      "value": "多旋翼，四轴八桨"
+    },
+    {
+      "key": "topSpeed",
+      "label": "最高速度",
+      "value": "100 km/h（限速）"
+    },
+    {
+      "key": "flightTime",
+      "label": "飞行时间",
+      "value": "16 分钟*"
+    },
+    {
+      "key": "payload",
+      "label": "最大载重",
+      "value": "95 kg"
+    },
+    {
+      "key": "weight",
+      "label": "整机重量",
+      "value": "≤ 114 kg"
+    },
+    {
+      "key": "dimensions",
+      "label": "尺寸（长 × 宽 × 高）",
+      "value": "3500 × 3569 × 1182 mm"
+    },
+    {
+      "key": "ip",
+      "label": "防护等级",
+      "value": "IP65"
+    },
+    {
+      "key": "sensors",
+      "label": "传感器",
+      "value": "航空级 IMU"
+    },
+    {
+      "key": "flightControl",
+      "label": "飞控",
+      "value": "NA80 双余度飞控"
+    },
+    {
+      "key": "applications",
+      "label": "适用场景",
+      "value": "文旅观光、户外休闲、城市空中交通、应急救援"
+    }
+  ],
+  "certs": [
+    {
+      "image": "/assets/img/cert-dream-st-ce.jpg",
+      "label": "CE 符合性声明"
+    },
+    {
+      "image": "/assets/img/cert-dream-st-fcc.jpg",
+      "label": "FCC 供应商符合性声明"
+    }
+  ]
+}

@@ -1,9 +1,9 @@
 // Generates one page per aircraft from content/aircraft/*.json.
 
-export const flightTimeNote =
-  'Flight time is based on piloted flight testing with a 70 kg pilot. Actual flight time varies with payload, operating conditions and flight profile.';
+export const flightTimeNote = t('aircraft.flightTimeNote');
 
 import { aircraft, settings } from '../content.mjs';
+import { t } from '../i18n.mjs';
 import { button, dealerBand, esc, eyebrow, icon } from '../partials/ui.mjs';
 
 export const pages = aircraft.map((a) => ({
@@ -27,12 +27,12 @@ function render(a) {
   <img class="product-hero__img" src="${a.heroImage}" alt="${esc(a.heroAlt)}" width="1920" height="1080" data-parallax>
   <div class="product-hero__shade"></div>
   <div class="container product-hero__content">
-    <p class="eyebrow product-hero__eyebrow">${esc(a.stance)} · Single seat · Electric</p>
+    <p class="eyebrow product-hero__eyebrow">${esc(t('aircraft.heroMeta', { stance: a.stance }))}</p>
     <h1 class="product-hero__title"><span class="line"><span>${esc(a.name)}</span></span></h1>
     <p class="product-hero__tagline">${esc(a.tagline)}</p>
     <div class="actions product-hero__actions">
-      ${button('Find a dealer', 'dealers.html#regions', 'primary', ' data-track="find_dealer"')}
-      ${button('Request a demo flight', `contact.html?topic=demo&model=${a.slug}#sales`, 'ghost-light', ' data-track="request_demo"')}
+      ${button(t('common.findDealer'), 'dealers.html#regions', 'primary', ' data-track="find_dealer"')}
+      ${button(t('common.requestDemo'), `contact.html?topic=demo&model=${a.slug}#sales`, 'ghost-light', ' data-track="request_demo"')}
     </div>
   </div>
 </section>
@@ -69,8 +69,8 @@ function render(a) {
 <section class="section section--night product-safety">
   <div class="container">
     <div class="section-head section-head--row" data-reveal>
-      <h2>Designed so one problem doesn’t become the problem.</h2>
-      <a class="text-link" href="safety.html">Safety & technology${icon('arrow')}</a>
+      <h2>${esc(t('aircraft.safetyTitle'))}</h2>
+      <a class="text-link" href="safety.html">${esc(t('common.safetyTech'))}${icon('arrow')}</a>
     </div>
     <ol class="safety-grid">
       ${a.safety.map((s) => `<li data-reveal><span class="safety-grid__mark">${icon('check')}</span>${esc(s)}</li>`).join('')}
@@ -81,10 +81,10 @@ function render(a) {
 <section class="section specs" id="specs">
   <div class="container specs__grid">
     <div class="specs__head" data-reveal>
-      ${eyebrow('Specifications')}
-      <h2>${esc(a.name)} at a glance</h2>
+      ${eyebrow(t('aircraft.specs'))}
+      <h2>${esc(t('aircraft.atAGlance', { name: a.name }))}</h2>
       <p class="footnote">* ${esc(flightTimeNote)}</p>
-      <a class="text-link" href="compare.html">Compare models${icon('arrow')}</a>
+      <a class="text-link" href="compare.html">${esc(t('common.compareModels'))}${icon('arrow')}</a>
     </div>
     <dl class="spec-table" data-reveal>
       ${a.specs.map((s) => `<div><dt>${esc(s.label)}</dt><dd>${esc(s.value)}</dd></div>`).join('')}
@@ -95,9 +95,9 @@ function render(a) {
 <section class="section section--mist conformity">
   <div class="container conformity__grid">
     <div data-reveal>
-      ${eyebrow('Product conformity')}
-      <h2>CE and FCC declarations</h2>
-      <p>Electromagnetic compatibility for Europe and the US. Aviation rules are separate: see <a href="safety.html#rules">flying legally</a>.</p>
+      ${eyebrow(t('aircraft.conformity'))}
+      <h2>${esc(t('aircraft.conformityTitle'))}</h2>
+      <p>${esc(t('aircraft.conformityText'))} <a href="safety.html#rules">${esc(t('aircraft.flyingLegally'))}</a>.</p>
     </div>
     <div class="conformity__docs" data-reveal>
       ${a.certs.map((c) => `<figure><img src="${esc(c.image)}" alt="${esc(`${a.name} ${c.label}`)}" loading="lazy" width="640" height="905"><figcaption>${esc(c.label)}</figcaption></figure>`).join('')}
@@ -107,7 +107,7 @@ function render(a) {
 
 <section class="section others">
   <div class="container">
-    <div class="section-head" data-reveal><h2>Other CoolFly aircraft</h2></div>
+    <div class="section-head" data-reveal><h2>${esc(t('aircraft.others'))}</h2></div>
     <div class="others__grid">
       ${others
         .map(
@@ -123,7 +123,7 @@ function render(a) {
   </div>
 </section>
 
-${dealerBand({ title: `Sell ${a.name} in your region.` })}`;
+${dealerBand({ title: t('aircraft.sellIn', { name: a.name }) })}`;
 }
 
 // Animate plain numbers; leave values such as "IP65" or "≤114" as text.

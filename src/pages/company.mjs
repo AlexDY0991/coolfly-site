@@ -1,5 +1,6 @@
 import { company, milestones, news, seo, settings } from '../content.mjs';
 import { newsCard } from './newsroom.mjs';
+import { t } from '../i18n.mjs';
 import { dealerBand, esc, eyebrow, icon } from '../partials/ui.mjs';
 
 export const meta = {
@@ -16,11 +17,11 @@ export function render() {
 <section class="page-head page-head--split">
   <div class="container page-head__grid">
     <div>
-      ${eyebrow('About CoolFly')}
+      ${eyebrow(t('company.eyebrow'))}
       <h1>${esc(company.title)}</h1>
       <p class="lede">${esc(company.lede)}</p>
     </div>
-    <img src="${esc(company.image)}" alt="CoolFly headquarters building in Hangzhou" width="1100" height="1467">
+    <img src="${esc(company.image)}" alt="${esc(t('company.hqAlt'))}" width="1100" height="1467">
   </div>
 </section>
 
@@ -37,17 +38,17 @@ export function render() {
 <section class="milestones" id="milestones" data-hscroll>
   <div class="milestones__sticky">
     <div class="container milestones__head">
-      ${eyebrow('Milestones')}
-      <h2>From flight controllers to aircraft</h2>
+      ${eyebrow(t('company.milestonesEyebrow'))}
+      <h2>${esc(t('company.milestonesTitle'))}</h2>
     </div>
     <div class="milestones__viewport">
       <ol class="milestones__track">
         ${milestones
           .map(
-            (t) => `<li class="ms" data-reveal>
+            (m) => `<li class="ms" data-reveal>
             <span class="ms__node" aria-hidden="true"></span>
-            <span class="ms__year">${esc(t.year)}</span>
-            <ul class="ms__events">${(t.events || []).map((e) => `<li>${esc(e)}</li>`).join('')}</ul>
+            <span class="ms__year">${esc(m.year)}</span>
+            <ul class="ms__events">${(m.events || []).map((e) => `<li>${esc(e)}</li>`).join('')}</ul>
           </li>`
           )
           .join('')}
@@ -60,8 +61,8 @@ export function render() {
 <section class="section section--mist">
   <div class="container">
     <div class="section-head" data-reveal>
-      ${eyebrow('Offices')}
-      <h2>Where to find us</h2>
+      ${eyebrow(t('company.officesEyebrow'))}
+      <h2>${esc(t('company.officesTitle'))}</h2>
     </div>
     <ul class="offices">
       ${settings.offices.map((o) => `<li data-reveal><h3>${esc(o.city)}</h3><p>${esc(o.country)}</p><p class="offices__role">${esc(o.role)}</p></li>`).join('')}
@@ -74,8 +75,8 @@ ${
     ? `<section class="section news">
   <div class="container">
     <div class="section-head section-head--row" data-reveal>
-      <h2>Recent news</h2>
-      <a class="text-link" href="newsroom.html">All news${icon('arrow')}</a>
+      <h2>${esc(t('company.recentNews'))}</h2>
+      <a class="text-link" href="newsroom.html">${esc(t('common.allNews'))}${icon('arrow')}</a>
     </div>
     <div class="news__grid">
       ${news.slice(0, 3).map(newsCard).join('')}

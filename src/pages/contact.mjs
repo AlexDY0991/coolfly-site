@@ -1,7 +1,8 @@
 import { aircraft, seo, settings } from '../content.mjs';
+import { t } from '../i18n.mjs';
+import { esc, eyebrow, icon } from '../partials/ui.mjs';
 
 const { contacts, offices } = settings;
-import { esc, eyebrow, icon } from '../partials/ui.mjs';
 
 export const meta = {
   slug: 'contact',
@@ -17,9 +18,9 @@ export function render() {
   return `
 <section class="page-head">
   <div class="container">
-    ${eyebrow('Contact')}
-    <h1>Talk to CoolFly</h1>
-    <p class="lede">Choose the team that fits your question, or send a message below and we will route it for you.</p>
+    ${eyebrow(t('contact.eyebrow'))}
+    <h1>${esc(t('contact.title'))}</h1>
+    <p class="lede">${esc(t('contact.lede'))}</p>
   </div>
 </section>
 
@@ -27,18 +28,18 @@ export function render() {
   <div class="container">
     <ul class="routes">
       <li id="sales">
-        <h2>Dealers &amp; partnerships</h2>
-        <p>Becoming a dealer, distribution, demonstration flights and commercial operations.</p>
+        <h2>${esc(t('contact.salesTitle'))}</h2>
+        <p>${esc(t('contact.salesText'))}</p>
         <a href="mailto:${contacts.business}" data-track="email_click">${contacts.business}</a>
       </li>
       <li>
-        <h2>Customer support</h2>
-        <p>Owners and pilots with questions about their aircraft, service or training.</p>
+        <h2>${esc(t('contact.supportTitle'))}</h2>
+        <p>${esc(t('contact.supportText'))}</p>
         <a href="mailto:${contacts.support}" data-track="email_click">${contacts.support}</a>
       </li>
       <li>
-        <h2>Press &amp; media</h2>
-        <p>Interviews, images, film and event requests.</p>
+        <h2>${esc(t('contact.pressTitle'))}</h2>
+        <p>${esc(t('contact.pressText'))}</p>
         <a href="mailto:${contacts.press}" data-track="email_click">${contacts.press}</a>
       </li>
     </ul>
@@ -48,50 +49,45 @@ export function render() {
 <section class="section section--mist">
   <div class="container contact">
     <div class="contact__info">
-      ${eyebrow('Headquarters')}
-      <h2>Hangzhou, China</h2>
+      ${eyebrow(t('contact.hq'))}
+      <h2>${esc(t('contact.hqCity'))}</h2>
       <p>${esc(contacts.address)}</p>
       <dl class="contact__list">
-        <div><dt>Phone</dt><dd>${esc(contacts.phone)}</dd></div>
-        <div><dt>Hours</dt><dd>${esc(contacts.hours)}</dd></div>
+        <div><dt>${esc(t('contact.phone'))}</dt><dd>${esc(contacts.phone)}</dd></div>
+        <div><dt>${esc(t('contact.hours'))}</dt><dd>${esc(contacts.hours)}</dd></div>
       </dl>
-      <h3 class="contact__sub">Offices</h3>
+      <h3 class="contact__sub">${esc(t('contact.offices'))}</h3>
       <ul class="contact__offices">
         ${offices.map((o) => `<li><strong>${esc(o.city)}</strong> ${esc(o.role)}</li>`).join('')}
       </ul>
     </div>
     <form class="form" data-form="contact" novalidate>
       <div class="field">
-        <label for="c-topic">What is this about?</label>
+        <label for="c-topic">${esc(t('form.topic'))}</label>
         <select id="c-topic" name="topic" required>
-          <option value="">Choose a topic</option>
-          <option value="dealer">Becoming a dealer</option>
-          <option value="demo">Demonstration flight</option>
-          <option value="buy">Buying an aircraft</option>
-          <option value="support">Owner support</option>
-          <option value="press">Press</option>
-          <option value="other">Something else</option>
+          <option value="">${esc(t('form.chooseTopic'))}</option>
+          ${t('form.topics').map(([v, l]) => `<option value="${v}">${esc(l)}</option>`).join('')}
         </select>
       </div>
       <div class="field">
-        <label for="c-model">Aircraft (optional)</label>
+        <label for="c-model">${esc(t('form.aircraftOptional'))}</label>
         <select id="c-model" name="model">
-          <option value="">Not sure yet</option>
+          <option value="">${esc(t('form.notSure'))}</option>
           ${aircraft.map((a) => `<option value="${a.slug}">${esc(a.name)}</option>`).join('')}
         </select>
       </div>
       <div class="form__row">
-        <div class="field"><label for="c-name">Name</label><input id="c-name" name="name" required autocomplete="name"></div>
-        <div class="field"><label for="c-email">Email</label><input id="c-email" name="email" type="email" required autocomplete="email"></div>
+        <div class="field"><label for="c-name">${esc(t('form.name'))}</label><input id="c-name" name="name" required autocomplete="name"></div>
+        <div class="field"><label for="c-email">${esc(t('form.email'))}</label><input id="c-email" name="email" type="email" required autocomplete="email"></div>
       </div>
       <div class="form__row">
-        <div class="field"><label for="c-phone">Phone</label><input id="c-phone" name="phone" type="tel" autocomplete="tel"></div>
-        <div class="field"><label for="c-country">Country</label><input id="c-country" name="country" required autocomplete="country-name"></div>
+        <div class="field"><label for="c-phone">${esc(t('form.phone'))}</label><input id="c-phone" name="phone" type="tel" autocomplete="tel"></div>
+        <div class="field"><label for="c-country">${esc(t('form.country'))}</label><input id="c-country" name="country" required autocomplete="country-name"></div>
       </div>
-      <div class="field"><label for="c-message">Message</label><textarea id="c-message" name="message" rows="5" required></textarea></div>
-      <label class="check check--consent"><input type="checkbox" name="consent" required> I agree that CoolFly may store these details to reply to my enquiry.</label>
+      <div class="field"><label for="c-message">${esc(t('form.message'))}</label><textarea id="c-message" name="message" rows="5" required></textarea></div>
+      <label class="check check--consent"><input type="checkbox" name="consent" required> ${esc(t('common.consent'))}</label>
       <div class="form__actions">
-        <button class="btn btn--primary" type="submit">Send message${icon('arrow')}</button>
+        <button class="btn btn--primary" type="submit">${esc(t('form.sendMessage'))}${icon('arrow')}</button>
         <p class="form__status" role="status" aria-live="polite"></p>
       </div>
     </form>

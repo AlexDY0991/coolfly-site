@@ -1,45 +1,68 @@
 import { aircraft, settings, textPages } from '../content.mjs';
+import { clientStrings, lang, langLabel, otherLang, t } from '../i18n.mjs';
 import { esc, icon } from './ui.mjs';
 
 // Regions where analytics and ad cookies stay off until the visitor accepts
 // (EEA, UK, Switzerland). Elsewhere they default to on and can be rejected.
 const CONSENT_REGIONS = ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IS', 'IE', 'IT', 'LV', 'LI', 'LT', 'LU', 'MT', 'NL', 'NO', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'GB', 'CH'];
 
+const preview = Boolean(process.env.SITE_PREVIEW);
+const pagePath = (slug) => (slug === 'index' ? '' : `${slug}.html`);
+const languageUrl = (code) => (settings.languages?.[code]?.url || settings.siteUrl).replace(/\/$/, '');
+
+// Link to the same page in the other language. Previews keep both languages
+// on one host (/ and /zh/); live sites use each language's own domain and
+// pass ?lang= so the visitor's choice is remembered there.
+function switchHref(slug) {
+  const path = pagePath(slug);
+  if (preview) return lang === 'en' ? `${otherLang}/${path}` : `../${path}`;
+  return `${languageUrl(otherLang)}/${path}?lang=${otherLang}`;
+}
+
 const nav = () => [
   {
-    label: 'Aircraft',
+    label: t('nav.aircraft'),
     key: 'aircraft',
     href: 'compare.html',
     children: [
       ...aircraft.map((a) => ({ label: a.name, note: a.stance, href: `${a.slug}.html` })),
-      { label: 'Compare models', note: '', href: 'compare.html' },
+      { label: t('nav.compare'), note: '', href: 'compare.html' },
     ],
   },
-  { label: 'Safety', key: 'safety', href: 'safety.html' },
-  { label: 'Dealers', key: 'dealers', href: 'dealers.html' },
-  { label: 'News', key: 'news', href: 'newsroom.html' },
-  { label: 'Company', key: 'company', href: 'company.html' },
-  { label: 'Contact', key: 'contact', href: 'contact.html' },
+  { label: t('nav.safety'), key: 'safety', href: 'safety.html' },
+  { label: t('nav.dealers'), key: 'dealers', href: 'dealers.html' },
+  { label: t('nav.news'), key: 'news', href: 'newsroom.html' },
+  { label: t('nav.company'), key: 'company', href: 'company.html' },
+  { label: t('nav.contact'), key: 'contact', href: 'contact.html' },
 ];
 
 // meta: { slug, title, description, image, nav, header: 'overlay' | 'solid',
-//         popup, noindex, minimalHeader, headerCta, preloadImage, jsonLd, ogType }
+//         popup, noindex, minimalHeader, headerCta, preloadImage, jsonLd,
+//         ogType, alt (slug of the matching page in the other language, or
+//         null when there is none) }
 export function layout(meta, main) {
   const site = settings;
-  const base = site.siteUrl.replace(/\/$/, '');
-  const title = meta.title ? `${meta.title} | ${site.siteName}` : `${site.siteName} | Personal electric aircraft`;
+  const base = languageUrl(lang);
+  const title = meta.title ? `${meta.title} | ${site.siteName}` : `${site.siteName} | ${t('siteSuffix')}`;
   const description = meta.description || site.defaultDescription;
-  const canonical = `${base}/${meta.slug === 'index' ? '' : `${meta.slug}.html`}`;
+  const canonical = `${base}/${pagePath(meta.slug)}`;
   const image = absolute(base, meta.image || site.defaultShareImage);
-  const noindex = meta.noindex || process.env.SITE_PREVIEW;
+  const noindex = meta.noindex || preview;
   const gtmId = (site.tracking?.gtmId || '').trim();
+  const baiduId = (site.tracking?.baiduId || '').trim();
   const consentOn = Boolean(gtmId && site.consent?.enabled);
   const popupOn = meta.popup !== false && site.popup?.enabled;
   const privacy = textPages.find((p) => p.slug === site.consent?.privacyPage);
+  const alt = meta.alt === undefined ? meta.slug : meta.alt;
+  const hreflang = alt === meta.slug && !meta.noindex;
 
   const config = {
+    lang,
+    otherLang,
+    switchHref: switchHref(alt || 'index'),
     gtm: Boolean(gtmId),
     consent: consentOn,
+    t: clientStrings(),
     forms: {
       provider: site.forms?.provider || 'none',
       webhookUrl: site.forms?.webhookUrl || '',
@@ -58,19 +81,27 @@ export function layout(meta, main) {
   const jsonLd = [organisationLd(base), ...(meta.jsonLd || [])];
 
   return `<!doctype html>
-<html lang="en">
+<html lang="${t('htmlLang')}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
 <link rel="canonical" href="${canonical}">
-${noindex ? '<meta name="robots" content="noindex, nofollow">\n' : ''}<meta property="og:type" content="${meta.ogType || 'website'}">
+${
+  hreflang
+    ? `<link rel="alternate" hreflang="${t('htmlLang')}" href="${canonical}">
+<link rel="alternate" hreflang="${otherLang === 'zh' ? 'zh-Hans' : 'en'}" href="${languageUrl(otherLang)}/${pagePath(meta.slug)}">
+<link rel="alternate" hreflang="x-default" href="${languageUrl('en')}/${pagePath(meta.slug)}">
+`
+    : ''
+}${noindex ? '<meta name="robots" content="noindex, nofollow">\n' : ''}<meta property="og:type" content="${meta.ogType || 'website'}">
 <meta property="og:site_name" content="${esc(site.siteName)}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${canonical}">
 <meta property="og:image" content="${image}">
+<meta property="og:locale" content="${lang === 'zh' ? 'zh_CN' : 'en_GB'}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0c1115">
 <link rel="icon" href="favicon.png" type="image/png">
@@ -79,17 +110,17 @@ ${meta.preloadImage ? `<link rel="preload" as="image" href="${meta.preloadImage}
 <link rel="preload" href="assets/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/site.css">
 <script>document.documentElement.classList.add('js');window.COOLFLY=${safeJson(config)};</script>
-${gtmId ? gtmHead(gtmId, consentOn) : ''}${jsonLd.map((d) => `<script type="application/ld+json">${safeJson(d)}</script>`).join('\n')}
+${gtmId ? gtmHead(gtmId, consentOn) : ''}${baiduId ? baiduHead(baiduId) : ''}${jsonLd.map((d) => `<script type="application/ld+json">${safeJson(d)}</script>`).join('\n')}
 </head>
 <body class="page-${meta.slug.replace(/\//g, '-')}">
-${gtmId ? `<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${esc(gtmId)}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>\n` : ''}<a class="skip-link" href="#main">Skip to content</a>
+${gtmId ? `<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${esc(gtmId)}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>\n` : ''}<a class="skip-link" href="#main">${t('nav.skip')}</a>
 <div class="scroll-progress" aria-hidden="true"></div>
-${meta.minimalHeader ? minimalHeader(meta) : header(meta)}
+${meta.minimalHeader ? minimalHeader(meta) : header(meta, alt)}
 <main id="main" tabindex="-1">
 ${main}
 </main>
-${footer(meta, privacy, consentOn)}
-<a class="to-top" href="#main" aria-label="Back to top" data-to-top>${icon('arrow', 'icon icon--up')}</a>
+${footer(privacy, consentOn)}
+<a class="to-top" href="#main" aria-label="${t('nav.toTop')}" data-to-top>${icon('arrow', 'icon icon--up')}</a>
 ${popupOn ? dealerPopup(site.popup) : ''}
 ${consentOn ? consentBanner(site.consent, privacy) : ''}
 <script src="assets/js/site.js" defer></script>
@@ -118,11 +149,20 @@ try{var c=JSON.parse(localStorage.getItem('coolfly-consent')||'null');if(c){var 
 `;
 }
 
+// Baidu Tongji (百度统计) for the Chinese site, where Google tools are blocked.
+function baiduHead(id) {
+  return `<script>
+var _hmt=_hmt||[];(function(){var hm=document.createElement('script');hm.src='https://hm.baidu.com/hm.js?'+${JSON.stringify(id)};var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(hm,s);})();
+</script>
+`;
+}
+
 function organisationLd(base) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: settings.siteName,
+    ...(settings.legalName ? { legalName: settings.legalName } : {}),
     url: `${base}/`,
     logo: `${base}/assets/img/logo-dark.png`,
     sameAs: (settings.social || []).map((s) => s.url),
@@ -133,7 +173,10 @@ function organisationLd(base) {
   };
 }
 
-function header(meta) {
+const langSwitch = (alt, cls = '') =>
+  `<a class="lang-switch ${cls}" href="${switchHref(alt || 'index')}" hreflang="${otherLang === 'zh' ? 'zh-Hans' : 'en'}" lang="${otherLang === 'zh' ? 'zh-Hans' : 'en'}" data-lang-switch="${otherLang}" aria-label="${esc(t('nav.language'))}: ${esc(langLabel(otherLang))}"><span class="lang-switch__current">${esc(langLabel(lang))}</span><span class="lang-switch__sep" aria-hidden="true">/</span><span class="lang-switch__other">${esc(langLabel(otherLang))}</span></a>`;
+
+function header(meta, alt) {
   const items = nav()
     .map((item) => {
       const current = item.key === meta.nav ? ' aria-current="page"' : '';
@@ -158,26 +201,30 @@ function header(meta) {
   return `<header class="site-header" data-variant="${meta.header || 'solid'}">
   <div class="container site-header__bar">
     ${brand()}
-    <nav class="nav" aria-label="Main">
+    <nav class="nav" aria-label="${esc(t('nav.main'))}">
       <ul class="nav__list">${items}</ul>
     </nav>
     <div class="site-header__actions">
-      <a class="btn btn--primary btn--sm" href="dealers.html" data-track="become_dealer">Become a dealer</a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+      ${langSwitch(alt)}
+      <a class="btn btn--primary btn--sm" href="dealers.html" data-track="become_dealer">${esc(t('nav.becomeDealer'))}</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="${esc(t('nav.menuOpen'))}" data-label-open="${esc(t('nav.menuOpen'))}" data-label-close="${esc(t('nav.menuClose'))}">
         ${icon('menu', 'icon menu-toggle__open')}${icon('close', 'icon menu-toggle__close')}
       </button>
     </div>
   </div>
   <div class="mobile-menu" id="mobile-menu" hidden>
     <ul>${mobileItems}</ul>
-    <a class="btn btn--primary" href="dealers.html" data-track="become_dealer">Become a dealer${icon('arrow')}</a>
+    <div class="mobile-menu__foot">
+      <a class="btn btn--primary" href="dealers.html" data-track="become_dealer">${esc(t('nav.becomeDealer'))}${icon('arrow')}</a>
+      ${langSwitch(alt, 'lang-switch--menu')}
+    </div>
   </div>
 </header>`;
 }
 
 // Landing pages: logo and one call to action, so visitors stay on the offer.
 function minimalHeader(meta) {
-  const cta = meta.headerCta || { label: 'Apply now', href: '#form' };
+  const cta = meta.headerCta || { label: t('dealers.apply'), href: '#form' };
   return `<header class="site-header site-header--minimal" data-variant="${meta.header || 'solid'}">
   <div class="container site-header__bar">
     ${brand()}
@@ -188,15 +235,15 @@ function minimalHeader(meta) {
 </header>`;
 }
 
-const brand = () => `<a class="brand" href="index.html" aria-label="CoolFly home">
+const brand = () => `<a class="brand" href="index.html" aria-label="${esc(t('nav.home'))}">
       <img class="brand__light" src="assets/img/logo-light.png" alt="CoolFly" width="160" height="34">
       <img class="brand__dark" src="assets/img/logo-dark.png" alt="" width="160" height="34" aria-hidden="true">
     </a>`;
 
-function footer(meta, privacy, consentOn) {
-  const { contacts, offices = [], social = [], tagline } = settings;
+function footer(privacy, consentOn) {
+  const { contacts, offices = [], social = [], tagline, beian } = settings;
   const col = (title, links) => `<div class="footer__col">
-      <h2 class="footer__title">${title}</h2>
+      <h2 class="footer__title">${esc(title)}</h2>
       <ul>${links.map(([label, href, ext]) => `<li><a href="${href}"${ext ? ' rel="noopener" target="_blank"' : ''}>${esc(label)}</a></li>`).join('')}</ul>
     </div>`;
 
@@ -205,38 +252,38 @@ function footer(meta, privacy, consentOn) {
     <div class="footer__top">
       <div class="footer__brand">
         <img src="assets/img/logo-light.png" alt="CoolFly" width="150" height="32">
-        <p>${esc(tagline)} Personal electric aircraft, designed and built in Hangzhou.</p>
+        <p>${esc(tagline)} ${esc(t('footer.blurb'))}</p>
         <ul class="footer__offices">
           ${offices.map((o) => `<li><strong>${esc(o.city)}</strong> ${esc(o.role)}</li>`).join('')}
         </ul>
       </div>
-      ${col('Aircraft', [...aircraft.map((a) => [a.name, `${a.slug}.html`]), ['Compare models', 'compare.html'], ['Safety & technology', 'safety.html']])}
-      ${col('Partners', [
-        ['Become a dealer', 'dealers.html'],
-        ['How partnership works', 'dealers.html#process'],
-        ['Dealer FAQ', 'dealers.html#faq'],
-        ['Contact sales', 'contact.html#sales'],
+      ${col(t('footer.aircraft'), [...aircraft.map((a) => [a.name, `${a.slug}.html`]), [t('nav.compare'), 'compare.html'], [t('footer.safety'), 'safety.html']])}
+      ${col(t('footer.partners'), [
+        [t('nav.becomeDealer'), 'dealers.html'],
+        [t('footer.howItWorks'), 'dealers.html#process'],
+        [t('footer.faq'), 'dealers.html#faq'],
+        [t('footer.contactSales'), 'contact.html#sales'],
       ])}
-      ${col('Company', [
-        ['About CoolFly', 'company.html'],
-        ['Milestones', 'company.html#milestones'],
-        ['Newsroom', 'newsroom.html'],
-        ['Contact', 'contact.html'],
+      ${col(t('footer.company'), [
+        [t('footer.about'), 'company.html'],
+        [t('footer.milestones'), 'company.html#milestones'],
+        [t('footer.newsroom'), 'newsroom.html'],
+        [t('footer.contact'), 'contact.html'],
       ])}
       <div class="footer__col">
-        <h2 class="footer__title">Contact</h2>
+        <h2 class="footer__title">${esc(t('footer.contact'))}</h2>
         <ul class="footer__contact">
-          <li><span>Dealers &amp; partnerships</span><a href="mailto:${esc(contacts.business)}" data-track="email_click">${esc(contacts.business)}</a></li>
-          <li><span>Customer support</span><a href="mailto:${esc(contacts.support)}" data-track="email_click">${esc(contacts.support)}</a></li>
-          <li><span>Press</span><a href="mailto:${esc(contacts.press)}" data-track="email_click">${esc(contacts.press)}</a></li>
+          <li><span>${esc(t('footer.dealersEmail'))}</span><a href="mailto:${esc(contacts.business)}" data-track="email_click">${esc(contacts.business)}</a></li>
+          <li><span>${esc(t('footer.supportEmail'))}</span><a href="mailto:${esc(contacts.support)}" data-track="email_click">${esc(contacts.support)}</a></li>
+          <li><span>${esc(t('footer.pressEmail'))}</span><a href="mailto:${esc(contacts.press)}" data-track="email_click">${esc(contacts.press)}</a></li>
         </ul>
       </div>
     </div>
     <div class="footer__bottom">
-      <p>© <span data-year>2026</span> CoolFly. Specifications are subject to change. Local regulations apply to every flight.</p>
+      <p>© <span data-year>2026</span> ${esc(settings.legalName || 'CoolFly')}. ${esc(t('footer.legal'))}${beian ? ` <a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">${esc(beian)}</a>` : ''}</p>
       <ul class="footer__social">
         ${privacy ? `<li><a href="${privacy.slug}.html">${esc(privacy.title)}</a></li>` : ''}
-        ${consentOn ? '<li><button class="footer__link-button" type="button" data-consent-open>Cookie settings</button></li>' : ''}
+        ${consentOn ? `<li><button class="footer__link-button" type="button" data-consent-open>${esc(t('footer.cookies'))}</button></li>` : ''}
         ${social.map((s) => `<li><a href="${esc(s.url)}" rel="noopener" target="_blank">${esc(s.label)}</a></li>`).join('')}
       </ul>
     </div>
@@ -254,21 +301,21 @@ function dealerPopup(popup) {
       <h2 id="popup-title" tabindex="-1">${esc(popup.title)}</h2>
       ${popup.text ? `<p>${esc(popup.text)}</p>` : ''}
     </div>
-    <button class="popup__close" type="button" aria-label="Close" data-popup-close>${icon('close')}</button>
+    <button class="popup__close" type="button" aria-label="${esc(t('popup.close'))}" data-popup-close>${icon('close')}</button>
   </div>
   <form class="popup__form" data-form="dealer" data-source="popup" novalidate>
     <div class="form__row">
-      <div class="field"><label for="p-first">First name</label><input id="p-first" name="firstName" required autocomplete="given-name"></div>
-      <div class="field"><label for="p-last">Last name</label><input id="p-last" name="lastName" required autocomplete="family-name"></div>
+      <div class="field"><label for="p-first">${esc(t('popup.firstName'))}</label><input id="p-first" name="firstName" required autocomplete="given-name"></div>
+      <div class="field"><label for="p-last">${esc(t('popup.lastName'))}</label><input id="p-last" name="lastName" required autocomplete="family-name"></div>
     </div>
-    <div class="field"><label for="p-company">Company</label><input id="p-company" name="company" required autocomplete="organization"></div>
+    <div class="field"><label for="p-company">${esc(t('popup.company'))}</label><input id="p-company" name="company" required autocomplete="organization"></div>
     <div class="form__row">
-      <div class="field"><label for="p-email">Email</label><input id="p-email" name="email" type="email" required autocomplete="email"></div>
-      <div class="field"><label for="p-country">Country</label><input id="p-country" name="country" required autocomplete="country-name"></div>
+      <div class="field"><label for="p-email">${esc(t('popup.email'))}</label><input id="p-email" name="email" type="email" required autocomplete="email"></div>
+      <div class="field"><label for="p-country">${esc(t('popup.country'))}</label><input id="p-country" name="country" required autocomplete="country-name"></div>
     </div>
     <div class="form__actions">
-      <button class="btn btn--primary" type="submit">${esc(popup.button || 'Get the dealer brief')}${icon('arrow')}</button>
-      <a class="popup__more" href="dealers.html">See the programme</a>
+      <button class="btn btn--primary" type="submit">${esc(popup.button || t('nav.becomeDealer'))}${icon('arrow')}</button>
+      <a class="popup__more" href="dealers.html">${esc(t('popup.more'))}</a>
     </div>
     <p class="form__status" role="status" aria-live="polite"></p>
   </form>
@@ -276,11 +323,11 @@ function dealerPopup(popup) {
 }
 
 function consentBanner(consent, privacy) {
-  return `<div class="consent" role="region" aria-label="Cookie choices" data-consent hidden>
+  return `<div class="consent" role="region" aria-label="${esc(t('consent.region'))}" data-consent hidden>
   <p>${esc(consent.message)}${privacy ? ` <a href="${privacy.slug}.html">${esc(privacy.title)}</a>` : ''}</p>
   <div class="consent__actions">
-    <button class="btn btn--secondary btn--sm" type="button" data-consent-choice="reject">Reject</button>
-    <button class="btn btn--primary btn--sm" type="button" data-consent-choice="accept">Accept</button>
+    <button class="btn btn--secondary btn--sm" type="button" data-consent-choice="reject">${esc(t('consent.reject'))}</button>
+    <button class="btn btn--primary btn--sm" type="button" data-consent-choice="accept">${esc(t('consent.accept'))}</button>
   </div>
 </div>`;
 }

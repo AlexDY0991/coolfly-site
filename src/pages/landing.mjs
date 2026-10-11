@@ -2,6 +2,7 @@
 // Built for paid traffic: one offer, one form, optional minimal header.
 
 import { aircraft, home, landingPages } from '../content.mjs';
+import { t } from '../i18n.mjs';
 import { button, esc, eyebrow, icon } from '../partials/ui.mjs';
 
 export const pages = landingPages.map((p) => ({
@@ -12,10 +13,11 @@ export const pages = landingPages.map((p) => ({
     image: p.shareImage || p.heroImage || '',
     header: 'overlay',
     nav: '',
+    alt: 'index',
     popup: false,
     noindex: p.noindex !== false,
     minimalHeader: p.hideNavigation !== false,
-    headerCta: { label: p.ctaLabel || 'Apply now', href: '#form' },
+    headerCta: { label: p.ctaLabel || t('dealers.apply'), href: '#form' },
     preloadImage: p.heroImage,
   },
   render: () => render(p),
@@ -34,7 +36,7 @@ function render(p) {
     <h1 class="product-hero__title product-hero__title--md"><span class="line"><span>${esc(p.headline || p.title)}</span></span></h1>
     ${p.subheadline ? `<p class="product-hero__tagline">${esc(p.subheadline)}</p>` : ''}
     <div class="actions product-hero__actions">
-      ${button(p.ctaLabel || 'Apply now', '#form', 'primary', ' data-track="landing_cta"')}
+      ${button(p.ctaLabel || t('dealers.apply'), '#form', 'primary', ' data-track="landing_cta"')}
     </div>
   </div>
 </section>
@@ -56,7 +58,7 @@ ${
   models.length
     ? `<section class="section section--mist">
   <div class="container">
-    <div class="section-head" data-reveal><h2>${models.length > 1 ? 'The line-up' : esc(models[0].fullName)}</h2></div>
+    <div class="section-head" data-reveal><h2>${models.length > 1 ? esc(t('landing.lineup')) : esc(models[0].fullName)}</h2></div>
     <div class="lineup__grid lineup__grid--${models.length}">
       ${models
         .map(
@@ -95,8 +97,8 @@ ${
 <section class="section section--night lp-form" id="form">
   <div class="container apply">
     <div class="apply__intro" data-reveal>
-      ${eyebrow(p.formType === 'demo' ? 'Demo flight' : 'Dealer programme')}
-      <h2>${esc(p.formTitle || 'Talk to our team')}</h2>
+      ${eyebrow(p.formType === 'demo' ? t('landing.demoEyebrow') : t('landing.dealerEyebrow'))}
+      <h2>${esc(p.formTitle || t('landing.formTitle'))}</h2>
       ${p.formText ? `<p>${esc(p.formText)}</p>` : ''}
     </div>
     ${p.formType === 'demo' ? demoForm(source, p) : dealerForm(source, p)}
@@ -104,27 +106,27 @@ ${
 </section>`;
 }
 
-const consent = `<label class="check check--consent"><input type="checkbox" name="consent" required> I agree that CoolFly may store these details to respond to my enquiry.</label>`;
+const consent = () => `<label class="check check--consent"><input type="checkbox" name="consent" required> ${esc(t('common.consent'))}</label>`;
 
 function dealerForm(source, p) {
   return `<form class="form" data-form="dealer" data-source="${esc(source)}" novalidate>
       <div class="form__row">
-        <div class="field"><label for="l-first">First name</label><input id="l-first" name="firstName" required autocomplete="given-name"></div>
-        <div class="field"><label for="l-last">Last name</label><input id="l-last" name="lastName" required autocomplete="family-name"></div>
+        <div class="field"><label for="l-first">${esc(t('form.firstName'))}</label><input id="l-first" name="firstName" required autocomplete="given-name"></div>
+        <div class="field"><label for="l-last">${esc(t('form.lastName'))}</label><input id="l-last" name="lastName" required autocomplete="family-name"></div>
       </div>
       <div class="form__row">
-        <div class="field"><label for="l-company">Company</label><input id="l-company" name="company" required autocomplete="organization"></div>
-        <div class="field"><label for="l-website">Website</label><input id="l-website" name="website" type="url" placeholder="https://" autocomplete="url"></div>
+        <div class="field"><label for="l-company">${esc(t('form.company'))}</label><input id="l-company" name="company" required autocomplete="organization"></div>
+        <div class="field"><label for="l-website">${esc(t('form.website'))}</label><input id="l-website" name="website" type="url" placeholder="https://" autocomplete="url"></div>
       </div>
       <div class="form__row">
-        <div class="field"><label for="l-email">Email</label><input id="l-email" name="email" type="email" required autocomplete="email"></div>
-        <div class="field"><label for="l-phone">Phone</label><input id="l-phone" name="phone" type="tel" autocomplete="tel"></div>
+        <div class="field"><label for="l-email">${esc(t('form.email'))}</label><input id="l-email" name="email" type="email" required autocomplete="email"></div>
+        <div class="field"><label for="l-phone">${esc(t('form.phone'))}</label><input id="l-phone" name="phone" type="tel" autocomplete="tel"></div>
       </div>
-      <div class="field"><label for="l-country">Country</label><input id="l-country" name="country" required autocomplete="country-name"></div>
-      <div class="field"><label for="l-message">Your business and plans (optional)</label><textarea id="l-message" name="message" rows="4"></textarea></div>
-      ${consent}
+      <div class="field"><label for="l-country">${esc(t('form.country'))}</label><input id="l-country" name="country" required autocomplete="country-name"></div>
+      <div class="field"><label for="l-message">${esc(t('form.plansOptional'))}</label><textarea id="l-message" name="message" rows="4"></textarea></div>
+      ${consent()}
       <div class="form__actions">
-        <button class="btn btn--primary" type="submit">${esc(p.submitLabel || 'Send application')}${icon('arrow')}</button>
+        <button class="btn btn--primary" type="submit">${esc(p.submitLabel || t('dealers.send'))}${icon('arrow')}</button>
         <p class="form__status" role="status" aria-live="polite"></p>
       </div>
     </form>`;
@@ -134,24 +136,24 @@ function demoForm(source, p) {
   return `<form class="form" data-form="contact" data-source="${esc(source)}" novalidate>
       <input type="hidden" name="topic" value="demo">
       <div class="form__row">
-        <div class="field"><label for="l-name">Name</label><input id="l-name" name="name" required autocomplete="name"></div>
-        <div class="field"><label for="l-email">Email</label><input id="l-email" name="email" type="email" required autocomplete="email"></div>
+        <div class="field"><label for="l-name">${esc(t('form.name'))}</label><input id="l-name" name="name" required autocomplete="name"></div>
+        <div class="field"><label for="l-email">${esc(t('form.email'))}</label><input id="l-email" name="email" type="email" required autocomplete="email"></div>
       </div>
       <div class="form__row">
-        <div class="field"><label for="l-phone">Phone</label><input id="l-phone" name="phone" type="tel" autocomplete="tel"></div>
-        <div class="field"><label for="l-country">Country</label><input id="l-country" name="country" required autocomplete="country-name"></div>
+        <div class="field"><label for="l-phone">${esc(t('form.phone'))}</label><input id="l-phone" name="phone" type="tel" autocomplete="tel"></div>
+        <div class="field"><label for="l-country">${esc(t('form.country'))}</label><input id="l-country" name="country" required autocomplete="country-name"></div>
       </div>
       <div class="field">
-        <label for="l-model">Aircraft</label>
+        <label for="l-model">${esc(t('form.aircraft'))}</label>
         <select id="l-model" name="model">
-          <option value="">Not sure yet</option>
+          <option value="">${esc(t('form.notSure'))}</option>
           ${aircraft.map((a) => `<option value="${a.slug}"${(p.aircraft || [])[0] === a.slug ? ' selected' : ''}>${esc(a.name)}</option>`).join('')}
         </select>
       </div>
-      <div class="field"><label for="l-message">Message (optional)</label><textarea id="l-message" name="message" rows="4"></textarea></div>
-      ${consent}
+      <div class="field"><label for="l-message">${esc(t('form.messageOptional'))}</label><textarea id="l-message" name="message" rows="4"></textarea></div>
+      ${consent()}
       <div class="form__actions">
-        <button class="btn btn--primary" type="submit">${esc(p.submitLabel || 'Request a demo flight')}${icon('arrow')}</button>
+        <button class="btn btn--primary" type="submit">${esc(p.submitLabel || t('common.requestDemo'))}${icon('arrow')}</button>
         <p class="form__status" role="status" aria-live="polite"></p>
       </div>
     </form>`;

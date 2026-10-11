@@ -1,8 +1,9 @@
-import { button, eyebrow } from '../partials/ui.mjs';
+import { t } from '../i18n.mjs';
+import { button, esc, eyebrow } from '../partials/ui.mjs';
 
 export const meta = {
   slug: '404',
-  title: 'Page not found',
+  title: t('404.title'),
   header: 'solid',
   nav: '',
   popup: false,
@@ -13,11 +14,11 @@ export function render() {
 <section class="page-head page-head--center">
   <div class="container">
     ${eyebrow('404')}
-    <h1>This page has flown off.</h1>
-    <p class="lede">The page you were looking for has moved or no longer exists.</p>
+    <h1>${esc(t('404.heading'))}</h1>
+    <p class="lede">${esc(t('404.text'))}</p>
     <div class="actions">
-      ${button('Back to home', 'index.html', 'primary')}
-      ${button('See the aircraft', 'compare.html', 'secondary')}
+      ${button(t('common.backHome'), 'index.html', 'primary')}
+      ${button(t('common.seeAircraft'), 'compare.html', 'secondary')}
     </div>
   </div>
 </section>`;

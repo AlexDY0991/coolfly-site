@@ -51,34 +51,42 @@
   ],
   "specs": [
     {
+      "key": "configuration",
       "label": "Configuration",
       "value": "Multi-rotor, enclosed propeller propulsion"
     },
     {
+      "key": "flightTime",
       "label": "Flight time",
       "value": "11 min*"
     },
     {
+      "key": "payload",
       "label": "Pilot capacity",
       "value": "90 kg"
     },
     {
+      "key": "dimensions",
       "label": "Dimensions (L × W × H)",
       "value": "2200 × 2200 × 1768 mm"
     },
     {
+      "key": "ip",
       "label": "Ingress protection",
       "value": "IP65"
     },
     {
+      "key": "sensors",
       "label": "Sensors",
       "value": "Aviation-grade IMU"
     },
     {
+      "key": "flightControl",
       "label": "Flight control",
       "value": "NA80, dual redundant flight controllers"
     },
     {
+      "key": "applications",
       "label": "Applications",
       "value": "Tourism, outdoor recreation, waterfront, emergency response"
     }

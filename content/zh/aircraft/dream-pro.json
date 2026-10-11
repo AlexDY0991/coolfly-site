@@ -1,0 +1,110 @@
+{
+  "slug": "dream-pro",
+  "name": "Dream PRO",
+  "fullName": "酷飞 Dream PRO",
+  "stance": "坐姿",
+  "tagline": "空中畅飞 40 分钟。",
+  "summary": "长续航版 Dream，适合更长航线与商业运营。",
+  "lineup": "坐姿飞行，续航最长 40 分钟。",
+  "cardFacts": "40 分钟 · 120 kg · 100 km/h",
+  "imageAlt": "黑色酷飞 Dream PRO 坐姿飞行器",
+  "heroAlt": "酷飞 Dream 飞越绿色农田",
+  "galleryAlt": "傍晚时分，酷飞 Dream 在田野上空巡航",
+  "keyFigures": [
+    {
+      "value": "40",
+      "unit": "分钟",
+      "label": "飞行时间*"
+    },
+    {
+      "value": "120",
+      "unit": "kg",
+      "label": "最大载重"
+    },
+    {
+      "value": "100",
+      "unit": "km/h",
+      "label": "最高速度（限速）"
+    }
+  ],
+  "story": [
+    {
+      "title": "为更长航线而生",
+      "text": "观光环线、牧场巡视，满足一整天的运营。"
+    },
+    {
+      "title": "同一颗飞行大脑",
+      "text": "与 Dream ST 相同的 NA80 飞控和四轴八桨布局。"
+    }
+  ],
+  "safety": [
+    "航空级 T800 碳纤维结构",
+    "单个电机失效后仍可安全飞行",
+    "AI 智能操控",
+    "三余度 IMU",
+    "弹射式整机降落伞，快速开伞",
+    "雷达辅助自动降落"
+  ],
+  "specs": [
+    {
+      "key": "configuration",
+      "label": "构型",
+      "value": "多旋翼，四轴八桨"
+    },
+    {
+      "key": "topSpeed",
+      "label": "最高速度",
+      "value": "100 km/h（限速）"
+    },
+    {
+      "key": "flightTime",
+      "label": "飞行时间",
+      "value": "40 分钟*"
+    },
+    {
+      "key": "payload",
+      "label": "最大载重",
+      "value": "120 kg"
+    },
+    {
+      "key": "weight",
+      "label": "整机重量",
+      "value": "≤ 147 kg"
+    },
+    {
+      "key": "dimensions",
+      "label": "尺寸（长 × 宽 × 高）",
+      "value": "3850 × 4450 × 1182 mm"
+    },
+    {
+      "key": "ip",
+      "label": "防护等级",
+      "value": "IP65"
+    },
+    {
+      "key": "sensors",
+      "label": "传感器",
+      "value": "航空级 IMU"
+    },
+    {
+      "key": "flightControl",
+      "label": "飞控",
+      "value": "NA80 双余度飞控"
+    },
+    {
+      "key": "applications",
+      "label": "适用场景",
+      "value": "文旅观光、农场牧场、城市空中交通、应急救援"
+    }
+  ],
+  "certs": [
+    {
+      "image": "/assets/img/cert-dream-pro-ce.jpg",
+      "label": "CE 符合性声明"
+    },
+    {
+      "image": "/assets/img/cert-dream-pro-fcc.jpg",
+      "label": "FCC 供应商符合性声明"
+    }
+  ]
+}

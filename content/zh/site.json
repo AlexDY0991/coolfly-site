@@ -1,0 +1,55 @@
+{
+  "siteName": "酷飞 CoolFly",
+  "siteUrl": "https://coolflyaircraft.net",
+  "legalName": "酷飞（浙江）飞行器技术有限公司",
+  "beian": "",
+  "tagline": "高度，由你定义",
+  "defaultDescription": "酷飞（浙江）飞行器技术有限公司，全球近地载人飞行器领域的开创者。从飞控到整机全栈自研，产品包括站姿飞行器 Urban、坐姿飞行器 Dream ST 与 Dream PRO，诚邀全球经销商合作。",
+  "contacts": {
+    "hours": "周一至周五 9:00–18:00",
+    "address": "浙江省杭州市拱墅区人工智能创新中心 3 号楼 6 楼"
+  },
+  "offices": [
+    {
+      "city": "杭州",
+      "country": "中国",
+      "role": "总部、研发与制造"
+    },
+    {
+      "city": "巴黎",
+      "country": "法国",
+      "role": "欧洲业务"
+    },
+    {
+      "city": "巴西",
+      "country": "巴西",
+      "role": "拉丁美洲业务"
+    }
+  ],
+  "social": [
+    {
+      "label": "抖音",
+      "url": "https://v.douyin.com/GOHFb2b6rRM/"
+    },
+    {
+      "label": "微博",
+      "url": "https://weibo.com/u/9062041006"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/company/coolfly-aircraft/"
+    }
+  ],
+  "tracking": {
+    "baiduId": ""
+  },
+  "consent": {
+    "message": "我们使用 Cookie 统计网站访问量和广告效果。您可以选择接受或拒绝非必要 Cookie。"
+  },
+  "popup": {
+    "eyebrow": "经销商计划",
+    "title": "让酷飞飞进您的城市",
+    "text": "酷飞正在全球招募经销商与合作伙伴。",
+    "button": "获取经销商资料"
+  }
+}

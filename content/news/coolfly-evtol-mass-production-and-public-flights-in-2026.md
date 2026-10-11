@@ -31,7 +31,7 @@ The future of travel is moving toward the sky. According to the company’s pl
 
 CoolFly wants to create “Flight Camps” where you can try the standing aircraft for yourself. You will be able to book a flight and see your city from 10 meters in the air. This height is what CoolFly calls the “Golden Vacuum Layer”. It is high enough to avoid traffic but low enough to feel safe. The market for these flights is growing fast. In China alone, 31 provinces have already put this technology into their government plans. By 2025, the market will be worth 1.5 trillion RMB. By late 2026, you will be part of this trillion-dollar change.
 
-### **Why you do not need a****n eVTOL** **pilot’s license**
+### **Why you do not need an eVTOL** **pilot’s license**
 
 One of the best things about an evtol aircraft like the CoolFly is the legal side. In many countries, these machines fall under “ultralight” rules, [such as FAA Part 103. These rules are very friendly to the public. If the craft is for one person and stays under a certain weight, you do not need a pilot’s license.](https://aerospaceglobalnews.com/)
 

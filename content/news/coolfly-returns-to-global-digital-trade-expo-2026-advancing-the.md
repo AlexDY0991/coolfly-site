@@ -82,6 +82,6 @@ CoolFly’s **Dream ST, Dream Pro and Urban have obtained CE and FCC certificati
 
 At GDTE 2026, CoolFly is combining aircraft displays, core technology demonstrations and simulator experiences to make personal flight easier to understand and experience. The expo also provides an opportunity to engage with industry partners on product development, potential applications and future market opportunities.
 
-Looking ahead, CoolFly will continue to advance its capabilities across **aircraft, propulsion and flight cont****r****ol technologies**, while expanding its global distribution network and localized service infrastructure.
+Looking ahead, CoolFly will continue to advance its capabilities across **aircraft, propulsion and flight control technologies**, while expanding its global distribution network and localized service infrastructure.
 
 The company’s goal is to move personal flight beyond exhibitions and demonstrations and toward a more accessible, practical and real-world experience.

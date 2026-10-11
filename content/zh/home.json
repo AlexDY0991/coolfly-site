@@ -1,0 +1,103 @@
+{
+  "hero": {
+    "titleLine1": "高度，",
+    "titleLine2": "由你定义。",
+    "lede": "从飞控到整机，全栈自研的个人电动飞行器。",
+    "primaryButton": "了解飞行器",
+    "secondaryButton": "成为经销商",
+    "hudReadouts": [
+      "最高速度 100 km/h",
+      "续航最长 40 分钟",
+      "双余度飞控",
+      "单电机失效可安全飞行",
+      "IP65 防护"
+    ]
+  },
+  "statement": {
+    "text": "为道路到不了的地方，造一架飞行器。",
+    "stats": [
+      { "value": "2008", "unit": "", "label": "始于 2008 年，专注飞控研发", "animate": false },
+      { "value": "2", "unit": "×", "label": "两套飞控同时运行", "animate": true },
+      { "value": "70", "unit": "%", "label": "研发人员占比", "animate": true },
+      { "value": "3", "unit": "", "label": "款在售机型", "animate": true }
+    ]
+  },
+  "feature": {
+    "title": "站着，就能飞。",
+    "text": "站姿飞行，封闭式桨扇动力。",
+    "imageAlt": "飞行员驾驶酷飞 Urban 低空掠过湖面",
+    "linkLabel": "了解 Urban"
+  },
+  "duo": [
+    {
+      "title": "纯电驱动，天际无界。",
+      "image": "/assets/img/f-coast.jpg",
+      "imageAlt": "日落时分，酷飞 Dream 沿海岸线飞行",
+      "linkLabel": "Dream ST",
+      "link": "dream-st.html"
+    },
+    {
+      "title": "空中畅飞 40 分钟。",
+      "image": "/assets/img/f-dream-farm.jpg",
+      "imageAlt": "酷飞 Dream 飞越农田",
+      "linkLabel": "Dream PRO",
+      "link": "dream-pro.html"
+    }
+  ],
+  "lineupTitle": "三款机型，三种飞行方式。",
+  "safety": {
+    "eyebrow": "双余度飞控",
+    "title": "单一故障，止于单一故障。",
+    "points": [
+      "两套相互独立的飞控",
+      "同时运行，互为备份",
+      "一套失效，毫秒级切换"
+    ]
+  },
+  "applicationsTitle": "为全新出行方式而生。",
+  "applications": [
+    {
+      "label": "水岸与海上",
+      "image": "/assets/img/f-urban-lake-2.jpg",
+      "imageAlt": "Urban 在停泊船只附近的湖面上飞行",
+      "models": "Urban · Dream ST"
+    },
+    {
+      "label": "文旅与度假区",
+      "image": "/assets/img/agibot.jpg",
+      "imageAlt": "主题乐园演示中，人形机器人乘坐酷飞 Urban",
+      "models": "Urban · Dream PRO"
+    },
+    {
+      "label": "户外休闲",
+      "image": "/assets/img/f-coast.jpg",
+      "imageAlt": "日落时分，Dream 沿岩石海岸飞行",
+      "models": "Dream ST · Dream PRO"
+    },
+    {
+      "label": "农场与牧场",
+      "image": "/assets/img/f-dream-farm-2.jpg",
+      "imageAlt": "Dream 低空飞越农田",
+      "models": "Dream PRO"
+    }
+  ],
+  "licence": {
+    "title": "在美国，无需飞行执照。",
+    "text": "依据 FAA Part 103 超轻型航空器规定，各市场法规不同。",
+    "linkLabel": "了解详情"
+  },
+  "events": {
+    "title": "现场见酷飞。",
+    "note": "CES · Oshkosh 航展 · 柏林 IFA · 迪拜航展",
+    "photos": [
+      { "image": "/assets/img/oshkosh.jpg", "caption": "美国 EAA Oshkosh 航展" },
+      { "image": "/assets/img/launch-event.jpg", "caption": "Urban 全球发布会 · 杭州" },
+      { "image": "/assets/img/booth.jpg", "caption": "全球数字贸易博览会" },
+      { "image": "/assets/img/ifa.jpg", "caption": "德国柏林 IFA 展" }
+    ]
+  },
+  "dealerBand": {
+    "title": "把个人飞行带到您的市场。",
+    "text": "授权经销商负责本地销售、培训与服务。酷飞正在全球招募合作伙伴。"
+  }
+}

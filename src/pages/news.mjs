@@ -1,7 +1,8 @@
 // One page per article in content/news/*.md, published at news/<slug>.html.
 
 import { news, settings } from '../content.mjs';
-import { newsCard } from './newsroom.mjs';
+import { t } from '../i18n.mjs';
+import { categoryLabel, newsCard } from './newsroom.mjs';
 import { dealerBand, esc, formatDate, icon } from '../partials/ui.mjs';
 
 export const pages = news.map((n) => ({
@@ -12,6 +13,8 @@ export const pages = news.map((n) => ({
     image: n.cover || '',
     header: 'solid',
     nav: 'news',
+    // Articles exist in one language only; the switch goes to the other newsroom.
+    alt: 'newsroom',
     ogType: 'article',
     lastmod: n.date,
     jsonLd: [articleLd(n)],
@@ -25,8 +28,8 @@ function render(n) {
 <article class="article">
   <header class="page-head article__head">
     <div class="container article__narrow">
-      <a class="text-link article__back" href="newsroom.html">${icon('arrow', 'icon icon--back')}Newsroom</a>
-      <p class="news-card__meta"><time datetime="${esc(n.date)}">${formatDate(n.date)}</time>${n.category ? `<span>${esc(n.category)}</span>` : ''}</p>
+      <a class="text-link article__back" href="newsroom.html">${icon('arrow', 'icon icon--back')}${esc(t('news.back'))}</a>
+      <p class="news-card__meta"><time datetime="${esc(n.date)}">${formatDate(n.date)}</time>${n.category ? `<span>${esc(categoryLabel(n.category))}</span>` : ''}</p>
       <h1>${esc(n.title)}</h1>
       ${n.excerpt ? `<p class="lede">${esc(n.excerpt)}</p>` : ''}
     </div>
@@ -42,8 +45,8 @@ ${
     ? `<section class="section">
   <div class="container">
     <div class="section-head section-head--row" data-reveal>
-      <h2>More news</h2>
-      <a class="text-link" href="newsroom.html">All news${icon('arrow')}</a>
+      <h2>${esc(t('news.more'))}</h2>
+      <a class="text-link" href="newsroom.html">${esc(t('common.allNews'))}${icon('arrow')}</a>
     </div>
     <div class="news__grid">${related.map(newsCard).join('')}</div>
   </div>

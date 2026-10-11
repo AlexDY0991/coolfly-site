@@ -1,6 +1,7 @@
 // Small shared helpers and components used by pages.
 
 import { home } from '../content.mjs';
+import { t } from '../i18n.mjs';
 
 export const esc = (s) =>
   String(s ?? '')
@@ -29,7 +30,7 @@ export const button = (label, href, variant = 'primary', extra = '') =>
 export const eyebrow = (text) => `<p class="eyebrow">${esc(text)}</p>`;
 
 export const formatDate = (iso) =>
-  new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+  new Date(`${iso}T00:00:00Z`).toLocaleDateString(t('locale'), { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
 
 // Reusable closing band that sends visitors to the dealer programme.
 export const dealerBand = ({ title = home.dealerBand.title, text } = {}) => `
@@ -40,8 +41,8 @@ export const dealerBand = ({ title = home.dealerBand.title, text } = {}) => `
       <p>${esc(text ?? home.dealerBand.text)}</p>
     </div>
     <div class="band__actions">
-      ${button('Become a dealer', 'dealers.html', 'dark', ' data-track="become_dealer"')}
-      ${button('Talk to sales', 'contact.html#sales', 'ghost-dark')}
+      ${button(t('common.becomeDealer'), 'dealers.html', 'dark', ' data-track="become_dealer"')}
+      ${button(t('common.talkToSales'), 'contact.html#sales', 'ghost-dark')}
     </div>
   </div>
 </section>`;
