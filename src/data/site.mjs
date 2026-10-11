@@ -72,16 +72,12 @@ export const news = [
 
 // Milestones shown on the company page, oldest first.
 export const timeline = [
-  { year: '2008', title: 'Flight control work begins', text: 'The founding team starts building flight controllers, the expertise CoolFly’s aircraft are built on.' },
-  { year: '2017', title: 'First flight pack prototype', text: 'The team builds its first personal flight pack prototype.' },
-  { year: '2020', title: 'First-generation aircraft', text: 'The first-generation aircraft is built and flown.' },
-  { year: '2022', title: 'CoolFly founded', text: 'The company is incorporated in Hangzhou to take personal aircraft to production.' },
-  { year: '2025', title: 'Standing platform revealed', text: 'The standing-position aircraft that becomes Urban is shown for the first time.' },
-  { year: '2026', title: 'CCTV Spring Festival Gala', text: 'CoolFly aircraft are featured in the CCTV Spring Festival Gala broadcast.' },
-  { year: 'Jan 2026', title: 'CES Las Vegas', text: 'CoolFly presents its ultralight personal aircraft in Las Vegas.' },
-  { year: 'Jul 2026', title: 'EAA AirVenture Oshkosh', text: 'CoolFly meets US dealers and pilots at the world’s largest fly-in.' },
-  { year: 'Aug 2026', title: 'Urban global launch', text: 'Urban launches in Hangzhou. Two domestic and two international dealers sign on the day.' },
-  { year: 'Sep 2026', title: 'IFA Berlin', text: 'CoolFly presents its flight portfolio and NA80 flight control, and seeks dealers in Europe, North America, Australia and the Middle East.' },
+  { year: '2008', events: ['Flight control R&D begins'] },
+  { year: '2017', events: ['First flight pack prototype'] },
+  { year: '2020', events: ['First-generation aircraft'] },
+  { year: '2022', events: ['CoolFly founded in Hangzhou'] },
+  { year: '2025', events: ['Standing platform revealed'] },
+  { year: '2026', events: ['CCTV Spring Festival Gala', 'CES Las Vegas', 'EAA AirVenture Oshkosh', 'Urban global launch', 'IFA Berlin'] },
 ];
 
 export const dealerRegions = [

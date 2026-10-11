@@ -32,15 +32,26 @@ export function render() {
   </div>
 </section>
 
-<section class="section" id="milestones">
-  <div class="container">
-    <div class="section-head" data-reveal>
+<section class="milestones" id="milestones" data-hscroll>
+  <div class="milestones__sticky">
+    <div class="container milestones__head">
       ${eyebrow('Milestones')}
       <h2>From flight controllers to aircraft</h2>
     </div>
-    <ol class="timeline">
-      ${timeline.map((t) => `<li data-reveal><span class="timeline__year">${esc(t.year)}</span><div><h3>${esc(t.title)}</h3><p>${esc(t.text)}</p></div></li>`).join('')}
-    </ol>
+    <div class="milestones__viewport">
+      <ol class="milestones__track">
+        ${timeline
+          .map(
+            (t) => `<li class="ms" data-reveal>
+            <span class="ms__node" aria-hidden="true"></span>
+            <span class="ms__year">${esc(t.year)}</span>
+            <ul class="ms__events">${t.events.map((e) => `<li>${esc(e)}</li>`).join('')}</ul>
+          </li>`
+          )
+          .join('')}
+      </ol>
+      <div class="milestones__rail" aria-hidden="true"><span class="milestones__fill"></span></div>
+    </div>
   </div>
 </section>
 

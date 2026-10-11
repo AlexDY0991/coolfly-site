@@ -25,7 +25,7 @@ export function layout(meta, main) {
 <meta name="theme-color" content="#0c1115">${process.env.SITE_PREVIEW ? '\n<meta name="robots" content="noindex, nofollow">' : ''}
 <link rel="icon" href="favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin>
+${meta.preloadImage ? `<link rel="preload" as="image" href="${meta.preloadImage}">\n` : ''}<link rel="preload" href="assets/fonts/archivo-wdth.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/site.css">
 <script>document.documentElement.classList.add('js');</script>
@@ -159,7 +159,7 @@ function dealerPopup() {
     <div class="popup__media-copy">
       <p class="eyebrow">Dealer programme</p>
       <h2 id="popup-title" tabindex="-1">Bring CoolFly to your market</h2>
-      <p>We are appointing dealers in Europe, North America, Australia and the Middle East.</p>
+      <p>We are appointing dealers around the world.</p>
     </div>
     <button class="popup__close" type="button" aria-label="Close" data-popup-close>${icon('close')}</button>
   </div>

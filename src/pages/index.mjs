@@ -6,6 +6,7 @@ export const meta = {
   title: '',
   header: 'overlay',
   nav: '',
+  preloadImage: 'assets/img/hero-poster.jpg',
 };
 
 const applications = [
@@ -26,6 +27,37 @@ const hudReadouts = ['Top speed 100 km/h', 'Endurance up to 40 min', 'NA80 tripl
 
 export function render() {
   return `
+<div class="boot" id="boot" aria-hidden="true">
+  <div class="boot__half boot__half--top"></div>
+  <div class="boot__half boot__half--bottom"></div>
+  <div class="boot__core">
+    <div class="boot__reticle"><span></span><span></span><span></span><span></span></div>
+    <img class="boot__logo" src="assets/img/logo-light.png" alt="" width="200" height="42">
+    <div class="boot__bar"><span></span></div>
+    <p class="boot__status"><span>NA80 systems check</span><span data-boot-count>000</span></p>
+  </div>
+</div>
+<script>
+  // Opening sequence: first visit per session only, skipped for reduced motion.
+  (function () {
+    var boot = document.getElementById('boot');
+    var seen = false;
+    try { seen = sessionStorage.getItem('coolfly-boot') === '1'; sessionStorage.setItem('coolfly-boot', '1'); } catch (e) {}
+    if (seen || window.matchMedia('(prefers-reduced-motion: reduce)').matches) { boot.remove(); return; }
+    document.documentElement.classList.add('has-boot');
+    var count = boot.querySelector('[data-boot-count]');
+    var start = performance.now();
+    (function tick(now) {
+      var t = Math.min(1, (now - start) / 900);
+      count.textContent = String(Math.round(t * 100)).padStart(3, '0');
+      if (t < 1) requestAnimationFrame(tick);
+    })(start);
+    var done = function () { boot.classList.add('is-done'); setTimeout(function () { boot.remove(); }, 900); };
+    setTimeout(done, 1150);
+    boot.addEventListener('click', done);
+  })();
+</script>
+
 <section class="hero" aria-label="Introduction">
   <video class="hero__video" autoplay muted loop playsinline preload="metadata" poster="assets/img/hero-poster.jpg" aria-hidden="true">
     <source src="assets/video/hero-1080.mp4" type="video/mp4" media="(min-width: 900px)">
@@ -104,16 +136,19 @@ export function render() {
 <section class="section section--night callouts">
   <div class="container">
     <div class="section-head section-head--center" data-reveal>
-      ${eyebrow('Safety by architecture')}
+      ${eyebrow('Dual flight control')}
       <h2>One failure stays one failure.</h2>
     </div>
-    <div class="callouts__stage" data-reveal>
-      <img src="assets/img/flight-controller.jpg" alt="The CoolFly NA80 flight control unit with its redundant modules" loading="lazy" width="1100" height="1467">
-      <ul class="callouts__list">
-        <li class="callout callout--1"><span>NA80 triple-redundant flight control</span></li>
-        <li class="callout callout--2"><span>Safe flight after any single motor failure</span></li>
-        <li class="callout callout--3"><span>Ballistic parachute</span></li>
-        <li class="callout callout--4"><span>Radar-guided auto-landing</span></li>
+    <div class="fc" data-reveal>
+      <div class="fc__frame">
+        <img src="assets/img/flight-controller.jpg" alt="Two CoolFly flight controllers installed side by side" loading="lazy" width="1100" height="1467">
+        <span class="fc__spot fc__spot--a"><span class="fc__dot"></span><span class="fc__label">Flight controller 1</span></span>
+        <span class="fc__spot fc__spot--b"><span class="fc__dot"></span><span class="fc__label">Flight controller 2</span></span>
+      </div>
+      <ul class="fc__points">
+        <li><span>01</span>Two independent flight controllers</li>
+        <li><span>02</span>Running simultaneously</li>
+        <li><span>03</span>Millisecond failover if one fails</li>
       </ul>
     </div>
     <div class="callouts__more" data-reveal>${button('Safety & technology', 'safety.html', 'ghost-light')}</div>

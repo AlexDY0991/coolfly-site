@@ -255,6 +255,63 @@ if (!reduceMotion && (statements.length || expands.length || parallax.length)) {
   statements.forEach((el) => el.querySelectorAll('.word').forEach((w) => w.classList.add('is-lit')));
 }
 
+/* ---------- Milestones: pinned horizontal timeline ---------- */
+
+const milestones = document.querySelector('[data-hscroll]');
+if (milestones) {
+  const track = milestones.querySelector('.milestones__track');
+  const items = [...milestones.querySelectorAll('.ms')];
+  const wide = window.matchMedia('(min-width: 901px)');
+  let distance = 0;
+
+  const layout = () => {
+    const pinned = wide.matches && !reduceMotion;
+    milestones.classList.toggle('is-pinned', pinned);
+    track.style.transform = '';
+    if (pinned) {
+      distance = Math.max(0, track.scrollWidth - window.innerWidth);
+      milestones.style.height = `${window.innerHeight + distance}px`;
+    } else {
+      milestones.style.height = '';
+    }
+    update();
+  };
+
+  const update = () => {
+    const r = milestones.getBoundingClientRect();
+    const vh = window.innerHeight;
+    let progress;
+    if (milestones.classList.contains('is-pinned')) {
+      progress = distance ? Math.min(1, Math.max(0, -r.top / distance)) : 1;
+      track.style.transform = `translate3d(${(-progress * distance).toFixed(1)}px, 0, 0)`;
+      // A year lights up as it moves into the left part of the screen; all are lit at the end.
+      items.forEach((item) => item.classList.toggle('is-active', progress > 0.98 || item.getBoundingClientRect().left < window.innerWidth * 0.7));
+    } else {
+      progress = Math.min(1, Math.max(0, (vh * 0.6 - r.top) / r.height));
+      items.forEach((item) => item.classList.toggle('is-active', reduceMotion || item.getBoundingClientRect().top < vh * 0.6));
+    }
+    milestones.style.setProperty('--ms', progress.toFixed(3));
+  };
+
+  layout();
+  window.addEventListener('resize', layout);
+  wide.addEventListener('change', layout);
+  window.addEventListener('load', layout);
+  let pending = false;
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (pending) return;
+      pending = true;
+      requestAnimationFrame(() => {
+        update();
+        pending = false;
+      });
+    },
+    { passive: true }
+  );
+}
+
 /* ---------- Dealer pop-up ---------- */
 
 const popup = document.getElementById('dealer-popup');
