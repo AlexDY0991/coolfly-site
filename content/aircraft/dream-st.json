@@ -1,0 +1,105 @@
+{
+  "order": 2,
+  "slug": "dream-st",
+  "name": "Dream ST",
+  "fullName": "CoolFly Dream ST",
+  "stance": "Seated",
+  "tagline": "Light enough to be simple.",
+  "summary": "The lightest seated CoolFly, in T800 carbon fibre.",
+  "lineup": "Seated. The lightest Dream.",
+  "cardFacts": "100 km/h · 16 min · ≤114 kg",
+  "image": "/assets/img/dream-st.webp",
+  "imageAlt": "CoolFly Dream ST seated aircraft in orange and carbon",
+  "heroImage": "/assets/img/f-coast.jpg",
+  "heroAlt": "CoolFly Dream flying along a rocky coastline at sunset",
+  "galleryImage": "/assets/img/f-dream-detail.jpg",
+  "galleryAlt": "Close-up of the CoolFly Dream cockpit in flight",
+  "keyFigures": [
+    {
+      "value": "100",
+      "unit": "km/h",
+      "label": "Top speed (limited)"
+    },
+    {
+      "value": "16",
+      "unit": "min",
+      "label": "Flight time*"
+    },
+    {
+      "value": "≤114",
+      "unit": "kg",
+      "label": "Aircraft weight"
+    }
+  ],
+  "story": [
+    {
+      "title": "Eight rotors, four arms",
+      "text": "Lose any one motor and the other seven keep flying."
+    },
+    {
+      "title": "Automation where it counts",
+      "text": "AI-assisted control, radar-guided automatic landing."
+    }
+  ],
+  "safety": [
+    "Aviation-grade T800 carbon-fibre structure",
+    "Continues safe flight after the loss of one motor",
+    "AI-assisted automatic control",
+    "Triple-redundant IMUs",
+    "Ballistic parachute with rapid deployment",
+    "Radar-guided automatic landing"
+  ],
+  "specs": [
+    {
+      "label": "Configuration",
+      "value": "Multi-rotor, quad-axis, 8 rotors"
+    },
+    {
+      "label": "Top speed",
+      "value": "100 km/h (limited)"
+    },
+    {
+      "label": "Flight time",
+      "value": "16 min*"
+    },
+    {
+      "label": "Max payload",
+      "value": "95 kg"
+    },
+    {
+      "label": "Aircraft weight",
+      "value": "≤ 114 kg"
+    },
+    {
+      "label": "Dimensions (L × W × H)",
+      "value": "3500 × 3569 × 1182 mm"
+    },
+    {
+      "label": "Ingress protection",
+      "value": "IP65"
+    },
+    {
+      "label": "Sensors",
+      "value": "Aviation-grade IMU"
+    },
+    {
+      "label": "Flight control",
+      "value": "NA80, dual redundant flight controllers"
+    },
+    {
+      "label": "Applications",
+      "value": "Tourism, outdoor recreation, urban air mobility, emergency response"
+    }
+  ],
+  "certs": [
+    {
+      "image": "/assets/img/cert-dream-st-ce.jpg",
+      "label": "CE Declaration of Conformity"
+    },
+    {
+      "image": "/assets/img/cert-dream-st-fcc.jpg",
+      "label": "FCC Supplier’s Declaration of Conformity"
+    }
+  ],
+  "notes": ""
+}

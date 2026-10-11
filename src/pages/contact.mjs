@@ -1,11 +1,13 @@
-import { aircraft } from '../data/aircraft.mjs';
-import { contacts, offices } from '../data/site.mjs';
+import { aircraft, seo, settings } from '../content.mjs';
+
+const { contacts, offices } = settings;
 import { esc, eyebrow, icon } from '../partials/ui.mjs';
 
 export const meta = {
   slug: 'contact',
-  title: 'Contact',
-  description: 'Contact CoolFly about dealerships, demonstration flights, customer support or press enquiries.',
+  title: seo.contact.title,
+  description: seo.contact.description,
+  image: seo.contact.image,
   header: 'solid',
   nav: 'contact',
   popup: false,
@@ -27,17 +29,17 @@ export function render() {
       <li id="sales">
         <h2>Dealers &amp; partnerships</h2>
         <p>Becoming a dealer, distribution, demonstration flights and commercial operations.</p>
-        <a href="mailto:${contacts.business}">${contacts.business}</a>
+        <a href="mailto:${contacts.business}" data-track="email_click">${contacts.business}</a>
       </li>
       <li>
         <h2>Customer support</h2>
         <p>Owners and pilots with questions about their aircraft, service or training.</p>
-        <a href="mailto:${contacts.support}">${contacts.support}</a>
+        <a href="mailto:${contacts.support}" data-track="email_click">${contacts.support}</a>
       </li>
       <li>
         <h2>Press &amp; media</h2>
         <p>Interviews, images, film and event requests.</p>
-        <a href="mailto:${contacts.press}">${contacts.press}</a>
+        <a href="mailto:${contacts.press}" data-track="email_click">${contacts.press}</a>
       </li>
     </ul>
   </div>

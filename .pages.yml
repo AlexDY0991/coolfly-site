@@ -1,0 +1,485 @@
+# Pages CMS configuration (https://pagescms.org)
+# Editors sign in at https://app.pagescms.org. Each save commits to GitHub and
+# the site rebuilds automatically (about one minute).
+
+media:
+  input: public/assets/img
+  output: /assets/img
+  rename: safe
+  categories: [image]
+
+settings:
+  content:
+    merge: true # keep internal keys (notes, old URLs) that are not shown as fields
+  commit:
+    identity: user
+
+components:
+  seo:
+    type: object
+    label: 搜索引擎与分享设置（SEO）
+    fields:
+      - { name: title, label: 搜索结果标题, type: string, description: 留空则使用页面标题。建议 60 个字符以内。 }
+      - { name: description, label: 搜索结果描述, type: text, description: 显示在 Google 搜索结果里的一两句话，建议 150 个字符以内。 }
+      - { name: image, label: 分享图片, type: image, description: 分享到 LinkedIn、Facebook 等平台时显示的图片，建议 1200×630。 }
+
+content:
+  # ------------------------------------------------------------------
+  - name: daily
+    label: 日常运营
+    type: group
+    items:
+      - name: news
+        label: 新闻与文章
+        type: collection
+        path: content/news
+        format: yaml-frontmatter
+        filename:
+          template: "{title}.md"
+          field: create
+        view:
+          fields: [title, date, category, published]
+          primary: title
+          sort: [date, title]
+          search: [title, excerpt]
+          default: { sort: date, order: desc }
+        fields:
+          - { name: title, label: 标题, type: string, required: true }
+          - { name: date, label: 发布日期, type: date, required: true, options: { format: yyyy-MM-dd } }
+          - name: category
+            label: 分类
+            type: select
+            default: News
+            options:
+              values:
+                - { name: News, label: 新闻 }
+                - { name: Events, label: 活动与展会 }
+                - { name: Insights, label: 科普与观点 }
+          - { name: excerpt, label: 摘要, type: text, description: 显示在新闻列表和搜索结果里，一两句话即可。 }
+          - { name: cover, label: 封面图, type: image, options: { path: public/assets/img/news } }
+          - { name: coverAlt, label: 封面图描述, type: string, description: 用一句话描述图片内容，有助于 SEO 和无障碍访问。 }
+          - { name: seoTitle, label: 搜索结果标题（可选）, type: string }
+          - { name: seoDescription, label: 搜索结果描述（可选）, type: text }
+          - { name: published, label: 已发布, type: boolean, default: true, description: 关闭后文章不会出现在网站上。 }
+          - { name: body, label: 正文, type: rich-text, options: { format: markdown, path: public/assets/img/news } }
+
+      - name: landing
+        label: 投放落地页
+        type: collection
+        path: content/landing
+        format: yaml-frontmatter
+        filename:
+          template: "{slug}.md"
+          field: create
+        view:
+          fields: [title, slug, formType, published]
+          primary: title
+        fields:
+          - { name: title, label: 内部名称, type: string, required: true, description: 只在后台显示，例如「欧洲经销商招募 - Google Ads」。 }
+          - name: slug
+            label: 网址
+            type: string
+            required: true
+            pattern: { regex: "^[a-z0-9-]+$", message: 只能用小写英文字母、数字和连字符，例如 dealer-europe }
+            description: 页面地址为 /lp/网址.html，例如 dealer-europe → /lp/dealer-europe.html
+          - { name: published, label: 已发布, type: boolean, default: true }
+          - { name: noindex, label: 不让搜索引擎收录, type: boolean, default: true, description: 只用于广告投放的页面建议保持开启。 }
+          - { name: hideNavigation, label: 隐藏网站导航, type: boolean, default: true, description: 开启后页头只保留 Logo 和一个按钮，减少访客离开。 }
+          - { name: eyebrow, label: 小标题, type: string }
+          - { name: headline, label: 主标题, type: string, required: true }
+          - { name: subheadline, label: 副标题, type: text }
+          - { name: heroImage, label: 主图, type: image }
+          - { name: heroImageAlt, label: 主图描述, type: string }
+          - { name: ctaLabel, label: 按钮文字, type: string, default: Apply now }
+          - { name: benefitsTitle, label: 卖点区标题, type: string }
+          - name: benefits
+            label: 卖点
+            type: object
+            list: { max: 6, collapsible: { collapsed: true, summary: "{title}" } }
+            fields:
+              - { name: title, label: 标题, type: string }
+              - { name: text, label: 说明, type: text }
+          - name: aircraft
+            label: 展示机型
+            type: select
+            options:
+              multiple: true
+              values:
+                - { name: urban, label: Urban }
+                - { name: dream-st, label: Dream ST }
+                - { name: dream-pro, label: Dream PRO }
+          - { name: showEvents, label: 显示展会照片, type: boolean, default: true }
+          - { name: body, label: 补充内容（可选）, type: rich-text, options: { format: markdown } }
+          - name: formType
+            label: 表单类型
+            type: select
+            default: dealer
+            options:
+              values:
+                - { name: dealer, label: 经销商申请 }
+                - { name: demo, label: 预约试飞 }
+          - { name: formTitle, label: 表单标题, type: string }
+          - { name: formText, label: 表单说明, type: text }
+          - { name: submitLabel, label: 提交按钮文字, type: string }
+          - { name: seoTitle, label: 搜索结果与分享标题, type: string }
+          - { name: seoDescription, label: 搜索结果与分享描述, type: text }
+          - { name: shareImage, label: 分享图片, type: image }
+
+  # ------------------------------------------------------------------
+  - name: pages
+    label: 网站内容
+    type: group
+    items:
+      - name: home
+        label: 首页
+        type: file
+        path: content/home.json
+        format: json
+        operations: { delete: false }
+        fields:
+          - name: hero
+            label: 首屏
+            type: object
+            fields:
+              - { name: titleLine1, label: 标题第一行, type: string }
+              - { name: titleLine2, label: 标题第二行, type: string }
+              - { name: lede, label: 副标题, type: text }
+              - { name: primaryButton, label: 主按钮文字, type: string }
+              - { name: secondaryButton, label: 次按钮文字, type: string }
+              - { name: poster, label: 视频封面图, type: image, description: 视频加载前显示的画面。 }
+              - { name: hudReadouts, label: 右上角轮播参数, type: string, list: true }
+          - name: statement
+            label: 主张与数字
+            type: object
+            fields:
+              - { name: text, label: 主张, type: text }
+              - name: stats
+                label: 数字
+                type: object
+                list: { max: 4, collapsible: { summary: "{value}{unit} {label}" } }
+                fields:
+                  - { name: value, label: 数字, type: string }
+                  - { name: unit, label: 单位, type: string }
+                  - { name: label, label: 说明, type: string }
+                  - { name: animate, label: 滚动计数动画, type: boolean, default: true }
+          - name: feature
+            label: 全屏大图
+            type: object
+            fields:
+              - { name: title, label: 标题, type: string }
+              - { name: text, label: 说明, type: text }
+              - { name: image, label: 图片, type: image }
+              - { name: imageAlt, label: 图片描述, type: string }
+              - { name: linkLabel, label: 链接文字, type: string }
+              - { name: link, label: 链接地址, type: string }
+          - name: duo
+            label: 双图
+            type: object
+            list: { min: 2, max: 2 }
+            fields:
+              - { name: title, label: 标题, type: string }
+              - { name: image, label: 图片, type: image }
+              - { name: imageAlt, label: 图片描述, type: string }
+              - { name: linkLabel, label: 链接文字, type: string }
+              - { name: link, label: 链接地址, type: string }
+          - { name: lineupTitle, label: 产品区标题, type: string }
+          - name: safety
+            label: 安全区
+            type: object
+            fields:
+              - { name: eyebrow, label: 小标题, type: string }
+              - { name: title, label: 标题, type: string }
+              - { name: points, label: 要点, type: string, list: { max: 3 } }
+          - { name: applicationsTitle, label: 应用场景标题, type: string }
+          - name: applications
+            label: 应用场景
+            type: object
+            list: { max: 4, collapsible: { collapsed: true, summary: "{label}" } }
+            fields:
+              - { name: label, label: 场景名称, type: string }
+              - { name: image, label: 图片, type: image }
+              - { name: imageAlt, label: 图片描述, type: string }
+              - { name: models, label: 推荐机型, type: string }
+          - name: licence
+            label: 执照说明条
+            type: object
+            fields:
+              - { name: title, label: 标题, type: string }
+              - { name: text, label: 说明, type: string }
+              - { name: linkLabel, label: 链接文字, type: string }
+          - name: events
+            label: 展会照片带
+            type: object
+            fields:
+              - { name: title, label: 标题, type: string }
+              - { name: note, label: 右侧小字, type: string }
+              - name: photos
+                label: 照片
+                type: object
+                list: { collapsible: { collapsed: true, summary: "{caption}" } }
+                fields:
+                  - { name: image, label: 照片, type: image }
+                  - { name: caption, label: 说明, type: string }
+          - name: dealerBand
+            label: 橙色经销商招募条（全站通用）
+            type: object
+            fields:
+              - { name: title, label: 标题, type: string }
+              - { name: text, label: 说明, type: text }
+
+      - name: aircraft
+        label: 产品
+        type: collection
+        path: content/aircraft
+        format: json
+        operations: { create: false, rename: false, delete: false }
+        view:
+          fields: [name, stance, order]
+          primary: name
+          default: { sort: order, order: asc }
+        fields:
+          - { name: name, label: 产品名称, type: string, readonly: true }
+          - { name: fullName, label: 完整名称, type: string }
+          - { name: order, label: 排序, type: number, description: 数字越小越靠前。 }
+          - { name: stance, label: 驾驶姿势, type: string }
+          - { name: tagline, label: 标语, type: string }
+          - { name: summary, label: 一句话介绍, type: text }
+          - { name: lineup, label: 列表简介, type: string }
+          - { name: cardFacts, label: 首页卡片说明, type: string, description: 显示在首页产品卡片上，例如「Standing flight · Enclosed propeller propulsion」。 }
+          - { name: image, label: 产品图（透明背景）, type: image }
+          - { name: imageAlt, label: 产品图描述, type: string }
+          - { name: heroImage, label: 产品页主图, type: image }
+          - { name: heroAlt, label: 主图描述, type: string }
+          - { name: galleryImage, label: 全屏大图, type: image }
+          - { name: galleryAlt, label: 大图描述, type: string }
+          - name: keyFigures
+            label: 关键数字
+            type: object
+            list: { max: 3 }
+            fields:
+              - { name: value, label: 数字, type: string }
+              - { name: unit, label: 单位, type: string }
+              - { name: label, label: 说明, type: string }
+          - name: story
+            label: 产品特点
+            type: object
+            list: { min: 2, max: 2 }
+            fields:
+              - { name: title, label: 标题, type: string }
+              - { name: text, label: 说明, type: text }
+          - { name: safety, label: 安全配置, type: string, list: true }
+          - name: specs
+            label: 参数表
+            type: object
+            list: { collapsible: { collapsed: true, summary: "{label}: {value}" } }
+            fields:
+              - { name: label, label: 参数名, type: string }
+              - { name: value, label: 参数值, type: string }
+          - name: certs
+            label: 认证文件
+            type: object
+            list: true
+            fields:
+              - { name: image, label: 文件图片, type: image }
+              - { name: label, label: 名称, type: string }
+          - { name: notes, label: 内部备注, type: text, readonly: true, description: 只在后台显示，网站上看不到。 }
+
+      - name: dealers
+        label: 经销商页
+        type: file
+        path: content/dealers.json
+        format: json
+        operations: { delete: false }
+        fields:
+          - name: hero
+            label: 首屏
+            type: object
+            fields:
+              - { name: titleLine1, label: 标题第一行, type: string }
+              - { name: titleLine2, label: 标题第二行, type: string }
+              - { name: tagline, label: 副标题, type: text }
+              - { name: image, label: 背景图, type: image }
+          - name: why
+            label: 合作理由
+            type: object
+            list: { max: 4 }
+            fields:
+              - { name: title, label: 标题, type: string }
+              - { name: text, label: 说明, type: string }
+          - name: regions
+            label: 招募区域
+            type: object
+            list: true
+            fields:
+              - { name: name, label: 区域, type: string }
+              - { name: note, label: 说明, type: string }
+          - { name: presence, label: 已有市场, type: string, description: "格式：国家: 说明，例如「France, Canada: First international customer deliveries」" }
+          - name: support
+            label: 厂家支持
+            type: object
+            list: true
+            fields:
+              - { name: title, label: 标题, type: string }
+              - { name: text, label: 说明, type: string }
+          - name: process
+            label: 合作流程
+            type: object
+            list: { max: 5 }
+            fields:
+              - { name: title, label: 步骤, type: string }
+              - { name: text, label: 说明, type: string }
+          - { name: kitText, label: 经销商资料包说明, type: text }
+          - name: faqs
+            label: 常见问题
+            type: object
+            list: { collapsible: { collapsed: true, summary: "{question}" } }
+            fields:
+              - { name: question, label: 问题, type: string }
+              - { name: answer, label: 回答, type: text }
+
+      - name: company
+        label: 公司页
+        type: file
+        path: content/company.json
+        format: json
+        operations: { delete: false }
+        fields:
+          - { name: title, label: 标题, type: string }
+          - { name: lede, label: 简介, type: text }
+          - { name: image, label: 配图, type: image }
+          - { name: quote, label: CEO 寄语, type: text }
+          - { name: quoteAuthor, label: 署名, type: string }
+          - { name: quoteImage, label: CEO 照片, type: image }
+
+      - name: milestones
+        label: 里程碑
+        type: file
+        path: content/milestones.json
+        format: json
+        list: true
+        operations: { delete: false }
+        fields:
+          - { name: year, label: 年份, type: string }
+          - { name: events, label: 事件, type: string, list: true }
+
+      - name: textPages
+        label: 隐私政策等文本页
+        type: collection
+        path: content/pages
+        format: yaml-frontmatter
+        filename:
+          template: "{slug}.md"
+          field: create
+        fields:
+          - { name: title, label: 标题, type: string, required: true }
+          - { name: slug, label: 网址, type: string, required: true, pattern: "^[a-z0-9-]+$" }
+          - { name: description, label: 搜索结果描述, type: text }
+          - { name: updated, label: 更新日期, type: date, options: { format: yyyy-MM-dd } }
+          - { name: published, label: 已发布, type: boolean, default: true }
+          - { name: noindex, label: 不让搜索引擎收录, type: boolean, default: false }
+          - { name: body, label: 正文, type: rich-text, options: { format: markdown } }
+
+  # ------------------------------------------------------------------
+  - name: config
+    label: 设置
+    type: group
+    items:
+      - name: settings
+        label: 网站设置（追踪、表单、弹窗、联系方式）
+        type: file
+        path: content/settings.json
+        format: json
+        operations: { delete: false }
+        fields:
+          - name: tracking
+            label: 追踪代码
+            type: object
+            fields:
+              - name: gtmId
+                label: Google Tag Manager 容器 ID
+                type: string
+                pattern: { regex: "^(GTM-[A-Z0-9]+)?$", message: 格式为 GTM- 开头，例如 GTM-ABC1234 }
+                description: GA4、Google Ads、Meta、TikTok、LinkedIn 的代码都在 GTM 里添加，不需要改网站。
+          - name: consent
+            label: Cookie 同意横幅
+            type: object
+            fields:
+              - { name: enabled, label: 启用, type: boolean, default: true, description: 欧洲访客必须先同意，广告和统计代码才会记录。建议保持开启。 }
+              - { name: message, label: 横幅文字, type: text }
+              - { name: privacyPage, label: 隐私政策页网址, type: string, description: 对应「隐私政策等文本页」里的网址，例如 privacy。 }
+          - name: forms
+            label: 表单接收
+            type: object
+            fields:
+              - name: provider
+                label: 询盘发送到
+                type: select
+                default: none
+                options:
+                  values:
+                    - { name: none, label: 暂不接收（提示访客发邮件） }
+                    - { name: hubspot, label: HubSpot }
+                    - { name: webhook, label: Webhook（Zapier、Make、飞书、Formspree 等） }
+              - { name: webhookUrl, label: Webhook 地址, type: string }
+              - { name: hubspotPortalId, label: HubSpot Portal ID, type: string }
+              - { name: hubspotDealerFormId, label: HubSpot 经销商表单 ID, type: string }
+              - { name: hubspotContactFormId, label: HubSpot 联系表单 ID, type: string }
+              - { name: thankYouPage, label: 提交后跳转到感谢页, type: boolean, default: true, description: 方便在广告后台用「访问感谢页」统计转化。 }
+          - name: popup
+            label: 经销商招募弹窗
+            type: object
+            fields:
+              - { name: enabled, label: 启用, type: boolean, default: true }
+              - { name: delaySeconds, label: 停留多少秒后弹出, type: number, options: { min: 0 } }
+              - { name: scrollPercent, label: 或滚动到页面百分之多少时弹出, type: number, options: { min: 0, max: 100 } }
+              - { name: snoozeDays, label: 同一访客多少天内只弹一次, type: number, options: { min: 0 } }
+              - { name: eyebrow, label: 小标题, type: string }
+              - { name: title, label: 标题, type: string }
+              - { name: text, label: 说明, type: text }
+              - { name: image, label: 图片, type: image }
+              - { name: button, label: 按钮文字, type: string }
+          - name: contacts
+            label: 联系方式
+            type: object
+            fields:
+              - { name: business, label: 经销商与合作邮箱, type: string }
+              - { name: support, label: 客户支持邮箱, type: string }
+              - { name: press, label: 媒体邮箱, type: string }
+              - { name: phone, label: 电话, type: string }
+              - { name: hours, label: 工作时间, type: string }
+              - { name: address, label: 总部地址, type: text }
+          - name: offices
+            label: 办公室
+            type: object
+            list: true
+            fields:
+              - { name: city, label: 城市, type: string }
+              - { name: country, label: 国家, type: string }
+              - { name: role, label: 职能, type: string }
+          - name: social
+            label: 社交媒体
+            type: object
+            list: true
+            fields:
+              - { name: label, label: 平台名称, type: string }
+              - { name: url, label: 链接, type: string }
+          - { name: siteName, label: 网站名称, type: string }
+          - { name: siteUrl, label: 正式域名, type: string, description: 用于搜索引擎和分享链接，例如 https://coolflyaircraft.com }
+          - { name: tagline, label: 品牌标语, type: string }
+          - { name: defaultDescription, label: 默认搜索结果描述, type: text }
+          - { name: defaultShareImage, label: 默认分享图片, type: image }
+
+      - name: seo
+        label: 各页面 SEO
+        type: file
+        path: content/seo.json
+        format: json
+        operations: { delete: false }
+        fields:
+          - { name: home, label: 首页, component: seo }
+          - { name: compare, label: 产品对比页, component: seo }
+          - { name: safety, label: 安全页, component: seo }
+          - { name: dealers, label: 经销商页, component: seo }
+          - { name: company, label: 公司页, component: seo }
+          - { name: contact, label: 联系页, component: seo }
+          - { name: newsroom, label: 新闻中心, component: seo }

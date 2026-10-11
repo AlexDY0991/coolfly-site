@@ -1,94 +1,64 @@
-# CoolFly 官网（新版前端）
+# CoolFly 官网
 
-CoolFly 官网的重新设计版本，纯静态前端，不依赖任何第三方库或后端服务。
+CoolFly 新版官网：静态网站，内容通过 [Pages CMS](https://pagescms.org) 后台编辑，保存后由 GitHub Actions 自动构建发布。
 
-设计思路：整体框架参考 Pivotal 的航空质感（全屏实拍飞行画面、留白、精确参数），产品展示借用 XREAL 的手法（产品阵列、大数字），另外单独搭建经销商招募板块。网站语言为英文，面向海外经销商和客户。
+- **运营同事请看：[docs/运营手册.md](docs/运营手册.md)**（后台使用、新闻、落地页、广告追踪、询盘接收）
+- 预览网址：https://alexdy0991.github.io/coolfly-site/（已设置不被搜索引擎收录）
 
-## 页面
+## 本地运行
 
-| 文件 | 内容 |
-| --- | --- |
-| `index.html` | 首页：飞行视频、公司实力、三款产品、安全、应用场景、法规与培训、展会、经销商招募、新闻 |
-| `urban.html` / `dream-st.html` / `dream-pro.html` | 产品页，由同一个模板加 `src/data/aircraft.mjs` 中的数据生成 |
-| `compare.html` | 三款产品参数对比和选型建议 |
-| `safety.html` | 安全设计四个层次、各市场法规、保险与 CE/FCC 声明 |
-| `dealers.html` | 经销商招募：合作理由、招募区域、厂家支持、合作流程、申请表、常见问题 |
-| `company.html` | 公司介绍、CEO 寄语、发展时间线、办公室、新闻 |
-| `contact.html` | 按业务分流的联系方式和联系表单 |
-| `404.html` | 找不到页面 |
-
-## 使用方法
-
-需要 Node.js 18 或更高版本，无需安装任何依赖。
+需要 Node.js 18 或更高版本。
 
 ```bash
-npm run build     # 生成 dist/ 目录，可以直接部署到任何静态托管服务
-npm run preview   # 构建后在 http://localhost:4173 本地预览
+npm install
+npm run preview   # 构建并在 http://localhost:4173 预览
+npm run build     # 只构建，输出到 dist/
 ```
-
-`dist/` 里是最终的静态文件，可以上传到 Netlify、Vercel、Cloudflare Pages、阿里云 OSS 或任何网页服务器。
-
-## 在线预览（GitHub Pages）
-
-仓库已经包含自动发布配置 `.github/workflows/pages.yml`。每次推送代码，GitHub 都会自动构建网站并发布到：
-
-**https://alexdy0991.github.io/coolfly-site/**
-
-首次使用前需要在 GitHub 上开启一次（只需做一次）：
-
-1. 打开仓库的 **Settings → Pages**
-2. 在 **Build and deployment → Source** 里选择 **GitHub Actions**
-3. 到 **Actions** 页面，找到 "Deploy preview to GitHub Pages"，点 **Run workflow**（或者推送一次新代码）
-
-预览版会自动加上 `noindex` 标记，避免搜索引擎把它当作正式官网收录。
-
-以后要用自己的域名（例如 `preview.coolflyaircraft.com`），在 Settings → Pages 的 Custom domain 里填写，再到域名服务商那里添加一条 CNAME 记录指向 `alexdy0991.github.io` 即可。
 
 ## 目录结构
 
 ```
+content/                 所有可在后台编辑的内容（JSON / Markdown）
+  settings.json          追踪代码、表单接收、弹窗、联系方式
+  home.json              首页
+  aircraft/*.json        三款产品
+  news/*.md              新闻（含从旧 WordPress 导入的 48 篇）
+  landing/*.md           投放落地页 → /lp/<slug>.html
+  pages/*.md             隐私政策等文本页
+  dealers.json, company.json, milestones.json, seo.json
+.pages.yml               后台配置（菜单、字段、中文标签）
 src/
-  data/aircraft.mjs   三款产品的全部文案和参数（产品页、对比页、首页共用）
-  data/site.mjs       导航、联系方式、办公室、新闻、时间线
-  partials/           页头、页脚和通用组件
-  pages/              每个页面一个文件
-public/
-  assets/css/site.css 全站样式
-  assets/js/site.js   菜单、视频、标签切换、表单
-  assets/img, video   图片和视频（取自现有官网素材）
-  assets/fonts        自托管字体（Archivo、Instrument Sans、JetBrains Mono，均为 OFL 授权）
-scripts/build.mjs     构建脚本
+  content.mjs            读取 content/
+  partials/              页头、页脚、弹窗、Cookie 横幅、通用组件
+  pages/                 页面模板
+public/assets/           样式、脚本、字体、图片、视频
+scripts/
+  build.mjs              构建：生成页面、sitemap.xml、robots.txt、_redirects，压缩大图
+  serve.mjs              本地预览服务器
+  import-wordpress.mjs   从旧 WordPress 导入新闻（已执行过，重复运行只会补充新文章）
+.github/workflows/pages.yml  推送后自动发布到 GitHub Pages（预览）
 ```
 
-修改产品参数或文案时，只需要改 `src/data/` 里的文件，然后重新运行 `npm run build`。
+## 构建产物
 
-## 动效与弹窗
+- 每个页面一个 HTML 文件；新闻在 `news/`，落地页在 `lp/`。
+- `sitemap.xml` 和 `robots.txt`。设置了 `SITE_PREVIEW` 时，所有页面都会带上 `noindex`。
+- `_redirects`：旧 WordPress 网址到新网址的 301 跳转，Cloudflare Pages 和 Netlify 都能识别。
+- 结构化数据：Organization、Product、NewsArticle、FAQPage。
 
-- 首页视频上叠加了一层仪表盘式的 HUD（四角框线、高度刻度、轮播显示真实参数）。
-- 标题逐行升起，内容滚动到可视区时淡入，图片用遮罩展开，数字从 0 滚动到目标值。
-- 首页的大图会随滚动从圆角卡片扩展成全屏，导航栏向下滚动时自动隐藏、向上滚动时出现。
-- 系统开启"减少动态效果"时，所有动画都会关闭。
-- **经销商招募弹窗**：访客停留 15 秒或滚动到页面 45% 时弹出，同一访客 7 天内只弹一次；经销商页、联系页不弹。参数在 `site.js` 顶部的 `POPUP` 里修改。
+## 追踪与表单
 
-## 表单
+- 在 `content/settings.json` 里填写 `tracking.gtmId` 后，页面会自动加载 GTM，并开启 Google Consent Mode v2：EEA、英国、瑞士默认拒绝，其他地区默认允许，访客可以在横幅里修改。
+- 事件通过 `dataLayer` 发送：`generate_lead`、`form_start`、`form_error`、`cta_click`、`email_click`、`popup_open`、`popup_close`、`consent_update`。
+- 表单接收方式（`forms.provider`）可选 `none`、`hubspot` 或 `webhook`。每条询盘都会附带 UTM 参数、各平台点击 ID、落地页地址和来源页（referrer）。
 
-经销商申请表、弹窗表单和联系表单目前**没有连接后端**。访客提交时，表单会先检查必填项，然后提示"表单尚未连接，请直接发邮件"。
+## 正式上线
 
-接入方法：在 `public/assets/js/site.js` 顶部的 `FORM_ENDPOINTS` 里填入接收地址（例如 Formspree、HubSpot、飞书表单的 webhook，或自建接口）。表单会以 JSON 格式 POST 过去。
+1. 用 Cloudflare Pages（或 Netlify）连接本仓库：构建命令 `npm run build`，输出目录 `dist`，不设置 `SITE_PREVIEW`。
+2. 把 `coolflyaircraft.com` 指向新站点，并在 Search Console 提交 sitemap。
 
-## 上线前需要 CoolFly 核实的内容
+上线前需要核实的内容，见运营手册第 11 节。
 
-代码里所有需要核实的地方都用 `// confirm:` 注释标出了。
+## 素材
 
-1. **Urban 的最大起飞重量**：现有官网写的是 254 kg，按 90 kg 载重推算空机约 164 kg，远超美国 Part 103 的 254 磅（约 115 kg）上限，很可能是单位写错了。新网站暂时没有显示这一项。
-2. **Dream PRO 的合规类别**：重量 ≤147 kg，超过 Part 103 的空机重量上限，需要说明它在各市场按什么类别销售。
-3. **交付时间**：新网站没有写具体的交付年份。确认统一口径后再加。
-4. **产品图对应关系**：Dream ST 用的是橙色机型图，Dream PRO 用的是黑色机型图，请确认是否对应正确。Dream PRO 页面的主图是白色 Dream 的飞行画面。
-5. **经销商支持内容**：`dealers.html` 里"What partners receive"的六项支持（培训、教练认证、样机、备件、市场物料、法规指导）是根据行业惯例起草的，需要商务团队确认。
-6. **常见问题中的政策描述**：例如"来自经销商区域的客户询盘会转给经销商"，需要确认。
-7. **巴黎和巴西办公室的地址**：现有官网只写了城市名。
-8. **Facebook 和 YouTube 账号**：现有官网上没有找到可用的链接，目前页脚只放了 LinkedIn 和 Instagram。
-
-## 素材说明
-
-图片和视频全部取自现有的 coolflyaircraft.com。我们有意没有使用现有新闻稿里由 AI 生成的场景图，以免和"真实飞行器，不是概念图"的定位相矛盾。
+图片和视频取自现有的 coolflyaircraft.com。新闻里的图片在导入时已经统一缩放到 1600px。

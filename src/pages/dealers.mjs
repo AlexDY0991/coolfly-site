@@ -1,55 +1,35 @@
-import { aircraft } from '../data/aircraft.mjs';
-import { contacts, dealerRegions, offices } from '../data/site.mjs';
+import { aircraft, dealers, seo, settings } from '../content.mjs';
 import { button, esc, eyebrow, icon } from '../partials/ui.mjs';
+
+const { contacts, offices } = settings;
+const { hero, why, regions, support, process: steps, faqs } = dealers;
 
 export const meta = {
   slug: 'dealers',
-  title: 'Become a dealer',
-  description: 'Become an authorised CoolFly dealer. We are appointing partners in Europe, North America, Australia and the Middle East to sell, deliver and support personal electric aircraft.',
+  title: seo.dealers.title,
+  description: seo.dealers.description,
+  image: seo.dealers.image || hero.image,
   header: 'overlay',
   nav: 'dealers',
-  image: 'assets/img/launch-event.jpg',
   popup: false,
+  jsonLd: [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })),
+    },
+  ],
 };
-
-// confirm: the support package below is a proposal drafted for the website.
-// CoolFly's commercial team must confirm each item before launch.
-const support = [
-  ['Sales and product training', 'For your team, in Hangzhou or locally.'],
-  ['Pilot instructor programme', 'We certify your instructors to train pilots.'],
-  ['Demonstration aircraft', 'For your showroom, events and test flights.'],
-  ['Parts and technical support', 'Straight from the engineers who build it.'],
-  ['Marketing assets', 'Film, photos, spec sheets and launch support.'],
-  ['Regulatory guidance', 'Help with local registration and rules.'],
-];
-
-const process = [
-  ['Apply', 'Tell us about your company and region.'],
-  ['Introductory call', 'We review and set up a call.'],
-  ['Agreement', 'Territory, models and launch plan.'],
-  ['Training', 'Sales, service and instructors.'],
-  ['First deliveries', 'Aircraft ship. You start flying.'],
-];
-
-// confirm: FAQ answers on lead routing and demonstrations describe intended
-// policy. CoolFly's commercial team must confirm them before launch.
-const faqs = [
-  ['Does CoolFly sell directly to customers in my region?', 'CoolFly works primarily through authorised dealers to develop each market and provide local service. Customer enquiries from your territory are passed to you.'],
-  ['Do my customers need a pilot’s licence?', 'It depends on the market and the model. In the United States, aircraft that meet FAA Part 103 can be flown without a pilot certificate. Elsewhere, national rules apply. We help you work through them before you sell.'],
-  ['Which regions are you recruiting in?', 'Europe, North America, Australia and the Middle East are our current priorities. We also welcome applications from other regions.'],
-  ['What kind of businesses make good CoolFly dealers?', 'Companies already selling and servicing premium vehicles or aircraft: powersports and marine dealers, flight schools, aviation service companies, and tourism operators with a commercial plan.'],
-  ['Can I see the aircraft fly before I commit?', 'Yes. We arrange demonstration flights in Hangzhou and at trade shows, and can discuss demonstrations in your region.'],
-];
 
 export function render() {
   return `
 <section class="product-hero product-hero--short">
-  <img class="product-hero__img" src="assets/img/launch-event.jpg" alt="The Urban global launch stage in Hangzhou" width="1600" height="900" data-parallax>
+  <img class="product-hero__img" src="${esc(hero.image)}" alt="The Urban global launch stage in Hangzhou" width="1600" height="900" data-parallax>
   <div class="product-hero__shade"></div>
   <div class="container product-hero__content">
     <p class="eyebrow product-hero__eyebrow">Dealer programme</p>
-    <h1 class="product-hero__title product-hero__title--md"><span class="line"><span>Bring personal flight</span></span><span class="line"><span>to your market.</span></span></h1>
-    <p class="product-hero__tagline">We are appointing our first dealers in each region now.</p>
+    <h1 class="product-hero__title product-hero__title--md"><span class="line"><span>${esc(hero.titleLine1)}</span></span><span class="line"><span>${esc(hero.titleLine2)}</span></span></h1>
+    <p class="product-hero__tagline">${esc(hero.tagline)}</p>
     <div class="actions product-hero__actions">
       ${button('Apply now', '#apply', 'primary')}
       ${button('How it works', '#process', 'ghost-light')}
@@ -64,10 +44,7 @@ export function render() {
       <h2>Why partner with CoolFly</h2>
     </div>
     <div class="why__grid">
-      <article data-reveal><h3>Three aircraft</h3><p>For private owners and commercial operators.</p></article>
-      <article data-reveal><h3>Built in-house</h3><p>Support from the engineers who designed it.</p></article>
-      <article data-reveal><h3>Early in the market</h3><p>Build your region’s customer base first.</p></article>
-      <article data-reveal><h3>Seen worldwide</h3><p>CES, Oshkosh, IFA Berlin, CCTV Gala.</p></article>
+      ${why.map((w) => `<article data-reveal><h3>${esc(w.title)}</h3><p>${esc(w.text)}</p></article>`).join('')}
     </div>
   </div>
 </section>
@@ -80,13 +57,13 @@ export function render() {
       <p class="section-head__note">Looking for a dealer near you? Email <a href="mailto:${contacts.business}">${contacts.business}</a>.</p>
     </div>
     <ul class="regions">
-      ${dealerRegions.map((r) => `<li data-reveal><span class="regions__status">Open</span><h3>${esc(r.region)}</h3><p>${esc(r.note)}</p></li>`).join('')}
+      ${regions.map((r) => `<li data-reveal><span class="regions__status">Open</span><h3>${esc(r.name)}</h3><p>${esc(r.note)}</p></li>`).join('')}
     </ul>
     <div class="presence">
       <p class="presence__label">CoolFly today</p>
       <ul>
         ${offices.map((o) => `<li><strong>${esc(o.city)}</strong>${esc(o.role)}</li>`).join('')}
-        <li><strong>France, Canada</strong>First international customer deliveries</li>
+        ${dealers.presence ? `<li><strong>${esc(dealers.presence.split(':')[0])}</strong>${esc(dealers.presence.split(':').slice(1).join(':').trim())}</li>` : ''}
       </ul>
     </div>
   </div>
@@ -99,7 +76,7 @@ export function render() {
       <h2>What partners receive</h2>
     </div>
     <ul class="support-grid">
-      ${support.map(([t, d]) => `<li data-reveal><h3>${esc(t)}</h3><p>${esc(d)}</p></li>`).join('')}
+      ${support.map((x) => `<li data-reveal><h3>${esc(x.title)}</h3><p>${esc(x.text)}</p></li>`).join('')}
     </ul>
   </div>
 </section>
@@ -111,7 +88,7 @@ export function render() {
       <h2>From application to first delivery</h2>
     </div>
     <ol class="steps">
-      ${process.map(([t, d], i) => `<li data-reveal><span class="steps__num">Step ${i + 1}</span><h3>${esc(t)}</h3><p>${esc(d)}</p></li>`).join('')}
+      ${steps.map((x, i) => `<li data-reveal><span class="steps__num">Step ${i + 1}</span><h3>${esc(x.title)}</h3><p>${esc(x.text)}</p></li>`).join('')}
     </ol>
   </div>
 </section>
@@ -124,7 +101,7 @@ export function render() {
       <p>Prefer email? <a href="mailto:${contacts.business}">${contacts.business}</a></p>
       <div class="apply__kit">
         <h3>Dealer kit</h3>
-        <p>Spec sheets, film, photos and brand guidelines, shared after the first call.</p>
+        <p>${esc(dealers.kitText)}</p>
       </div>
     </div>
     <form class="form" data-form="dealer" novalidate>
@@ -190,7 +167,7 @@ export function render() {
       <h2>Questions partners ask us</h2>
     </div>
     <div class="faq__list">
-      ${faqs.map(([q, a]) => `<details><summary>${esc(q)}${icon('chevron')}</summary><p>${esc(a)}</p></details>`).join('')}
+      ${faqs.map((f) => `<details><summary>${esc(f.question)}${icon('chevron')}</summary><p>${esc(f.answer)}</p></details>`).join('')}
     </div>
   </div>
 </section>`;

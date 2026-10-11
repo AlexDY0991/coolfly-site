@@ -1,0 +1,105 @@
+{
+  "order": 3,
+  "slug": "dream-pro",
+  "name": "Dream PRO",
+  "fullName": "CoolFly Dream PRO",
+  "stance": "Seated",
+  "tagline": "Forty minutes in the air.",
+  "summary": "The long-endurance Dream, for longer routes and commercial flying.",
+  "lineup": "Seated. Up to 40 minutes.",
+  "cardFacts": "40 min · 120 kg · 100 km/h",
+  "image": "/assets/img/dream-pro.webp",
+  "imageAlt": "CoolFly Dream PRO seated aircraft in black",
+  "heroImage": "/assets/img/f-dream-farm.jpg",
+  "heroAlt": "CoolFly Dream flying over green farmland",
+  "galleryImage": "/assets/img/f-dream-farm-2.jpg",
+  "galleryAlt": "CoolFly Dream cruising over a field in evening light",
+  "keyFigures": [
+    {
+      "value": "40",
+      "unit": "min",
+      "label": "Flight time*"
+    },
+    {
+      "value": "120",
+      "unit": "kg",
+      "label": "Max payload"
+    },
+    {
+      "value": "100",
+      "unit": "km/h",
+      "label": "Top speed (limited)"
+    }
+  ],
+  "story": [
+    {
+      "title": "Built for longer routes",
+      "text": "Scenic loops, ranch patrols, a full operating day."
+    },
+    {
+      "title": "Same flight brain",
+      "text": "Same NA80 flight control and eight-rotor layout as Dream ST."
+    }
+  ],
+  "safety": [
+    "Aviation-grade T800 carbon-fibre structure",
+    "Continues safe flight after the loss of one motor",
+    "AI-assisted automatic control",
+    "Triple-redundant IMUs",
+    "Ballistic parachute with rapid deployment",
+    "Radar-guided automatic landing"
+  ],
+  "specs": [
+    {
+      "label": "Configuration",
+      "value": "Multi-rotor, quad-axis, 8 rotors"
+    },
+    {
+      "label": "Top speed",
+      "value": "100 km/h (limited)"
+    },
+    {
+      "label": "Flight time",
+      "value": "40 min*"
+    },
+    {
+      "label": "Max payload",
+      "value": "120 kg"
+    },
+    {
+      "label": "Aircraft weight",
+      "value": "≤ 147 kg"
+    },
+    {
+      "label": "Dimensions (L × W × H)",
+      "value": "3850 × 4450 × 1182 mm"
+    },
+    {
+      "label": "Ingress protection",
+      "value": "IP65"
+    },
+    {
+      "label": "Sensors",
+      "value": "Aviation-grade IMU"
+    },
+    {
+      "label": "Flight control",
+      "value": "NA80, dual redundant flight controllers"
+    },
+    {
+      "label": "Applications",
+      "value": "Tourism, farms & ranches, urban air mobility, emergency response"
+    }
+  ],
+  "certs": [
+    {
+      "image": "/assets/img/cert-dream-pro-ce.jpg",
+      "label": "CE Declaration of Conformity"
+    },
+    {
+      "image": "/assets/img/cert-dream-pro-fcc.jpg",
+      "label": "FCC Supplier’s Declaration of Conformity"
+    }
+  ],
+  "notes": "Weight ≤147 kg is above the FAA Part 103 empty-weight limit; confirm the category it is sold under in each market."
+}

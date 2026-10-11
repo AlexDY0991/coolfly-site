@@ -1,0 +1,138 @@
+{
+  "hero": {
+    "titleLine1": "Your will.",
+    "titleLine2": "Your altitude.",
+    "lede": "Personal electric aircraft, built from the flight controller up.",
+    "primaryButton": "Explore the aircraft",
+    "secondaryButton": "Become a dealer",
+    "poster": "/assets/img/hero-poster.jpg",
+    "hudReadouts": [
+      "Top speed 100 km/h",
+      "Endurance up to 40 min",
+      "Dual flight control",
+      "Motor-out capable",
+      "IP65 sealed"
+    ]
+  },
+  "statement": {
+    "text": "We build aircraft for the places roads can’t reach.",
+    "stats": [
+      {
+        "value": "2008",
+        "unit": "",
+        "label": "Building flight controllers since",
+        "animate": false
+      },
+      {
+        "value": "2",
+        "unit": "×",
+        "label": "Flight controllers in parallel",
+        "animate": true
+      },
+      {
+        "value": "70",
+        "unit": "%",
+        "label": "Of our team in R&D",
+        "animate": true
+      },
+      {
+        "value": "3",
+        "unit": "",
+        "label": "Aircraft in the line-up",
+        "animate": true
+      }
+    ]
+  },
+  "feature": {
+    "title": "Stand up and fly.",
+    "text": "Standing flight with enclosed propeller propulsion.",
+    "image": "/assets/img/f-urban-lake.jpg",
+    "imageAlt": "A pilot flying CoolFly Urban low over a lake",
+    "linkLabel": "Meet Urban",
+    "link": "urban.html"
+  },
+  "duo": [
+    {
+      "title": "All electric. Endless horizons.",
+      "image": "/assets/img/f-coast.jpg",
+      "imageAlt": "CoolFly Dream flying along a coastline at sunset",
+      "linkLabel": "Dream ST",
+      "link": "dream-st.html"
+    },
+    {
+      "title": "Forty minutes in the air.",
+      "image": "/assets/img/f-dream-farm.jpg",
+      "imageAlt": "CoolFly Dream flying over farmland",
+      "linkLabel": "Dream PRO",
+      "link": "dream-pro.html"
+    }
+  ],
+  "lineupTitle": "Three aircraft. Different ways to fly.",
+  "safety": {
+    "eyebrow": "Dual flight control",
+    "title": "One failure stays one failure.",
+    "points": [
+      "Two independent flight controllers",
+      "Running simultaneously",
+      "Millisecond failover if one fails"
+    ]
+  },
+  "applicationsTitle": "Built for new ways to move.",
+  "applications": [
+    {
+      "label": "Waterfront & marine",
+      "image": "/assets/img/f-urban-lake-2.jpg",
+      "imageAlt": "Urban flying over a lake near moored boats",
+      "models": "Urban · Dream ST"
+    },
+    {
+      "label": "Tourism & resorts",
+      "image": "/assets/img/agibot.jpg",
+      "imageAlt": "A humanoid robot riding CoolFly Urban at a theme park demonstration",
+      "models": "Urban · Dream PRO"
+    },
+    {
+      "label": "Outdoor recreation",
+      "image": "/assets/img/f-coast.jpg",
+      "imageAlt": "Dream flying along a rocky coast at sunset",
+      "models": "Dream ST · Dream PRO"
+    },
+    {
+      "label": "Farms & ranches",
+      "image": "/assets/img/f-dream-farm-2.jpg",
+      "imageAlt": "Dream flying low over farmland",
+      "models": "Dream PRO"
+    }
+  ],
+  "licence": {
+    "title": "No pilot’s licence needed in the US.",
+    "text": "Under FAA Part 103. Rules differ by market.",
+    "linkLabel": "How it works"
+  },
+  "events": {
+    "title": "Meet CoolFly in person.",
+    "note": "CES · Oshkosh · IFA Berlin · Dubai Airshow",
+    "photos": [
+      {
+        "image": "/assets/img/oshkosh.jpg",
+        "caption": "EAA AirVenture Oshkosh"
+      },
+      {
+        "image": "/assets/img/launch-event.jpg",
+        "caption": "Urban global launch, Hangzhou"
+      },
+      {
+        "image": "/assets/img/booth.jpg",
+        "caption": "Global Digital Trade Expo"
+      },
+      {
+        "image": "/assets/img/ifa.jpg",
+        "caption": "IFA Berlin"
+      }
+    ]
+  },
+  "dealerBand": {
+    "title": "Bring personal flight to your market.",
+    "text": "Authorised dealers sell, train and support pilots locally. We are appointing partners now."
+  }
+}

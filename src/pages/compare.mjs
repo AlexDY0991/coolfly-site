@@ -1,10 +1,12 @@
-import { aircraft, compareRows, flightTimeNote } from '../data/aircraft.mjs';
+import { aircraft, seo } from '../content.mjs';
+import { flightTimeNote } from './aircraft.mjs';
 import { dealerBand, esc, eyebrow, icon } from '../partials/ui.mjs';
 
 export const meta = {
   slug: 'compare',
-  title: 'Compare aircraft',
-  description: 'Compare CoolFly Urban, Dream ST and Dream PRO side by side: speed, flight time, payload, size and safety features.',
+  title: seo.compare.title,
+  description: seo.compare.description,
+  image: seo.compare.image,
   header: 'solid',
   nav: 'aircraft',
 };
@@ -65,3 +67,20 @@ export function render() {
 
 ${dealerBand()}`;
 }
+
+const spec = (a, key) => a.specs.find((s) => s.label === key)?.value;
+
+// Rows for the comparison table; each returns the cell for one aircraft.
+const compareRows = [
+  ['Pilot position', (a) => a.stance],
+  ['Control', (a) => (a.slug === 'urban' ? 'Gravity sensing (weight shift)' : 'AI-assisted automatic control')],
+  ['Top speed', (a) => spec(a, 'Top speed') ?? 'To be published'],
+  ['Flight time*', (a) => spec(a, 'Flight time')?.replace('*', '')],
+  ['Payload', (a) => spec(a, 'Max payload') ?? spec(a, 'Pilot capacity')],
+  ['Aircraft weight', (a) => spec(a, 'Aircraft weight') ?? 'To be published'],
+  ['Dimensions', (a) => spec(a, 'Dimensions (L × W × H)')],
+  ['Propulsion', (a) => (a.slug === 'urban' ? 'Enclosed propeller propulsion' : '8 rotors, coaxial on 4 arms')],
+  ['Parachute', () => 'Ballistic, rapid deployment'],
+  ['Ingress protection', () => 'IP65'],
+  ['Best for', (a) => spec(a, 'Applications')],
+];

@@ -1,6 +1,9 @@
-// Generates one page per aircraft from src/data/aircraft.mjs.
+// Generates one page per aircraft from content/aircraft/*.json.
 
-import { aircraft, flightTimeNote } from '../data/aircraft.mjs';
+export const flightTimeNote =
+  'Flight time is based on piloted flight testing with a 70 kg pilot. Actual flight time varies with payload, operating conditions and flight profile.';
+
+import { aircraft, settings } from '../content.mjs';
 import { button, dealerBand, esc, eyebrow, icon } from '../partials/ui.mjs';
 
 export const pages = aircraft.map((a) => ({
@@ -11,6 +14,7 @@ export const pages = aircraft.map((a) => ({
     header: 'overlay',
     nav: 'aircraft',
     image: a.heroImage,
+    jsonLd: [productLd(a)],
   },
   render: () => render(a),
 }));
@@ -27,8 +31,8 @@ function render(a) {
     <h1 class="product-hero__title"><span class="line"><span>${esc(a.name)}</span></span></h1>
     <p class="product-hero__tagline">${esc(a.tagline)}</p>
     <div class="actions product-hero__actions">
-      ${button('Find a dealer', 'dealers.html#regions', 'primary')}
-      ${button('Request a demo flight', `contact.html?topic=demo&model=${a.slug}#sales`, 'ghost-light')}
+      ${button('Find a dealer', 'dealers.html#regions', 'primary', ' data-track="find_dealer"')}
+      ${button('Request a demo flight', `contact.html?topic=demo&model=${a.slug}#sales`, 'ghost-light', ' data-track="request_demo"')}
     </div>
   </div>
 </section>
@@ -83,7 +87,7 @@ function render(a) {
       <a class="text-link" href="compare.html">Compare models${icon('arrow')}</a>
     </div>
     <dl class="spec-table" data-reveal>
-      ${a.specs.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}
+      ${a.specs.map((s) => `<div><dt>${esc(s.label)}</dt><dd>${esc(s.value)}</dd></div>`).join('')}
     </dl>
   </div>
 </section>
@@ -96,7 +100,7 @@ function render(a) {
       <p>Electromagnetic compatibility for Europe and the US. Aviation rules are separate: see <a href="safety.html#rules">flying legally</a>.</p>
     </div>
     <div class="conformity__docs" data-reveal>
-      ${a.certs.map((c) => `<figure><img src="${c.img}" alt="${esc(`${a.name} ${c.label}`)}" loading="lazy" width="640" height="905"><figcaption>${esc(c.label)}</figcaption></figure>`).join('')}
+      ${a.certs.map((c) => `<figure><img src="${esc(c.image)}" alt="${esc(`${a.name} ${c.label}`)}" loading="lazy" width="640" height="905"><figcaption>${esc(c.label)}</figcaption></figure>`).join('')}
     </div>
   </div>
 </section>
@@ -125,4 +129,18 @@ ${dealerBand({ title: `Sell ${a.name} in your region.` })}`;
 // Animate plain numbers; leave values such as "IP65" or "≤114" as text.
 function countable(value) {
   return /^\d+$/.test(value) ? `<span data-count="${value}">${value}</span>` : esc(value);
+}
+
+function productLd(a) {
+  const base = settings.siteUrl.replace(/\/$/, '');
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: a.fullName,
+    description: a.summary,
+    brand: { '@type': 'Brand', name: settings.siteName },
+    image: `${base}/${String(a.image).replace(/^\/+/, '')}`,
+    url: `${base}/${a.slug}.html`,
+    additionalProperty: a.specs.map((s) => ({ '@type': 'PropertyValue', name: s.label, value: String(s.value).replace('*', '') })),
+  };
 }

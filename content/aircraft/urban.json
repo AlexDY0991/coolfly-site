@@ -1,0 +1,97 @@
+{
+  "order": 1,
+  "slug": "urban",
+  "name": "Urban",
+  "fullName": "CoolFly Urban",
+  "stance": "Standing",
+  "tagline": "Fly by instinct.",
+  "summary": "Standing flight with enclosed propeller propulsion. Steer by shifting your weight.",
+  "lineup": "Standing. Steer by leaning.",
+  "cardFacts": "Standing flight · Enclosed propeller propulsion",
+  "image": "/assets/img/urban.webp",
+  "imageAlt": "CoolFly Urban standing-position aircraft, three-quarter view",
+  "heroImage": "/assets/img/f-urban-lake.jpg",
+  "heroAlt": "A pilot flying CoolFly Urban low over a lake",
+  "galleryImage": "/assets/img/f-urban-lake-2.jpg",
+  "galleryAlt": "Urban hovering over a lake near moored boats",
+  "keyFigures": [
+    {
+      "value": "11",
+      "unit": "min",
+      "label": "Flight time*"
+    },
+    {
+      "value": "90",
+      "unit": "kg",
+      "label": "Pilot capacity"
+    },
+    {
+      "value": "IP65",
+      "unit": "",
+      "label": "Water & dust"
+    }
+  ],
+  "story": [
+    {
+      "title": "Steer with your body",
+      "text": "Lean to turn. Let go, and NA80 holds a hands-free hover."
+    },
+    {
+      "title": "Enclosed propeller propulsion",
+      "text": "Every propeller turns inside a protective duct."
+    }
+  ],
+  "safety": [
+    "Race-car-inspired spaceframe safety cell",
+    "Continues safe flight after the loss of one motor",
+    "Hands-free hover and emergency functions",
+    "Redundant battery and propulsion system",
+    "Ballistic parachute with rapid deployment",
+    "Radar-guided automatic landing"
+  ],
+  "specs": [
+    {
+      "label": "Configuration",
+      "value": "Multi-rotor, enclosed propeller propulsion"
+    },
+    {
+      "label": "Flight time",
+      "value": "11 min*"
+    },
+    {
+      "label": "Pilot capacity",
+      "value": "90 kg"
+    },
+    {
+      "label": "Dimensions (L × W × H)",
+      "value": "2200 × 2200 × 1768 mm"
+    },
+    {
+      "label": "Ingress protection",
+      "value": "IP65"
+    },
+    {
+      "label": "Sensors",
+      "value": "Aviation-grade IMU"
+    },
+    {
+      "label": "Flight control",
+      "value": "NA80, dual redundant flight controllers"
+    },
+    {
+      "label": "Applications",
+      "value": "Tourism, outdoor recreation, waterfront, emergency response"
+    }
+  ],
+  "certs": [
+    {
+      "image": "/assets/img/cert-urban-ce.jpg",
+      "label": "CE Declaration of Conformity"
+    },
+    {
+      "image": "/assets/img/cert-urban-fcc.jpg",
+      "label": "FCC Supplier’s Declaration of Conformity"
+    }
+  ],
+  "notes": "Max takeoff weight is hidden until confirmed: the old site listed 254 kg, likely 254 lb (FAA Part 103 limit)."
+}

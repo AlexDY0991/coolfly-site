@@ -1,9 +1,10 @@
+import { seo } from '../content.mjs';
 import { button, dealerBand, eyebrow, icon } from '../partials/ui.mjs';
 
 export const meta = {
   slug: 'safety',
-  title: 'Safety & technology',
-  description: 'How CoolFly builds safety into every aircraft: NA80 triple-redundant flight control, motor-out capability, ballistic parachute, radar auto-landing and IP65 protection.',
+  title: seo.safety.title,
+  description: seo.safety.description,
   header: 'overlay',
   nav: 'safety',
   image: 'assets/img/flight-controller.jpg',
@@ -13,8 +14,8 @@ const layers = [
   {
     title: 'Flight control',
     head: 'NA80, built in-house',
-    text: 'Three channels run at once. If one fails, NA80 isolates it in milliseconds.',
-    points: ['Triple redundancy', 'Millisecond fault isolation', 'Multi-redundant IMU'],
+    text: 'Two flight controllers run at once. If one fails, the other takes over in milliseconds.',
+    points: ['Dual redundant flight controllers', 'Triple-redundant IMUs', 'Millisecond failover'],
   },
   {
     title: 'Propulsion',

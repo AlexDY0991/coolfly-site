@@ -1,0 +1,116 @@
+{
+  "hero": {
+    "titleLine1": "Bring personal flight",
+    "titleLine2": "to your market.",
+    "tagline": "We are appointing our first dealers in each region now.",
+    "image": "/assets/img/launch-event.jpg"
+  },
+  "why": [
+    {
+      "title": "Three aircraft",
+      "text": "For private owners and commercial operators."
+    },
+    {
+      "title": "Built in-house",
+      "text": "Support from the engineers who designed it."
+    },
+    {
+      "title": "Early in the market",
+      "text": "Build your region’s customer base first."
+    },
+    {
+      "title": "Seen worldwide",
+      "text": "CES, Oshkosh, IFA Berlin, CCTV Gala."
+    }
+  ],
+  "regions": [
+    {
+      "name": "Europe",
+      "note": "Supported from our Paris office"
+    },
+    {
+      "name": "North America",
+      "note": "Following EAA AirVenture Oshkosh 2026"
+    },
+    {
+      "name": "Australia",
+      "note": "Open for partners"
+    },
+    {
+      "name": "Middle East",
+      "note": "Open for partners"
+    }
+  ],
+  "presence": "France, Canada: first international customer deliveries",
+  "support": [
+    {
+      "title": "Sales and product training",
+      "text": "For your team, in Hangzhou or locally."
+    },
+    {
+      "title": "Pilot instructor programme",
+      "text": "We certify your instructors to train pilots."
+    },
+    {
+      "title": "Demonstration aircraft",
+      "text": "For your showroom, events and test flights."
+    },
+    {
+      "title": "Parts and technical support",
+      "text": "Straight from the engineers who build it."
+    },
+    {
+      "title": "Marketing assets",
+      "text": "Film, photos, spec sheets and launch support."
+    },
+    {
+      "title": "Regulatory guidance",
+      "text": "Help with local registration and rules."
+    }
+  ],
+  "process": [
+    {
+      "title": "Apply",
+      "text": "Tell us about your company and region."
+    },
+    {
+      "title": "Introductory call",
+      "text": "We review and set up a call."
+    },
+    {
+      "title": "Agreement",
+      "text": "Territory, models and launch plan."
+    },
+    {
+      "title": "Training",
+      "text": "Sales, service and instructors."
+    },
+    {
+      "title": "First deliveries",
+      "text": "Aircraft ship. You start flying."
+    }
+  ],
+  "kitText": "Spec sheets, film, photos and brand guidelines, shared after the first call.",
+  "faqs": [
+    {
+      "question": "Does CoolFly sell directly to customers in my region?",
+      "answer": "CoolFly works primarily through authorised dealers to develop each market and provide local service. Customer enquiries from your territory are passed to you."
+    },
+    {
+      "question": "Do my customers need a pilot’s licence?",
+      "answer": "It depends on the market and the model. In the United States, aircraft that meet FAA Part 103 can be flown without a pilot certificate. Elsewhere, national rules apply. We help you work through them before you sell."
+    },
+    {
+      "question": "Which regions are you recruiting in?",
+      "answer": "We are appointing dealers around the world, with Europe, North America, Australia and the Middle East as current priorities."
+    },
+    {
+      "question": "What kind of businesses make good CoolFly dealers?",
+      "answer": "Companies already selling and servicing premium vehicles or aircraft: powersports and marine dealers, flight schools, aviation service companies, and tourism operators with a commercial plan."
+    },
+    {
+      "question": "Can I see the aircraft fly before I commit?",
+      "answer": "Yes. We arrange demonstration flights in Hangzhou and at trade shows, and can discuss demonstrations in your region."
+    }
+  ]
+}

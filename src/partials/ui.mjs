@@ -1,5 +1,7 @@
 // Small shared helpers and components used by pages.
 
+import { home } from '../content.mjs';
+
 export const esc = (s) =>
   String(s ?? '')
     .replace(/&/g, '&amp;')
@@ -30,15 +32,15 @@ export const formatDate = (iso) =>
   new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
 
 // Reusable closing band that sends visitors to the dealer programme.
-export const dealerBand = ({ title = 'Bring personal flight to your market.', text } = {}) => `
+export const dealerBand = ({ title = home.dealerBand.title, text } = {}) => `
 <section class="band band--signal">
   <div class="container band__inner" data-reveal>
     <div class="band__copy">
       <h2 class="band__title">${esc(title)}</h2>
-      <p>${esc(text ?? 'Authorised dealers sell, train and support pilots locally. We are appointing partners now.')}</p>
+      <p>${esc(text ?? home.dealerBand.text)}</p>
     </div>
     <div class="band__actions">
-      ${button('Become a dealer', 'dealers.html', 'dark')}
+      ${button('Become a dealer', 'dealers.html', 'dark', ' data-track="become_dealer"')}
       ${button('Talk to sales', 'contact.html#sales', 'ghost-dark')}
     </div>
   </div>

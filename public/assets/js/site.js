@@ -1,14 +1,11 @@
 // CoolFly site behaviour. No dependencies.
 
-// Where each form posts. Leave empty until a backend or form service exists;
-// the form then validates and tells the visitor it is not connected yet.
-const FORM_ENDPOINTS = {
-  dealer: '',
-  contact: '',
-};
-
-// Dealer pop-up: shown once per visitor, after a delay or partway down the page.
-const POPUP = { delayMs: 15000, scrollShare: 0.45, snoozeDays: 7, storageKey: 'coolfly-dealer-popup' };
+// Settings come from the CMS (content/settings.json) via window.COOLFLY,
+// written into every page at build time.
+const CONFIG = window.COOLFLY || {};
+const POPUP_KEY = 'coolfly-dealer-popup';
+const CONSENT_KEY = 'coolfly-consent';
+const ATTRIBUTION_KEY = 'coolfly-attribution';
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const header = document.querySelector('.site-header');
@@ -312,44 +309,128 @@ if (milestones) {
   );
 }
 
-/* ---------- Dealer pop-up ---------- */
+/* ---------- Newsroom filter ---------- */
 
-const popup = document.getElementById('dealer-popup');
-const storage = {
-  get() {
+document.querySelectorAll('[data-filter]').forEach((group) => {
+  const cards = [...document.querySelectorAll('.news__grid--archive .news-card')];
+  group.addEventListener('click', (e) => {
+    const chip = e.target.closest('[data-filter-value]');
+    if (!chip) return;
+    const value = chip.dataset.filterValue;
+    group.querySelectorAll('[data-filter-value]').forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+    cards.forEach((card) => {
+      card.hidden = Boolean(value) && card.dataset.category !== value;
+      card.classList.add('is-in');
+    });
+  });
+});
+
+/* ---------- Storage helpers (storage can be blocked) ---------- */
+
+const store = {
+  get(area, key) {
     try {
-      return Number(localStorage.getItem(POPUP.storageKey)) || 0;
+      return window[area].getItem(key);
     } catch {
-      return 0;
+      return null;
     }
   },
-  set() {
+  set(area, key, value) {
     try {
-      localStorage.setItem(POPUP.storageKey, String(Date.now()));
+      window[area].setItem(key, value);
     } catch {
-      /* Storage unavailable: the pop-up may show again next visit. */
+      /* Storage unavailable: fall back to defaults next time. */
     }
   },
 };
 
+/* ---------- Analytics events (read by Google Tag Manager) ---------- */
+
+window.dataLayer = window.dataLayer || [];
+const track = (event, params = {}) => window.dataLayer.push({ event, ...params });
+
+// Links and buttons with data-track="name" send a "cta_click" event.
+document.addEventListener('click', (e) => {
+  const el = e.target.closest('[data-track]');
+  if (!el) return;
+  track(el.dataset.track === 'email_click' ? 'email_click' : 'cta_click', {
+    cta_name: el.dataset.track,
+    cta_text: el.textContent.trim().slice(0, 80),
+    link_url: el.getAttribute('href') || '',
+  });
+});
+
+/* ---------- Campaign attribution ---------- */
+
+// Remember where this visit came from (first touch in the session) so every
+// enquiry records the campaign, click ID, landing page and referrer.
+const ATTRIBUTION_PARAMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'gbraid', 'wbraid', 'fbclid', 'ttclid', 'li_fat_id', 'msclkid'];
+const attribution = (() => {
+  let saved = null;
+  try {
+    saved = JSON.parse(store.get('sessionStorage', ATTRIBUTION_KEY) || 'null');
+  } catch {
+    /* Corrupt value: start again. */
+  }
+  const query = new URLSearchParams(location.search);
+  const found = Object.fromEntries(ATTRIBUTION_PARAMS.filter((k) => query.get(k)).map((k) => [k, query.get(k)]));
+  if (saved && !Object.keys(found).length) return saved;
+  let referrer = '';
+  try {
+    referrer = document.referrer && new URL(document.referrer).host !== location.host ? document.referrer : '';
+  } catch {
+    /* Ignore unparseable referrers. */
+  }
+  const fresh = { ...found, landing_page: location.pathname + location.search, referrer };
+  store.set('sessionStorage', ATTRIBUTION_KEY, JSON.stringify(fresh));
+  return fresh;
+})();
+
+/* ---------- Cookie consent (Google Consent Mode v2) ---------- */
+
+const banner = document.querySelector('[data-consent]');
+if (CONFIG.consent && banner) {
+  const apply = (accepted) => {
+    const value = accepted ? 'granted' : 'denied';
+    if (typeof window.gtag === 'function') {
+      window.gtag('consent', 'update', { ad_storage: value, ad_user_data: value, ad_personalization: value, analytics_storage: value });
+    }
+    store.set('localStorage', CONSENT_KEY, JSON.stringify({ accepted, at: Date.now() }));
+    track('consent_update', { consent: value });
+    banner.hidden = true;
+  };
+  if (!store.get('localStorage', CONSENT_KEY)) banner.hidden = false;
+  banner.addEventListener('click', (e) => {
+    const choice = e.target.closest('[data-consent-choice]');
+    if (choice) apply(choice.dataset.consentChoice === 'accept');
+  });
+  document.querySelectorAll('[data-consent-open]').forEach((btn) => btn.addEventListener('click', () => (banner.hidden = false)));
+}
+
+/* ---------- Dealer pop-up ---------- */
+
+const popup = document.getElementById('dealer-popup');
 if (popup && typeof popup.showModal === 'function') {
-  const snoozed = Date.now() - storage.get() < POPUP.snoozeDays * 864e5;
+  const settings = { delayMs: 15000, scrollShare: 0.45, snoozeDays: 7, ...CONFIG.popup };
+  const last = Number(store.get('localStorage', POPUP_KEY)) || 0;
+  const snoozed = Date.now() - last < settings.snoozeDays * 864e5;
   let shown = false;
   const open = () => {
     if (shown || document.querySelector('dialog[open]') || header?.classList.contains('is-open')) return;
     shown = true;
-    storage.set();
+    store.set('localStorage', POPUP_KEY, String(Date.now()));
     popup.showModal();
     // Focus the heading so the first field does not open a phone keyboard.
     popup.querySelector('#popup-title')?.focus();
     window.removeEventListener('scroll', onScrollPopup);
+    track('popup_open', { popup_name: 'dealer' });
   };
   const onScrollPopup = () => {
     const max = root.scrollHeight - window.innerHeight;
-    if (max > 0 && window.scrollY / max > POPUP.scrollShare) open();
+    if (max > 0 && window.scrollY / max > settings.scrollShare) open();
   };
   if (!snoozed) {
-    setTimeout(open, POPUP.delayMs);
+    setTimeout(open, settings.delayMs);
     window.addEventListener('scroll', onScrollPopup, { passive: true });
   }
   popup.querySelector('[data-popup-close]')?.addEventListener('click', () => popup.close());
@@ -357,6 +438,7 @@ if (popup && typeof popup.showModal === 'function') {
   popup.addEventListener('click', (e) => {
     if (e.target === popup) popup.close();
   });
+  popup.addEventListener('close', () => track('popup_close', { popup_name: 'dealer' }));
 }
 
 /* ---------- Forms ---------- */
@@ -370,8 +452,58 @@ for (const [name, id] of [['topic', 'c-topic'], ['model', 'c-model']]) {
   if (el && value && [...el.options].some((o) => o.value === value)) el.value = value;
 }
 
+const forms = CONFIG.forms || {};
+
+// HubSpot accepts only properties that exist on the HubSpot form. Standard
+// contact properties are mapped; everything else is written into "message".
+const HUBSPOT_FIELDS = { firstName: 'firstname', lastName: 'lastname', email: 'email', phone: 'phone', company: 'company', website: 'website', country: 'country', role: 'jobtitle' };
+
+async function sendToHubspot(type, data) {
+  const formId = forms.hubspotForms?.[type];
+  if (!forms.hubspotPortalId || !formId) throw new Error('HubSpot form ID missing');
+  const values = { ...data };
+  if (values.name && !values.firstName) {
+    const [first, ...rest] = String(values.name).trim().split(/\s+/);
+    values.firstName = first;
+    values.lastName = rest.join(' ');
+  }
+  delete values.name;
+  const fields = [];
+  const extra = [];
+  for (const [key, value] of Object.entries(values)) {
+    if (value === '' || value == null || key === 'consent' || key === 'message') continue;
+    if (HUBSPOT_FIELDS[key]) fields.push({ objectTypeId: '0-1', name: HUBSPOT_FIELDS[key], value: String(value) });
+    else extra.push(`${key}: ${[].concat(value).join(', ')}`);
+  }
+  const message = [values.message, extra.length ? `---\n${extra.join('\n')}` : ''].filter(Boolean).join('\n\n');
+  if (message) fields.push({ objectTypeId: '0-1', name: 'message', value: message });
+  const hutk = document.cookie.match(/(?:^|; )hubspotutk=([^;]+)/)?.[1];
+  const res = await fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${encodeURIComponent(forms.hubspotPortalId)}/${encodeURIComponent(formId)}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ fields, context: { pageUri: location.href, pageName: document.title, ...(hutk ? { hutk } : {}) } }),
+  });
+  if (!res.ok) throw new Error(`HubSpot ${res.status}`);
+}
+
+async function sendToWebhook(data) {
+  if (!forms.webhookUrl) throw new Error('Webhook URL missing');
+  const res = await fetch(forms.webhookUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error(`Webhook ${res.status}`);
+}
+
+// thanks.html sits at the site root; find it from the logo link so it works
+// from any folder and on any base path.
+const thanksUrl = () => new URL((document.querySelector('.brand')?.getAttribute('href') || 'index.html').replace(/index\.html$/, 'thanks.html'), location.href).href;
+
 document.querySelectorAll('form[data-form]').forEach((form) => {
   const status = form.querySelector('.form__status');
+  const type = form.dataset.form;
+  const source = form.dataset.source || location.pathname;
   const setStatus = (text, state) => {
     status.textContent = text;
     if (state) status.dataset.state = state;
@@ -384,6 +516,13 @@ document.querySelectorAll('form[data-form]').forEach((form) => {
     }
   });
 
+  let started = false;
+  form.addEventListener('focusin', () => {
+    if (started) return;
+    started = true;
+    track('form_start', { form_name: type, form_source: source });
+  });
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const invalid = [...form.elements].filter((el) => el.willValidate && !el.checkValidity());
@@ -393,46 +532,61 @@ document.querySelectorAll('form[data-form]').forEach((form) => {
       invalid[0].focus();
       const consent = invalid.find((el) => el.name === 'consent');
       setStatus(
-        consent && invalid.length === 1
-          ? 'Please tick the consent box so we can store your details.'
-          : 'Please complete the highlighted fields.',
+        consent && invalid.length === 1 ? 'Please tick the consent box so we can store your details.' : 'Please complete the highlighted fields.',
         'error'
       );
       return;
     }
 
-    const endpoint = FORM_ENDPOINTS[form.dataset.form];
-    if (!endpoint) {
-      setStatus(
-        `This form is not connected yet. Please email ${form.dataset.form === 'dealer' ? 'business@coolflyaircraft.com' : 'support@coolflyaircraft.com'} instead.`,
-        'error'
-      );
+    const fallback = forms.fallbackEmail?.[type] || forms.fallbackEmail?.contact || '';
+    if (!forms.provider || forms.provider === 'none') {
+      setStatus(`This form is not connected yet. Please email ${fallback} instead.`, 'error');
       return;
     }
 
-    const data = {};
+    const fields = {};
     new FormData(form).forEach((value, key) => {
-      data[key] = key in data ? [].concat(data[key], value) : value;
+      fields[key] = key in fields ? [].concat(fields[key], value) : value;
     });
+    const data = { ...fields, form: type, form_source: source, page: location.pathname, ...attribution };
     const submit = form.querySelector('[type="submit"]');
     submit.disabled = true;
     setStatus('Sending…');
     try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ form: form.dataset.form, source: form.dataset.source || 'page', page: location.pathname, ...data }),
-      });
-      if (!res.ok) throw new Error(String(res.status));
+      if (forms.provider === 'hubspot') await sendToHubspot(type, { ...fields, ...attribution, form_source: source });
+      else await sendToWebhook(data);
+
+      store.set('sessionStorage', 'coolfly-last-form', type);
+      const finish = () => {
+        if (forms.thankYouPage) location.href = thanksUrl();
+      };
+      let done = false;
+      const once = () => {
+        if (!done) {
+          done = true;
+          finish();
+        }
+      };
+      // Give Tag Manager a moment to send conversion tags before leaving the page.
+      track('generate_lead', { form_name: type, form_source: source, aircraft: fields.model || [].concat(fields.models || []).join(',') || '', eventCallback: once, eventTimeout: 1500 });
+      setTimeout(once, CONFIG.gtm ? 1600 : 0);
       form.reset();
       setStatus('Thank you. Your message has been sent and our team will be in touch.', 'ok');
-    } catch {
-      setStatus('Sending failed. Please try again, or email us directly.', 'error');
+      if (form.closest('dialog')) setTimeout(() => form.closest('dialog').close(), 2500);
+    } catch (err) {
+      track('form_error', { form_name: type, form_source: source, error: String(err.message).slice(0, 100) });
+      setStatus(`Sending failed. Please try again, or email ${fallback}.`, 'error');
     } finally {
       submit.disabled = false;
     }
   });
 });
+
+// Thank-you page: tailor the message to the form that was sent.
+const thanksText = document.querySelector('[data-thanks-text]');
+if (thanksText && store.get('sessionStorage', 'coolfly-last-form') === 'dealer') {
+  thanksText.textContent = 'Our partnerships team has your application and will contact you by email.';
+}
 
 document.querySelectorAll('[data-year]').forEach((el) => {
   el.textContent = String(new Date().getFullYear());

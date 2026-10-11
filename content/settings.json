@@ -1,0 +1,69 @@
+{
+  "siteName": "CoolFly",
+  "siteUrl": "https://coolflyaircraft.com",
+  "tagline": "Your will. Your altitude.",
+  "defaultDescription": "CoolFly designs and builds single-seat electric aircraft in Hangzhou, from the flight controller up. Explore Urban, Dream ST and Dream PRO, or become a CoolFly dealer.",
+  "defaultShareImage": "/assets/img/og.jpg",
+  "contacts": {
+    "business": "business@coolflyaircraft.com",
+    "support": "support@coolflyaircraft.com",
+    "press": "press@coolflyaircraft.com",
+    "phone": "+86 131 7364 8613",
+    "hours": "Mon–Fri, 9:00–18:00 (UTC+8)",
+    "address": "Gongshu District, Hangzhou, Zhejiang 310000, China"
+  },
+  "offices": [
+    {
+      "city": "Hangzhou",
+      "country": "China",
+      "role": "Headquarters, R&D and manufacturing"
+    },
+    {
+      "city": "Paris",
+      "country": "France",
+      "role": "Europe"
+    },
+    {
+      "city": "Brazil",
+      "country": "Brazil",
+      "role": "Latin America"
+    }
+  ],
+  "social": [
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/company/coolfly-aircraft/"
+    },
+    {
+      "label": "Instagram",
+      "url": "https://www.instagram.com/coolfly_aircraft/"
+    }
+  ],
+  "tracking": {
+    "gtmId": ""
+  },
+  "consent": {
+    "enabled": true,
+    "message": "We use cookies to measure site traffic and the performance of our advertising. You can accept or reject non-essential cookies.",
+    "privacyPage": "privacy"
+  },
+  "forms": {
+    "provider": "none",
+    "webhookUrl": "",
+    "hubspotPortalId": "",
+    "hubspotDealerFormId": "",
+    "hubspotContactFormId": "",
+    "thankYouPage": true
+  },
+  "popup": {
+    "enabled": true,
+    "delaySeconds": 15,
+    "scrollPercent": 45,
+    "snoozeDays": 7,
+    "eyebrow": "Dealer programme",
+    "title": "Bring CoolFly to your market",
+    "text": "We are appointing dealers around the world.",
+    "image": "/assets/img/f-coast.jpg",
+    "button": "Get the dealer brief"
+  }
+}

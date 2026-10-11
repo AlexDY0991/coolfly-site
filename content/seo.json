@@ -1,0 +1,37 @@
+{
+  "home": {
+    "title": "",
+    "description": "",
+    "image": ""
+  },
+  "compare": {
+    "title": "Compare aircraft",
+    "description": "Compare CoolFly Urban, Dream ST and Dream PRO side by side: speed, flight time, payload, size and safety features.",
+    "image": ""
+  },
+  "safety": {
+    "title": "Safety & technology",
+    "description": "How CoolFly builds safety into every aircraft: dual flight controllers, motor-out capability, ballistic parachute, radar auto-landing and IP65 protection.",
+    "image": "/assets/img/flight-controller.jpg"
+  },
+  "dealers": {
+    "title": "Become a dealer",
+    "description": "Become an authorised CoolFly dealer and bring personal electric aircraft to your market. We are appointing partners around the world.",
+    "image": "/assets/img/launch-event.jpg"
+  },
+  "company": {
+    "title": "About CoolFly",
+    "description": "CoolFly is a personal aircraft company founded in 2022 in Hangzhou, China, building on flight-control work that began in 2008.",
+    "image": ""
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "Contact CoolFly about dealerships, demonstration flights, customer support or press enquiries.",
+    "image": ""
+  },
+  "newsroom": {
+    "title": "Newsroom",
+    "description": "News, events and stories from CoolFly, maker of personal electric aircraft.",
+    "image": ""
+  }
+}
